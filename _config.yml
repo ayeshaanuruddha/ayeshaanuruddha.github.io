@@ -4,7 +4,7 @@ email: ayeshaanuruddha@gmail.com
 url: https://ayeshaanuruddha.github.io
 description: "Amateur cybersecurity enthusiast, computer science student, business analyst"
 keywords: "Cybersecurity, Computer Science"
-skills: "Web Developer - Graphic Artist - User Experience Designer"
+skills: "Business Analyst - Cyber Security Amateur - Technical Writer"
 meta_author: Anuruddha Ayesha
 
 # Google webmaster tools
@@ -42,18 +42,14 @@ social:
   - title: linkedin
     url: http://linkedin.com/in/ayesha-anuruddha
   - title: facebook
-    url:
-  - title: stack-overflow
-    url: http://stackoverflow.com/questions/tagged/jekyll
-  - title: bitbucket
-    url: http://bitbucket.org/jekyll
+    url: https://web.facebook.com/anuruddha.ayesha
   - title: github
-    url: http://github.com/jekyll
+    url: https://github.com/ayeshaanuruddha
 
 # Postal address (add as many lines as necessary)
 address:
-  - line: 3481 Melrose Place
-  - line: Beverly Hills, CA 90210
+  - line: B 85/1, Panakawa,
+  - line: Kegalle, Sri Lanka 71000
 
 # Credits content
 credits: 'Freelancer is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.'
