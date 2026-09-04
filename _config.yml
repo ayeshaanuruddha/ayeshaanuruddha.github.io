@@ -4,7 +4,7 @@ email: ayeshaanuruddha@gmail.com
 url: https://ayeshaanuruddha.github.io
 description: "Amateur cybersecurity enthusiast, computer science student, business analyst"
 keywords: "Cybersecurity, Computer Science"
-skills: " BSc. (Hons) in Computer Science (Specialization in Cyber Security) - University Of Kelaniya (Sri Lanka)"
+skills: " BSc. (Hons) in Computer Science (Specialization in Cyber Security) - University Of Kelaniya"
 meta_author: Anuruddha Ayesha
 
 # Google webmaster tools
@@ -33,7 +33,7 @@ color:
 # Footer settings
 footer:
   copyright: Ayesha Anuruddha
-  location: Kegalle, Sri Lanka
+  location: Sri Lanka
   social: Around the Web
   credits: Business Analyst - Cyber Security Amateur - Technical Writer
 
