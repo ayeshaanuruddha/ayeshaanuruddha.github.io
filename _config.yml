@@ -35,10 +35,7 @@ footer:
   copyright: Ayesha Anuruddha
   location: Sri Lanka
   social: Around the Web
-  credits: 
-  - line: ayeshaanurudddha@gmail.com
-  - line: ayesha.upamali@gmail.com
-  - line: (+94) 71 632 5463, (+94) 77 480 7397
+  credits: Contact Info
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
@@ -55,7 +52,7 @@ address:
   - line: Kegalle, Sri Lanka 71000
 
 # Credits content (Replaced with Site Visit Counter)
-credits: '<img src="https://api.visitorbadge.io/api/visitors?path=ayeshaanuruddha.github.io&label=Site%20Visits&countColor=%2318bc9c" alt="Site Visit Counter" />'
+credits: 'ayeshaanuruddha@gmail.com<br>ayesha.upamali@gmail.com<br>(+94) 71 632 5463<br>(+94) 77 480 7397<br><br><img src="https://api.visitorbadge.io/api/visitors?path=ayeshaanuruddha.github.io&label=Site%20Visits&countColor=%2318bc9c" alt="Site Visit Counter" />'
 
 # Build settings
 markdown: kramdown
