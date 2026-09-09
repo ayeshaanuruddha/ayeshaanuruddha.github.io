@@ -35,7 +35,10 @@ footer:
   copyright: Ayesha Anuruddha
   location: Sri Lanka
   social: Around the Web
-  credits: Business Analyst - Cyber Security Amateur - Technical Writer
+  credits: 
+  - line: ayeshaanurudddha@gmail.com
+  - line: ayesha.upamali@gmail.com
+  - line: (+94) 71 632 5463, (+94) 77 480 7397
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
