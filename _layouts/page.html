@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+{% include head.html %}
+
+<body id="page-top">
+    {% include nav.html %}
+
+    <!-- This magic tag is what the original theme was missing! -->
+    {{ content }}
+
+    {% include footer.html %}
+    {% include js.html %}
+</body>
+
+</html>
