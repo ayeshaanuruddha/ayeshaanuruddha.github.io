@@ -30,12 +30,13 @@ This sanitized bug ticket and Root Cause Analysis document uses standard busines
 ### (1) User Story Details
 
 #### (1.1) Summary
-| | |
-| :--- | :--- |
-| **As a** | warehouse selector |
-| **I** | want my mobile application to immediately sync allocated inventory quantities upon scanning |
-| **So that I** | am not blocked by loading screens or latency during high-volume batch processing |
-{: .table .table-bordered }
+<table class="table table-bordered">
+  <tbody>
+    <tr><td><strong>As a</strong></td><td>warehouse selector</td></tr>
+    <tr><td><strong>I</strong></td><td>want my mobile application to immediately sync allocated inventory quantities upon scanning</td></tr>
+    <tr><td><strong>So that I</strong></td><td>am not blocked by loading screens or latency during high-volume batch processing</td></tr>
+  </tbody>
+</table>
 
 ### (2) User Experience & Preconditions
 
@@ -85,20 +86,22 @@ This sanitized bug ticket and Root Cause Analysis document uses standard busines
 ### (5) References
 
 #### (5.1) UAT Requirement
-| | |
-| :--- | :--- |
-| **Tested Version** | `[Sanitized Build Version ANDROID]` |
-| **WMS Host** | Production |
-| **Area** | Core Inventory Module |
-| **WMS Process** | Batch Allocation & Sync |
-| **User Experience** | UI freezing during multi-item scan |
-| **Issue received via/from** | Warehouse Operations Team |
-| **UAT #ID** | `BUG-1042-ANON` |
-{: .table .table-bordered }
+<table class="table table-bordered">
+  <tbody>
+    <tr><td><strong>Tested Version</strong></td><td><code>[Sanitized Build Version ANDROID]</code></td></tr>
+    <tr><td><strong>WMS Host</strong></td><td>Production</td></tr>
+    <tr><td><strong>Area</strong></td><td>Core Inventory Module</td></tr>
+    <tr><td><strong>WMS Process</strong></td><td>Batch Allocation &amp; Sync</td></tr>
+    <tr><td><strong>User Experience</strong></td><td>UI freezing during multi-item scan</td></tr>
+    <tr><td><strong>Issue received via/from</strong></td><td>Warehouse Operations Team</td></tr>
+    <tr><td><strong>UAT #ID</strong></td><td><code>BUG-1042-ANON</code></td></tr>
+  </tbody>
+</table>
 
 #### (5.2) Developer Notes
-| | |
-| :--- | :--- |
-| **Tech Design** | API Payload Analysis & Asynchronous Sync Architecture |
-| **Database Forensics** | Transaction Log Analysis (Attached) |
-{: .table .table-bordered }
+<table class="table table-bordered">
+  <tbody>
+    <tr><td><strong>Tech Design</strong></td><td>API Payload Analysis &amp; Asynchronous Sync Architecture</td></tr>
+    <tr><td><strong>Database Forensics</strong></td><td>Transaction Log Analysis (Attached)</td></tr>
+  </tbody>
+</table>
