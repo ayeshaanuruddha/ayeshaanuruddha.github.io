@@ -38,17 +38,26 @@ This sanitized bug ticket and Root Cause Analysis document uses standard busines
 {: .table .table-bordered }
 
 ### (2) User Experience & Preconditions
-* **Preconditions:** The mobile client device is operating on a stable warehouse Wi-Fi network and processing a multi-item batch selection.
-* **Current Process (Bug Behavior):** When a user scans an item during peak hours, the application experiences a 3 to 5-second delay before the UI updates and the next scan is permitted.
-* **New Process (Expected Behavior):** The mobile application should process the payload and update the local UI within 200ms, syncing with the backend asynchronously.
+
+| | |
+| :--- | :--- |
+| **Preconditions** | The mobile client device is operating on a stable warehouse Wi-Fi network and processing a multi-item batch selection. |
+| **Current Process (Bug Behavior)** | When a user scans an item during peak hours, the application experiences a 3 to 5-second delay before the UI updates and the next scan is permitted. |
+| **New Process (Expected Behavior)** | The mobile application should process the payload and update the local UI within 200ms, syncing with the backend asynchronously. |
+{: .table .table-bordered }
 
 ### (3) Root Cause Analysis (5 Whys Method)
+
 **Problem Statement:** Mobile application experiences UI freezing and high latency during inventory allocation scans.
-* **Why 1:** The mobile application is waiting for a synchronous response from the central database before allowing the next action.
-* **Why 2:** The backend API endpoint is taking over 3 seconds to process the JSON payload.
-* **Why 3:** The database forensic logs show a bottleneck when querying the current Quantity on Hand (QOH) during the transaction.
-* **Why 4:** The allocation table is experiencing row-level locking because hundreds of concurrent users are attempting to read/write to the same high-volume SKU index.
-* **Why 5 (Root Cause):** The database lacks an optimized indexing strategy for parallel batch processing, and the mobile app architecture forces a synchronous wait state instead of an asynchronous background sync.
+
+| | |
+| :--- | :--- |
+| **Why 1** | The mobile application is waiting for a synchronous response from the central database before allowing the next action. |
+| **Why 2** | The backend API endpoint is taking over 3 seconds to process the JSON payload. |
+| **Why 3** | The database forensic logs show a bottleneck when querying the current Quantity on Hand (QOH) during the transaction. |
+| **Why 4** | The allocation table is experiencing row-level locking because hundreds of concurrent users are attempting to read/write to the same high-volume SKU index. |
+| **Why 5 (Root Cause)** | The database lacks an optimized indexing strategy for parallel batch processing, and the mobile app architecture forces a synchronous wait state instead of an asynchronous background sync. |
+{: .table .table-bordered }
 
 ### (4) Acceptance Criteria
 
@@ -88,5 +97,8 @@ This sanitized bug ticket and Root Cause Analysis document uses standard busines
 {: .table .table-bordered }
 
 #### (5.2) Developer Notes
-* **Tech Design:** API Payload Analysis & Asynchronous Sync Architecture
-* **Database Forensics:** Transaction Log Analysis (Attached)
+| | |
+| :--- | :--- |
+| **Tech Design** | API Payload Analysis & Asynchronous Sync Architecture |
+| **Database Forensics** | Transaction Log Analysis (Attached) |
+{: .table .table-bordered }
