@@ -9,27 +9,27 @@ client: Enterprise Logistics Firm
 category: Business Analysis & RCA
 ---
 
-This sanitized bug ticket and Root Cause Analysis document uses standard business analysis structures, including Gherkin syntax and the 5 Whys method, allowing you to showcase your problem-solving process without exposing proprietary data.
+<p>This sanitized bug ticket and Root Cause Analysis document uses standard business analysis structures, including Gherkin syntax and the 5 Whys method, allowing you to showcase your problem-solving process without exposing proprietary data.</p>
 
-### [BUG-1042] [Performance] Mobile App Synchronization Latency During High-Volume Batch Processing
+<h3>[BUG-1042] [Performance] Mobile App Synchronization Latency During High-Volume Batch Processing</h3>
 
-### 📋 Ticket Completion Status
+<h4>📋 Ticket Completion Status</h4>
+<table class="table table-bordered">
+  <tbody>
+    <tr><td>🐛 <strong>Type</strong></td><td>Bug</td></tr>
+    <tr><td>⏫ <strong>Priority</strong></td><td>High</td></tr>
+    <tr><td>🏷️ <strong>Labels</strong></td><td><code>Android</code> <code>LiveInventory</code> <code>RCA</code> <code>Performance</code></td></tr>
+    <tr><td>⭐ <strong>Ticket status</strong></td><td><code>READY FOR REVIEW</code></td></tr>
+    <tr><td>👥 <strong>Ticket owner</strong></td><td>Business Analyst</td></tr>
+    <tr><td>✅ <strong>Reviewed and Signed off</strong></td><td>PO, SME/Dev, QE</td></tr>
+  </tbody>
+</table>
 
-| | |
-| :--- | :--- |
-| 🐛 **Type** | Bug |
-| ⏫ **Priority** | High |
-| 🏷️ **Labels** | `Android` `LiveInventory` `RCA` `Performance` |
-| ⭐ **Ticket status** | `READY FOR REVIEW` |
-| 👥 **Ticket owner** | Business Analyst |
-| ✅ **Reviewed and Signed off** | PO, SME/Dev, QE |
-{: .table .table-bordered } 
+<hr>
 
----
+<h3>(1) User Story Details</h3>
 
-### (1) User Story Details
-
-#### (1.1) Summary
+<h4>(1.1) Summary</h4>
 <table class="table table-bordered">
   <tbody>
     <tr><td><strong>As a</strong></td><td>warehouse selector</td></tr>
@@ -38,54 +38,53 @@ This sanitized bug ticket and Root Cause Analysis document uses standard busines
   </tbody>
 </table>
 
-### (2) User Experience & Preconditions
+<h3>(2) User Experience &amp; Preconditions</h3>
+<table class="table table-bordered">
+  <tbody>
+    <tr><td><strong>Preconditions</strong></td><td>The mobile client device is operating on a stable warehouse Wi-Fi network and processing a multi-item batch selection.</td></tr>
+    <tr><td><strong>Current Process (Bug Behavior)</strong></td><td>When a user scans an item during peak hours, the application experiences a 3 to 5-second delay before the UI updates and the next scan is permitted.</td></tr>
+    <tr><td><strong>New Process (Expected Behavior)</strong></td><td>The mobile application should process the payload and update the local UI within 200ms, syncing with the backend asynchronously.</td></tr>
+  </tbody>
+</table>
 
-| | |
-| :--- | :--- |
-| **Preconditions** | The mobile client device is operating on a stable warehouse Wi-Fi network and processing a multi-item batch selection. |
-| **Current Process (Bug Behavior)** | When a user scans an item during peak hours, the application experiences a 3 to 5-second delay before the UI updates and the next scan is permitted. |
-| **New Process (Expected Behavior)** | The mobile application should process the payload and update the local UI within 200ms, syncing with the backend asynchronously. |
-{: .table .table-bordered }
+<h3>(3) Root Cause Analysis (5 Whys Method)</h3>
+<p><strong>Problem Statement:</strong> Mobile application experiences UI freezing and high latency during inventory allocation scans.</p>
+<table class="table table-bordered">
+  <tbody>
+    <tr><td><strong>Why 1</strong></td><td>The mobile application is waiting for a synchronous response from the central database before allowing the next action.</td></tr>
+    <tr><td><strong>Why 2</strong></td><td>The backend API endpoint is taking over 3 seconds to process the JSON payload.</td></tr>
+    <tr><td><strong>Why 3</strong></td><td>The database forensic logs show a bottleneck when querying the current Quantity on Hand (QOH) during the transaction.</td></tr>
+    <tr><td><strong>Why 4</strong></td><td>The allocation table is experiencing row-level locking because hundreds of concurrent users are attempting to read/write to the same high-volume SKU index.</td></tr>
+    <tr><td><strong>Why 5 (Root Cause)</strong></td><td>The database lacks an optimized indexing strategy for parallel batch processing, and the mobile app architecture forces a synchronous wait state instead of an asynchronous background sync.</td></tr>
+  </tbody>
+</table>
 
-### (3) Root Cause Analysis (5 Whys Method)
+<h3>(4) Acceptance Criteria</h3>
+<table class="table table-bordered table-striped">
+  <tbody>
+    <tr><td><strong>GIVEN</strong></td><td>the user is processing a multi-item batch</td></tr>
+    <tr><td><strong>WHEN</strong></td><td>an item barcode is successfully scanned</td></tr>
+    <tr><td><strong>THEN</strong></td><td>the UI must update instantly to allow the next scan without locking</td></tr>
+  </tbody>
+</table>
+<table class="table table-bordered table-striped">
+  <tbody>
+    <tr><td><strong>GIVEN</strong></td><td>a batch scan event has occurred</td></tr>
+    <tr><td><strong>WHEN</strong></td><td>the API payload is transmitted</td></tr>
+    <tr><td><strong>THEN</strong></td><td>the synchronization must happen asynchronously in the background</td></tr>
+  </tbody>
+</table>
+<table class="table table-bordered table-striped">
+  <tbody>
+    <tr><td><strong>GIVEN</strong></td><td>a network interruption occurs during asynchronous sync</td></tr>
+    <tr><td><strong>WHEN</strong></td><td>connectivity is restored</td></tr>
+    <tr><td><strong>THEN</strong></td><td>the application must automatically retry the queued payloads without data loss</td></tr>
+  </tbody>
+</table>
 
-**Problem Statement:** Mobile application experiences UI freezing and high latency during inventory allocation scans.
+<h3>(5) References</h3>
 
-| | |
-| :--- | :--- |
-| **Why 1** | The mobile application is waiting for a synchronous response from the central database before allowing the next action. |
-| **Why 2** | The backend API endpoint is taking over 3 seconds to process the JSON payload. |
-| **Why 3** | The database forensic logs show a bottleneck when querying the current Quantity on Hand (QOH) during the transaction. |
-| **Why 4** | The allocation table is experiencing row-level locking because hundreds of concurrent users are attempting to read/write to the same high-volume SKU index. |
-| **Why 5 (Root Cause)** | The database lacks an optimized indexing strategy for parallel batch processing, and the mobile app architecture forces a synchronous wait state instead of an asynchronous background sync. |
-{: .table .table-bordered }
-
-### (4) Acceptance Criteria
-
-| Condition | Description |
-| :--- | :--- |
-| **GIVEN** | the user is processing a multi-item batch |
-| **WHEN** | an item barcode is successfully scanned |
-| **THEN** | the UI must update instantly to allow the next scan without locking |
-{: .table .table-bordered .table-striped }
-
-| Condition | Description |
-| :--- | :--- |
-| **GIVEN** | a batch scan event has occurred |
-| **WHEN** | the API payload is transmitted |
-| **THEN** | the synchronization must happen asynchronously in the background |
-{: .table .table-bordered .table-striped }
-
-| Condition | Description |
-| :--- | :--- |
-| **GIVEN** | a network interruption occurs during asynchronous sync |
-| **WHEN** | connectivity is restored |
-| **THEN** | the application must automatically retry the queued payloads without data loss |
-{: .table .table-bordered .table-striped }
-
-### (5) References
-
-#### (5.1) UAT Requirement
+<h4>(5.1) UAT Requirement</h4>
 <table class="table table-bordered">
   <tbody>
     <tr><td><strong>Tested Version</strong></td><td><code>[Sanitized Build Version ANDROID]</code></td></tr>
@@ -98,7 +97,7 @@ This sanitized bug ticket and Root Cause Analysis document uses standard busines
   </tbody>
 </table>
 
-#### (5.2) Developer Notes
+<h4>(5.2) Developer Notes</h4>
 <table class="table table-bordered">
   <tbody>
     <tr><td><strong>Tech Design</strong></td><td>API Payload Analysis &amp; Asynchronous Sync Architecture</td></tr>
