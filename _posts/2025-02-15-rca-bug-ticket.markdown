@@ -1,5 +1,5 @@
 ---
-layout: default
+#layout: default
 modal-id: 2
 date: 2025-02-15
 img: rca-analysis.png
