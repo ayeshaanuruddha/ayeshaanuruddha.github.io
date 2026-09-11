@@ -5,6 +5,16 @@ permalink: /warehouse.html
 ---
 
 <style>
+/* Suppress the homepage hero banner on this page */
+header {
+  display: none !important;
+}
+
+/* Offset so your sticky nav doesn't hide behind the main navbar */
+body {
+  padding-top: 100px !important;
+}
+
 /* Smooth scrolling and anchor offset */
 html {
   scroll-behavior: smooth;
@@ -71,13 +81,13 @@ html {
 <div id="wms-sticky-nav" class="wms-nav-wrapper">
   <div class="container-fluid" style="max-width: 1100px;">
     <div class="wms-nav-container">
-      <a href="#macro-architecture" class="wms-pill active">1. Macro Architecture</a>
-      <a href="#facility-topology" class="wms-pill">2. Facility Topology</a>
-      <a href="#inbound-operations" class="wms-pill">3. Inbound & Putaway</a>
-      <a href="#inventory-replenish" class="wms-pill">4. Inventory & Replenish</a>
-      <a href="#outbound-fulfillment" class="wms-pill">5. Wave Selection</a>
-      <a href="#trailer-loading" class="wms-pill">6. Trailer Loading (SLS)</a>
-      <a href="#reverse-logistics" class="wms-pill">7. Returns & Inspection</a>
+      <a href="#facility-topology" class="wms-pill active">1. Facility Topology</a>
+      <a href="#inbound-operations" class="wms-pill">2. Inbound & Putaway</a>
+      <a href="#inventory-replenish" class="wms-pill">3. Inventory & Replenish</a>
+      <a href="#outbound-fulfillment" class="wms-pill">4. Wave Selection</a>
+      <a href="#trailer-loading" class="wms-pill">5. Trailer Loading</a>
+      <a href="#reverse-logistics" class="wms-pill">6. Returns & Inspection</a>
+      <a href="#macro-architecture" class="wms-pill">7. Macro Architectures in WMS</a>
     </div>
   </div>
 </div>
@@ -85,13 +95,31 @@ html {
 <section style="padding: 40px 0 60px;">
   <div class="container" style="max-width: 950px;">
 
+    <!-- Main Page Title & Subtitle -->
+    <div style="margin-bottom: 35px; text-align: left;">
+      <h1 style="font-size: 2.4em; font-weight: 800; color: #1e293b; margin-top: 10px; margin-bottom: 12px; line-height: 1.2;">
+        Behind the Technical Scenes: <span style="font-style: italic; font-weight: 400; color: #0284c7;">Physical Floor vs. System Logic</span>
+      </h1>
+      <p style="font-size: 1.2em; color: #475569; line-height: 1.6; margin: 0;">
+        How physical work on the warehouse floor converts into barcode scans, device validations, and live database updates.
+      </p>
+    </div>
+
+    <!-- Document Status Property -->
+      <table style="font-size: 0.85em; border-collapse: collapse; margin-top: 8px;">
+        <tr>
+          <td style="padding-right: 12px; color: #334155;"><strong>Page status</strong></td>
+          <td><code style="background-color: #fef3c7; color: #b45309; border: 1px solid #fde68a; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.9em;">UNDER CONSTRUCTION</code></td>
+        </tr>
+      </table>
+
     <!-- Recruiter Executive Summary Card -->
     <div style="background-color: #f8fafc; border-left: 5px solid #18bc9c; padding: 24px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 50px;">
       <h4 style="margin-top: 0; color: #1e293b; font-weight: 700;">
-        <i class="fa-solid fa-bolt" style="color: #18bc9c; margin-right: 8px;"></i>Executive Summary for Recruiters
+        <i class="fa-solid fa-bolt" style="color: #18bc9c; margin-right: 8px;"></i>Introduction
       </h4>
       <p style="font-size: 1.05em; line-height: 1.7; color: #334155; margin-bottom: 12px;">
-        In enterprise logistics, a <strong>Warehouse Management System (WMS)</strong> is not an inventory database; it is an event-driven execution engine coordinating physical labor, material equipment, and storage locations in real time. While corporate ERPs track accounting commitments, the WMS directs sub-second barcode validations, forklift travel, and temperature safeguards on the warehouse floor.
+        In enterprise logistics, a <strong>Warehouse Management System (WMS)</strong> is not an inventory database; it is an event-driven execution engine coordinating physical labor, material equipment, and storage locations in real time[cite: 2]. While corporate ERPs track accounting commitments, the WMS directs sub-second barcode validations, forklift travel, and temperature safeguards on the warehouse floor.
       </p>
       <ul style="font-size: 0.95em; line-height: 1.6; color: #475569; margin-bottom: 0;">
         <li><strong>Role Demonstrated:</strong> Technical Business Analyst bridging physical operations with Android edge software.</li>
@@ -99,10 +127,58 @@ html {
       </ul>
     </div>
 
-    <!-- Section 1: The Macro Layer -->
+    <!-- Section 1: Facility Topology -->
+    <div id="facility-topology" style="margin-bottom: 60px;">
+      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        1. Facility Topology: Tri-Temp Multi-Zone Dynamics
+      </h3>
+      <p style="color: #64748b; font-style: italic;">[Drafting: Dry, Cooler, and Freezer constraints, coordinate hierarchy, and temperature isolation...]</p>
+    </div>
+
+    <!-- Section 2: Inbound -->
+    <div id="inbound-operations" style="margin-bottom: 60px;">
+      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        2. Inbound: Receipt & Directed Putaway
+      </h3>
+      <p style="color: #64748b; font-style: italic;">[Drafting: PO receiving, lot capture, and QP to QOH state transitions...]</p>
+    </div>
+
+    <!-- Section 3: Inventory & Replenish -->
+    <div id="inventory-replenish" style="margin-bottom: 60px;">
+      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        3. Inventory & Replenishment Execution
+      </h3>
+      <p style="color: #64748b; font-style: italic;">[Drafting: Reserve to pick-face movement, demand vs non-demand triggers, and Swap RACI matrix...]</p>
+    </div>
+
+    <!-- Section 4: Wave Selection -->
+    <div id="outbound-fulfillment" style="margin-bottom: 60px;">
+      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        4. Outbound Selection & Waves
+      </h3>
+      <p style="color: #64748b; font-style: italic;">[Drafting: Wearable device ergonomics, catchweights, and defect root cause analysis...]</p>
+    </div>
+
+    <!-- Section 5: Trailer Loading -->
+    <div id="trailer-loading" style="margin-bottom: 60px;">
+      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        5. Trailer Loading & Verification
+      </h3>
+      <p style="color: #64748b; font-style: italic;">[Drafting: FILO sequencing, trailer compartment staging, and PGI departure events...]</p>
+    </div>
+
+    <!-- Section 6: Reverse Logistics -->
+    <div id="reverse-logistics" style="margin-bottom: 60px;">
+      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        6. Returns & Reverse Logistics
+      </h3>
+      <p style="color: #64748b; font-style: italic;">[Drafting: Driver check-in, QA inspection, and discard compliance logs...]</p>
+    </div>
+
+    <!-- Section 7: The Macro Layer (Moved to Grand Synthesis) -->
     <div id="macro-architecture" style="margin-bottom: 60px;">
       <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
-        1. The Macro Layer: Enterprise ERP vs. WMS Execution
+        7. The Macro Layer
       </h3>
       <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
         Enterprise supply chains maintain a strict division between commercial governance and floor execution. A central ERP manages procurement contracts, sales orders, and balance sheet valuations, while frontline WMS applications direct real-time scanning, routing, and inventory state transitions across distribution nodes.
@@ -114,7 +190,7 @@ html {
         <!-- 1. SAP ERP -->
         <div style="background: #ffffff; border: 1px solid #cbd5e1; border-left: 5px solid #0284c7; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
           <div style="font-weight: 700; color: #0369a1; font-size: 1.05em; margin-bottom: 6px;">
-            1. Enterprise ERP <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Commercial & Financial Brain)</span>
+            1. Enterprise ERP <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Commercial & Financial Brain)</span>[cite: 2]
           </div>
           <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
             <div>• Purchase Orders (POs)</div>
@@ -133,103 +209,64 @@ html {
         <!-- 2. Database & Middleware -->
         <div style="background: #ffffff; border: 1px solid #cbd5e1; border-left: 5px solid #ea580c; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
           <div style="font-weight: 700; color: #c2410c; font-size: 1.05em; margin-bottom: 6px;">
-            2. Database Persistence & Middleware <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Data State Engine)</span>
+            2. Database Persistence & Middleware <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Data State Engine)</span>[cite: 1]
           </div>
           <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
-            <div>• Relational Schemas (Manifests, Transaction Logs)</div>
-            <div>• Event Queues & REST Payloads</div>
-            <div>• Inventory State Engine (QP → QOH → QA)</div>
+            <div>• Relational Schemas (Manifests, Transaction Logs)[cite: 1]</div>
+            <div>• Event Queues & REST Payloads[cite: 1, 2]</div>
+            <div>• Inventory State Engine (QP → QOH → QA)[cite: 1]</div>
           </div>
         </div>
 
         <!-- Connector 2 <-> 3 -->
         <div style="display: flex; justify-content: space-between; flex-wrap: wrap; padding: 8px 15px; font-size: 0.75em; font-weight: 600; color: #64748b; gap: 5px;">
-          <span>↓ Receive Orders</span>
-          <span>↑ Barcode Scan Events</span>
-          <span>↓ Pick Waves</span>
-          <span>↑ Staging & Load Verifications</span>
+          <span>↓ Receive Orders[cite: 1]</span>
+          <span>↑ Barcode Scan Events[cite: 1]</span>
+          <span>↓ Pick Waves[cite: 1]</span>
+          <span>↑ Staging & Load Verifications[cite: 1]</span>
         </div>
 
         <!-- 3. WMS Edge Clients -->
         <div style="background: #ffffff; border: 1px solid #cbd5e1; border-left: 5px solid #10b981; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
           <div style="font-weight: 700; color: #047857; font-size: 1.05em; margin-bottom: 6px;">
-            3. Frontline WMS Mobile Clients <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Floor Execution Muscle)</span>
+            3. Frontline WMS Mobile Clients <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Floor Execution Muscle)</span>[cite: 2]
           </div>
           <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
-            <div>• Dock Receiving & Temp Check-In</div>
-            <div>• Directed High-Bay Putaway</div>
-            <div>• Wearable Order Selection & Catchweight</div>
-            <div>• Reverse-Stop Trailer Loading (FILO)</div>
+            <div>• Dock Receiving & Temp Check-In[cite: 1]</div>
+            <div>• Directed High-Bay Putaway[cite: 1]</div>
+            <div>• Wearable Order Selection & Catchweight[cite: 1]</div>
+            <div>• Reverse-Stop Trailer Loading (FILO)[cite: 1, 3]</div>
           </div>
         </div>
 
         <!-- Connector 3 <-> 4 -->
         <div style="display: flex; justify-content: space-around; padding: 8px 20px; font-size: 0.78em; font-weight: 600; color: #64748b;">
-          <span>↑ Dynamic Slotting Rules & Labor Standards</span>
-          <span>↓ Worker Task Start/Stop Timestamps</span>
+          <span>↑ Dynamic Slotting Rules & Labor Standards[cite: 1, 2]</span>
+          <span>↓ Worker Task Start/Stop Timestamps[cite: 1]</span>
         </div>
 
         <!-- 4. Planning & Labor Intelligence -->
         <div style="background: #ffffff; border: 1px solid #cbd5e1; border-left: 5px solid #6366f1; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
           <div style="font-weight: 700; color: #4338ca; font-size: 1.05em; margin-bottom: 6px;">
-            4. Labor & Slotting Optimization <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Planning Intelligence)</span>
+            4. Labor & Slotting Optimization <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Planning Intelligence)</span>[cite: 1]
           </div>
           <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
-            <div>• Dynamic Pick-Face Slotting Calculations</div>
-            <div>• Engineered Labor Standards (WLM)</div>
-            <div>• Shift Productivity & Benchmark Reporting</div>
+            <div>• Dynamic Pick-Face Slotting Calculations[cite: 1]</div>
+            <div>• Engineered Labor Standards (WLM)[cite: 1]</div>
+            <div>• Shift Productivity & Benchmark Reporting[cite: 1]</div>
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- Section 2 Placeholder -->
-    <div id="facility-topology" style="margin-bottom: 60px;">
-      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
-        2. Facility Topology: Tri-Temp Multi-Zone Dynamics
-      </h3>
-      <p style="color: #64748b; font-style: italic;">[Drafting: Dry, Cooler, and Freezer constraints, coordinate hierarchy, and temperature isolation...]</p>
-    </div>
-
-    <!-- Section 3 Placeholder -->
-    <div id="inbound-operations" style="margin-bottom: 60px;">
-      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
-        3. Inbound: Receipt & Directed Putaway
-      </h3>
-      <p style="color: #64748b; font-style: italic;">[Drafting: PO receiving, lot capture, and QP to QOH state transitions...]</p>
-    </div>
-
-    <!-- Section 4 Placeholder -->
-    <div id="inventory-replenish" style="margin-bottom: 60px;">
-      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
-        4. Inventory & Replenishment Execution
-      </h3>
-      <p style="color: #64748b; font-style: italic;">[Drafting: Reserve to pick-face movement, demand vs non-demand triggers, and Swap RACI matrix...]</p>
-    </div>
-
-    <!-- Section 5 Placeholder -->
-    <div id="outbound-fulfillment" style="margin-bottom: 60px;">
-      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
-        5. Outbound Selection & Waves
-      </h3>
-      <p style="color: #64748b; font-style: italic;">[Drafting: Wearable device ergonomics, catchweights, and defect root cause analysis...]</p>
-    </div>
-
-    <!-- Section 6 Placeholder -->
-    <div id="trailer-loading" style="margin-bottom: 60px;">
-      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
-        6. Trailer Loading & Verification (SLS)
-      </h3>
-      <p style="color: #64748b; font-style: italic;">[Drafting: FILO sequencing, trailer compartment staging, and PGI departure events...]</p>
-    </div>
-
-    <!-- Section 7 Placeholder -->
-    <div id="reverse-logistics" style="margin-bottom: 60px;">
-      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
-        7. Returns & Reverse Logistics
-      </h3>
-      <p style="color: #64748b; font-style: italic;">[Drafting: Driver check-in, QA inspection, and discard compliance logs...]</p>
+    <!-- Back to Home Button -->
+    <div class="row" style="margin-top: 40px; margin-bottom: 50px;">
+      <div class="col-lg-12 text-center">
+        <a href="index.html" class="btn btn-lg btn-outline" style="color: #2c3e50; border-color: #2c3e50;">
+          <i class="fa-solid fa-arrow-left"></i> Back to Home
+        </a>
+      </div>
     </div>
 
   </div>
