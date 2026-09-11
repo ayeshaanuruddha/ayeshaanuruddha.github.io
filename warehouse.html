@@ -102,13 +102,13 @@ html {
     <!-- Main Page Title & Subtitle -->
     <div style="margin-bottom: 35px; text-align: left;">
       <h1 style="font-size: 2.4em; font-weight: 800; color: #1e293b; margin-top: 10px; margin-bottom: 12px; line-height: 1.2;">
-        Behind the Technical Scenes: <span style="font-style: italic; font-weight: 400; color: #0284c7;">Physical Movemants vs. System Logic</span>
+        Behind the Technical Scenes: <span style="font-style: italic; font-weight: 400; color: #0284c7;">Physical Movements vs. System Logic</span>
       </h1>
       <p style="font-size: 1.2em; color: #475569; line-height: 1.6; margin: 0;">
         How physical work on the warehouse floor converts into barcode scans, device validations, and live database updates.
       </p>
 
-          <!-- Document Status Property -->
+      <!-- Document Status Property -->
       <table style="font-size: 0.85em; border-collapse: collapse; margin-top: 8px;">
         <tr>
           <td style="padding-right: 12px; color: #334155;"><strong>Page status</strong></td>
@@ -136,6 +136,15 @@ html {
 
 <!-- Section 1: Facility Topology -->
 <div id="facility-topology" style="margin-bottom: 60px;">
+
+      <!-- Section 1: Facility Topology Property -->
+      <table style="font-size: 0.85em; border-collapse: collapse; margin-top: 8px;">
+        <tr>
+          <td style="padding-right: 12px; color: #334155;"><strong>Section status</strong></td>
+          <td><code style="background-color: #fef3c7; color: #b45309; border: 1px solid #fde68a; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.9em;">READY TO VIEW</code></td>
+        </tr>
+      </table>
+
   <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
     1. Facility Topology: Tri-Temp Multi-Zone Dynamics
   </h3>
@@ -296,7 +305,7 @@ html {
       </table>
     </div>
 
-    <!-- BA Systems Perspective Callout Card -->
+<!-- BA Systems Perspective Callout Card -->
     <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #0284c7; border-radius: 6px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); margin-top: 25px;">
       <div style="font-weight: 700; color: #0369a1; font-size: 0.95em; margin-bottom: 6px;">
         <i class="fa-solid fa-network-wired" style="margin-right: 6px;"></i>The BA Translation: Why Zoning Dictates Software Rules
@@ -305,8 +314,7 @@ html {
         A generic e-commerce warehouse treats all square footage identically: a bin is simply an <strong>(X, Y, Z)</strong> coordinate. In a food enterprise facility, software logic must respect structural boundaries. If the WMS generates a putaway task that attempts to route raw chicken into a dairy cooler slot, or drops frozen meat into an ambient staging buffer, the system has created a health and regulatory failure. The Technical BA defines the validation masks, equipment access permissions, and thermal compatibility matrix inside the database schema before a single line of client code is written.
       </p>
     </div>
-  
-  <!-- Correctly closing 1.3 before 1.4 -->
+  </div> <!-- This closes 1.3 -->
 
   <!-- 1.4 Coordinate Hierarchy: Zone to Position -->
   <div style="margin-top: 40px;">
@@ -476,13 +484,13 @@ html {
               <i class="fa-solid fa-layer-group" style="color: #d97706; margin-right: 6px;"></i>Float
             </td>
             <td>
-              Outbound mixed-SKU composite pallet built by order selectors for specific multi-stop delivery routes or RDC-to-OPCO transfers[cite: 1].
+              Outbound mixed-SKU composite pallet built by order selectors for specific multi-stop delivery routes or RDC-to-OPCO transfers.
             </td>
             <td>
               <strong>Float Routing Label:</strong> Encodes Route Number, Stop Sequence, Assigned Trailer Door, and Cube/Weight metrics.
             </td>
             <td>
-              Tracks dynamic pallet assembly in mobile apps (e.g., SOS/SLS)[cite: 1]. Consolidates items across multiple zones to reduce transfer truck dead space by up to 40%[cite: 1].
+              Tracks dynamic pallet assembly in mobile apps. Consolidates items across multiple zones to reduce transfer truck dead space by up to 40%.
             </td>
           </tr>
 
@@ -495,10 +503,10 @@ html {
               Factory-sealed corrugated shipping case holding multiple consumer sales units. The baseline transacting unit for commercial customers.
             </td>
             <td>
-              <strong>GS1-128 Barcode:</strong> Contains GTIN-14, Traceability Lot Code (TLC), Pack Date, and Expiration Date Application Identifiers[cite: 1].
+              <strong>GS1-128 Barcode:</strong> Contains GTIN-14, Traceability Lot Code (TLC), Pack Date, and Expiration Date Application Identifiers.
             </td>
             <td>
-              Primary regulatory anchor under FDA FSMA[cite: 1]. For variable-weight items (meats/cheeses), the WMS enforces real-time <strong>Catchweight (CWT)</strong> capture at this level[cite: 1].
+              Primary regulatory anchor under FDA FSMA. For variable-weight items (meats/cheeses), the WMS enforces real-time <strong>Catchweight (CWT)</strong> capture at this level.
             </td>
           </tr>
 
@@ -514,7 +522,7 @@ html {
               Retail UPC-A / EAN-13 consumer barcode or internal dynamic split container label.
             </td>
             <td>
-              <strong>Inherited Lot Lineage:</strong> Splits do not generate new lot codes; they inherit parent carton TLC records in the relational schema to preserve recall audit trails[cite: 1].
+              <strong>Inherited Lot Lineage:</strong> Splits do not generate new lot codes; they inherit parent carton TLC records in the relational schema to preserve recall audit trails.
             </td>
           </tr>
 
@@ -529,7 +537,7 @@ html {
         The BA Perspective: Deconstructing the GS1-128 Carton Barcode
       </div>
       <p style="font-size: 0.9em; line-height: 1.6; color: #475569; margin-bottom: 12px; text-align: justify;">
-        When a warehouse worker scans a carton label on a Zebra terminal, the WMS client does not treat it as plain text[cite: 1]. The application executes a regular expression (regex) parser to extract concatenated <strong>Application Identifiers (AIs)</strong> defined by GS1 global standards:
+        When a warehouse worker scans a carton label on a Zebra terminal, the WMS client does not treat it as plain text. The application executes a regular expression (regex) parser to extract concatenated <strong>Application Identifiers (AIs)</strong> defined by GS1 global standards:
       </p>
       
       <div style="background: #1e293b; color: #f8fafc; border-radius: 6px; padding: 14px 18px; font-family: 'Courier New', Courier, monospace; font-size: 0.88em; overflow-x: auto; line-height: 1.5; margin-bottom: 12px;">
@@ -538,9 +546,9 @@ html {
 
       <ul style="font-size: 0.88em; line-height: 1.6; color: #334155; margin-bottom: 0;">
         <li><code>AI (01)</code>: Global Trade Item Number (GTIN) identifying the master SKU (stock-keeping unit).</li>
-        <li><code>AI (10)</code>: Traceability Lot Code (TLC) captured for FDA food safety audits and instant recall queries[cite: 1].</li>
+        <li><code>AI (10)</code>: Traceability Lot Code (TLC) captured for FDA food safety audits and instant recall queries.</li>
         <li><code>AI (17)</code>: Expiration Date (YYMMDD format: November 30, 2026), governing First Expired, First Out (FEFO) allocation rules.</li>
-        <li><code>AI (3102)</code>: Catchweight Net Weight in Kilograms with 2 decimal places (0045.25 kg), feeding real-time customer invoicing and axle weight calculations[cite: 1].</li>
+        <li><code>AI (3102)</code>: Catchweight Net Weight in Kilograms with 2 decimal places (0045.25 kg), feeding real-time customer invoicing and axle weight calculations.</li>
       </ul>
     </div>
 
@@ -606,7 +614,7 @@ html {
         <!-- 1. SAP ERP -->
         <div style="background: #ffffff; border: 1px solid #cbd5e1; border-left: 5px solid #0284c7; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
           <div style="font-weight: 700; color: #0369a1; font-size: 1.05em; margin-bottom: 6px;">
-            1. Enterprise ERP <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Commercial & Financial Brain)</span>[cite: 2]
+            1. Enterprise ERP <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Commercial & Financial Brain)</span>
           </div>
           <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
             <div>• Purchase Orders (POs)</div>
@@ -625,51 +633,51 @@ html {
         <!-- 2. Database & Middleware -->
         <div style="background: #ffffff; border: 1px solid #cbd5e1; border-left: 5px solid #ea580c; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
           <div style="font-weight: 700; color: #c2410c; font-size: 1.05em; margin-bottom: 6px;">
-            2. Database Persistence & Middleware <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Data State Engine)</span>[cite: 1]
+            2. Database Persistence & Middleware <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Data State Engine)</span>
           </div>
           <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
-            <div>• Relational Schemas (Manifests, Transaction Logs)[cite: 1]</div>
-            <div>• Event Queues & REST Payloads[cite: 1, 2]</div>
-            <div>• Inventory State Engine (QP → QOH → QA)[cite: 1]</div>
+            <div>• Relational Schemas (Manifests, Transaction Logs)</div>
+            <div>• Event Queues & REST Payloads</div>
+            <div>• Inventory State Engine (QP → QOH → QA)</div>
           </div>
         </div>
 
         <!-- Connector 2 <-> 3 -->
         <div style="display: flex; justify-content: space-between; flex-wrap: wrap; padding: 8px 15px; font-size: 0.75em; font-weight: 600; color: #64748b; gap: 5px;">
-          <span>↓ Receive Orders[cite: 1]</span>
-          <span>↑ Barcode Scan Events[cite: 1]</span>
-          <span>↓ Pick Waves[cite: 1]</span>
-          <span>↑ Staging & Load Verifications[cite: 1]</span>
+          <span>↓ Receive Orders</span>
+          <span>↑ Barcode Scan Events</span>
+          <span>↓ Pick Waves</span>
+          <span>↑ Staging & Load Verifications</span>
         </div>
 
         <!-- 3. WMS Edge Clients -->
         <div style="background: #ffffff; border: 1px solid #cbd5e1; border-left: 5px solid #10b981; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
           <div style="font-weight: 700; color: #047857; font-size: 1.05em; margin-bottom: 6px;">
-            3. Frontline WMS Mobile Clients <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Floor Execution Muscle)</span>[cite: 2]
+            3. Frontline WMS Mobile Clients <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Floor Execution Muscle)</span>
           </div>
           <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
-            <div>• Dock Receiving & Temp Check-In[cite: 1]</div>
-            <div>• Directed High-Bay Putaway[cite: 1]</div>
-            <div>• Wearable Order Selection & Catchweight[cite: 1]</div>
-            <div>• Reverse-Stop Trailer Loading (FILO)[cite: 1, 3]</div>
+            <div>• Dock Receiving & Temp Check-In</div>
+            <div>• Directed High-Bay Putaway</div>
+            <div>• Wearable Order Selection & Catchweight</div>
+            <div>• Reverse-Stop Trailer Loading (FILO)</div>
           </div>
         </div>
 
         <!-- Connector 3 <-> 4 -->
         <div style="display: flex; justify-content: space-around; padding: 8px 20px; font-size: 0.78em; font-weight: 600; color: #64748b;">
-          <span>↑ Dynamic Slotting Rules & Labor Standards[cite: 1, 2]</span>
-          <span>↓ Worker Task Start/Stop Timestamps[cite: 1]</span>
+          <span>↑ Dynamic Slotting Rules & Labor Standards</span>
+          <span>↓ Worker Task Start/Stop Timestamps</span>
         </div>
 
         <!-- 4. Planning & Labor Intelligence -->
         <div style="background: #ffffff; border: 1px solid #cbd5e1; border-left: 5px solid #6366f1; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
           <div style="font-weight: 700; color: #4338ca; font-size: 1.05em; margin-bottom: 6px;">
-            4. Labor & Slotting Optimization <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Planning Intelligence)</span>[cite: 1]
+            4. Labor & Slotting Optimization <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Planning Intelligence)</span>
           </div>
           <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
-            <div>• Dynamic Pick-Face Slotting Calculations[cite: 1]</div>
-            <div>• Engineered Labor Standards (WLM)[cite: 1]</div>
-            <div>• Shift Productivity & Benchmark Reporting[cite: 1]</div>
+            <div>• Dynamic Pick-Face Slotting Calculations</div>
+            <div>• Engineered Labor Standards (WLM)</div>
+            <div>• Shift Productivity & Benchmark Reporting</div>
           </div>
         </div>
 
