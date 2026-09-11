@@ -192,6 +192,160 @@ html {
       An enterprise food distribution center is divided into distinct operational and thermodynamic envelopes to isolate temperatures, segregate allergens, and guarantee single-direction material flow from receipt to dispatch:
     </p>
 
+    <!-- Thermal Facility Blueprint Schematic -->
+    <div style="background: #0f172a; color: #f8fafc; border-radius: 8px; padding: 22px; margin: 25px 0; box-shadow: 0 4px 14px rgba(0,0,0,0.2); border: 1px solid #1e293b;">
+      
+      <!-- Schematic Header -->
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 12px; margin-bottom: 18px; gap: 10px;">
+        <div>
+          <span style="font-size: 0.75em; text-transform: uppercase; letter-spacing: 1.5px; color: #38bdf8; font-weight: 700;">
+            Facility Architecture & Blueprint
+          </span>
+          <h5 style="margin: 4px 0 0; color: #ffffff; font-weight: 700; font-size: 1.15em;">
+            Tri-Temp Multi-Zone Floorplan (Bird's-Eye View)
+          </h5>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.75em;">
+          <span><span style="display: inline-block; width: 10px; height: 10px; background: #059669; border-radius: 2px; margin-right: 4px;"></span>Freezer</span>
+          <span><span style="display: inline-block; width: 10px; height: 10px; background: #2563eb; border-radius: 2px; margin-right: 4px;"></span>Cooler</span>
+          <span><span style="display: inline-block; width: 10px; height: 10px; background: #d97706; border-radius: 2px; margin-right: 4px;"></span>Dry Storage</span>
+          <span><span style="display: inline-block; width: 10px; height: 10px; background: #db2777; border-radius: 2px; margin-right: 4px;"></span>Equipment</span>
+        </div>
+      </div>
+
+      <!-- Main Floorplan Container -->
+      <div style="border: 2px dashed #334155; border-radius: 6px; padding: 14px; background: #0b1120;">
+
+        <!-- 1. Upper High-Bay Racking Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 14px;">
+          
+          <!-- Deep Freezer Zone -->
+          <div style="background: rgba(5, 150, 105, 0.08); border: 1px solid #059669; border-radius: 6px; padding: 12px; position: relative;">
+            <div style="font-size: 0.8em; font-weight: 700; color: #34d399; margin-bottom: 8px; text-transform: uppercase;">
+              <i class="fa-solid fa-snowflake" style="margin-right: 5px;"></i>Deep Freezer
+            </div>
+            <div style="font-size: 0.72em; color: #94a3b8; margin-bottom: 10px;">0°F to -20°F | Frost-Heave Slab</div>
+            <div style="display: flex; gap: 6px; justify-content: center;">
+              <div style="background: #064e3b; border: 1px solid #059669; border-radius: 3px; padding: 18px 4px; font-size: 0.68em; color: #a7f3d0; writing-mode: vertical-rl; text-align: center;">AISLE FA</div>
+              <div style="background: #064e3b; border: 1px solid #059669; border-radius: 3px; padding: 18px 4px; font-size: 0.68em; color: #a7f3d0; writing-mode: vertical-rl; text-align: center;">AISLE FB</div>
+              <div style="background: #064e3b; border: 1px solid #059669; border-radius: 3px; padding: 18px 4px; font-size: 0.68em; color: #a7f3d0; writing-mode: vertical-rl; text-align: center;">AISLE FC</div>
+            </div>
+            <div style="margin-top: 10px; font-size: 0.68em; color: #6ee7b7; text-align: center; border-top: 1px solid rgba(5, 150, 105, 0.3); padding-top: 6px;">
+              Frozen Meats • Seafood • Ice Cream
+            </div>
+          </div>
+
+          <!-- Refrigerated Cooler Zone -->
+          <div style="background: rgba(37, 99, 235, 0.08); border: 1px solid #2563eb; border-radius: 6px; padding: 12px; position: relative;">
+            <div style="font-size: 0.8em; font-weight: 700; color: #60a5fa; margin-bottom: 8px; text-transform: uppercase;">
+              <i class="fa-solid fa-temperature-half" style="margin-right: 5px;"></i>Refrigerated Cooler
+            </div>
+            <div style="font-size: 0.72em; color: #94a3b8; margin-bottom: 10px;">34°F to 38°F | Washdown Sloped</div>
+            <div style="display: flex; gap: 6px; justify-content: center;">
+              <div style="background: #1e3a8a; border: 1px solid #2563eb; border-radius: 3px; padding: 18px 4px; font-size: 0.68em; color: #bfdbfe; writing-mode: vertical-rl; text-align: center;">AISLE CA</div>
+              <div style="background: #1e3a8a; border: 1px solid #2563eb; border-radius: 3px; padding: 18px 4px; font-size: 0.68em; color: #bfdbfe; writing-mode: vertical-rl; text-align: center;">AISLE CB</div>
+              <div style="background: #1e3a8a; border: 1px solid #2563eb; border-radius: 3px; padding: 18px 4px; font-size: 0.68em; color: #bfdbfe; writing-mode: vertical-rl; text-align: center;">AISLE CC</div>
+            </div>
+            <div style="margin-top: 10px; font-size: 0.68em; color: #93c5fd; text-align: center; border-top: 1px solid rgba(37, 99, 235, 0.3); padding-top: 6px;">
+              Fresh Produce • Dairy • FEFO Rotation
+            </div>
+          </div>
+
+          <!-- Ambient Dry Zone -->
+          <div style="background: rgba(217, 119, 6, 0.08); border: 1px solid #d97706; border-radius: 6px; padding: 12px; position: relative;">
+            <div style="font-size: 0.8em; font-weight: 700; color: #fbbf24; margin-bottom: 8px; text-transform: uppercase;">
+              <i class="fa-solid fa-box" style="margin-right: 5px;"></i>Ambient Dry Storage
+            </div>
+            <div style="font-size: 0.72em; color: #94a3b8; margin-bottom: 10px;">50°F to 70°F | Humidity Regulated</div>
+            <div style="display: flex; gap: 6px; justify-content: center;">
+              <div style="background: #78350f; border: 1px solid #d97706; border-radius: 3px; padding: 18px 4px; font-size: 0.68em; color: #fde68a; writing-mode: vertical-rl; text-align: center;">AISLE DA</div>
+              <div style="background: #78350f; border: 1px solid #d97706; border-radius: 3px; padding: 18px 4px; font-size: 0.68em; color: #fde68a; writing-mode: vertical-rl; text-align: center;">AISLE DB</div>
+              <div style="background: #78350f; border: 1px solid #d97706; border-radius: 3px; padding: 18px 4px; font-size: 0.68em; color: #fde68a; writing-mode: vertical-rl; text-align: center;">AISLE DC</div>
+            </div>
+            <div style="margin-top: 10px; font-size: 0.68em; color: #fcd34d; text-align: center; border-top: 1px solid rgba(217, 119, 6, 0.3); padding-top: 6px;">
+              High-Bay Grocery • Canned Goods • Packaging
+            </div>
+          </div>
+
+          <!-- Equipment & Ancillary Flank -->
+          <div style="background: rgba(219, 39, 119, 0.08); border: 1px solid #db2777; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="font-size: 0.8em; font-weight: 700; color: #f472b6; margin-bottom: 4px; text-transform: uppercase;">
+                <i class="fa-solid fa-battery-charging" style="margin-right: 5px;"></i>Ancillary & QA
+              </div>
+              <div style="font-size: 0.72em; color: #94a3b8; margin-bottom: 10px;">Enclosed Support Modules</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.7em;">
+              <div style="background: #831843; border: 1px solid #db2777; border-radius: 4px; padding: 6px; text-align: center; color: #fbcfe8;">
+                Forklift Battery Exchange
+              </div>
+              <div style="background: #831843; border: 1px solid #db2777; border-radius: 4px; padding: 6px; text-align: center; color: #fbcfe8;">
+                Zebra Terminal Lockbox (MDM)
+              </div>
+              <div style="background: #831843; border: 1px solid #db2777; border-radius: 4px; padding: 6px; text-align: center; color: #fbcfe8;">
+                Quarantine / QA Hold Cage
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 2. Central Transit & Air-Curtain Vestibule Corridor -->
+        <div style="background: #1e293b; border: 1px solid #475569; border-radius: 4px; padding: 8px 12px; text-align: center; font-size: 0.75em; font-weight: 600; color: #94a3b8; letter-spacing: 1px; margin-bottom: 14px;">
+          <span style="color: #38bdf8;">◀ MAIN VEHICULAR ARTERY & HIGH-SPEED THERMAL AIR-CURTAINS ▶</span>
+        </div>
+
+        <!-- 3. Lower Frontline Dock Staging & Execution Layer -->
+        <div style="display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 12px;">
+          
+          <!-- Inbound Receiving Staging -->
+          <div style="background: #1e293b; border: 1px solid #0284c7; border-radius: 6px; padding: 12px; text-align: center;">
+            <div style="font-size: 0.78em; font-weight: 700; color: #38bdf8; margin-bottom: 6px; text-transform: uppercase;">
+              <i class="fa-solid fa-truck-ramp-box" style="margin-right: 5px;"></i>Inbound Docks
+            </div>
+            <div style="font-size: 0.7em; color: #cbd5e1; margin-bottom: 8px;">ASN Validation • Temp Probe Check-In</div>
+            <div style="display: flex; justify-content: center; gap: 6px;">
+              <span style="background: #0369a1; padding: 4px 8px; border-radius: 3px; font-size: 0.68em;">Door 01</span>
+              <span style="background: #0369a1; padding: 4px 8px; border-radius: 3px; font-size: 0.68em;">Door 02</span>
+              <span style="background: #0369a1; padding: 4px 8px; border-radius: 3px; font-size: 0.68em;">Door 03</span>
+            </div>
+          </div>
+
+          <!-- Cross-Dock Consolidation Buffer -->
+          <div style="background: #1e293b; border: 1px dashed #64748b; border-radius: 6px; padding: 12px; text-align: center; display: flex; flex-direction: column; justify-content: center;">
+            <div style="font-size: 0.78em; font-weight: 700; color: #f8fafc; margin-bottom: 4px;">
+              CROSS-DOCK SORTATION & FLOAT CONSOLIDATION
+            </div>
+            <div style="font-size: 0.7em; color: #94a3b8;">
+              Dynamic Multi-Zone Pallet Assembly • Order Re-Aggregation Buffer
+            </div>
+          </div>
+
+          <!-- Outbound Shipping Staging -->
+          <div style="background: #1e293b; border: 1px solid #6366f1; border-radius: 6px; padding: 12px; text-align: center;">
+            <div style="font-size: 0.78em; font-weight: 700; color: #a5b4fc; margin-bottom: 6px; text-transform: uppercase;">
+              <i class="fa-solid fa-dolly" style="margin-right: 5px;"></i>Outbound Docks
+            </div>
+            <div style="font-size: 0.7em; color: #cbd5e1; margin-bottom: 8px;">FILO Staging Lanes • Multi-Zone Loading</div>
+            <div style="display: flex; justify-content: center; gap: 6px;">
+              <span style="background: #4338ca; padding: 4px 8px; border-radius: 3px; font-size: 0.68em;">Bay 21</span>
+              <span style="background: #4338ca; padding: 4px 8px; border-radius: 3px; font-size: 0.68em;">Bay 22</span>
+              <span style="background: #4338ca; padding: 4px 8px; border-radius: 3px; font-size: 0.68em;">Bay 23</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Schematic Footer Insight -->
+      <div style="margin-top: 14px; font-size: 0.8em; color: #94a3b8; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+        <span><i class="fa-solid fa-diagram-project" style="color: #38bdf8; margin-right: 6px;"></i><strong>Operational Flow:</strong> Single-direction transit from Inbound Receiving (Left) through Thermal Storage Chambers to Outbound FILO Staging (Right).</span>
+        <span style="color: #64748b; font-family: monospace;">Scale: 250,000+ Sq. Ft. Topology</span>
+      </div>
+
+    </div>
+
     <!-- Detailed Facility Layout Table -->
     <div class="table-responsive" style="margin: 25px 0;">
       <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
@@ -407,14 +561,14 @@ html {
       </table>
     </div>
 
-    <!-- Numbering Conventions & Routing Mechanics -->
+<!-- Numbering Conventions & Routing Mechanics -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 25px;">
       
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #0284c7; border-radius: 6px; padding: 16px 18px;">
         <div style="font-weight: 700; color: #0369a1; font-size: 0.95em; margin-bottom: 6px;">
           Odd / Even "Street" Numbering
         </div>
-        <p style="font-size: 0.88em; line-height: 1.6; color: #475569; margin-bottom: 0;">
+        <p style="font-size: 0.88em; line-height: 1.6; color: #475569; margin-bottom: 0; text-align: justify;">
           Warehouses use municipal street numbering: <strong>Odd bays</strong> (01, 03, 05) line the left side of the corridor, while <strong>Even bays</strong> (02, 04, 06) line the right. This allows the WMS routing algorithm to calculate smooth directional passes without forcing forklifts into sharp 90-degree crossings.
         </p>
       </div>
@@ -423,7 +577,7 @@ html {
         <div style="font-weight: 700; color: #047857; font-size: 0.95em; margin-bottom: 6px;">
           Serpentine vs. U-Shape Pick Paths
         </div>
-        <p style="font-size: 0.88em; line-height: 1.6; color: #475569; margin-bottom: 0;">
+        <p style="font-size: 0.88em; line-height: 1.6; color: #475569; margin-bottom: 0; text-align: justify;">
           <strong>Serpentine (S-Curve):</strong> Selectors pick from both sides of wide aisles while moving forward, weaving across to minimize linear footage. <strong>U-Shape:</strong> Workers travel down one side (odds) and return on the other (evens), standard in narrow aisles to eliminate vehicle deadlock.
         </p>
       </div>
@@ -432,7 +586,7 @@ html {
         <div style="font-weight: 700; color: #b45309; font-size: 0.95em; margin-bottom: 6px;">
           Validation Check Digits
         </div>
-        <p style="font-size: 0.88em; line-height: 1.6; color: #475569; margin-bottom: 0;">
+        <p style="font-size: 0.88em; line-height: 1.6; color: #475569; margin-bottom: 0; text-align: justify;">
           A randomized 2- or 3-digit check digit (e.g., <strong>84</strong>) is printed adjacent to the slot barcode. The mobile app directs the operator to slot <code>FA48D2</code>, but requires scanning or entering the check digit. This prevents workers from scanning pre-printed cheat-sheets or typing coordinates from memory.
         </p>
       </div>
@@ -544,12 +698,12 @@ html {
         (01) 10850012345678 (10) BATCH-9921A (17) 261130 (3102) 004525
       </div>
 
-      <ul style="font-size: 0.88em; line-height: 1.6; color: #334155; margin-bottom: 0;">
-        <li><code>AI (01)</code>: Global Trade Item Number (GTIN) identifying the master SKU (stock-keeping unit).</li>
-        <li><code>AI (10)</code>: Traceability Lot Code (TLC) captured for FDA food safety audits and instant recall queries.</li>
-        <li><code>AI (17)</code>: Expiration Date (YYMMDD format: November 30, 2026), governing First Expired, First Out (FEFO) allocation rules.</li>
-        <li><code>AI (3102)</code>: Catchweight Net Weight in Kilograms with 2 decimal places (0045.25 kg), feeding real-time customer invoicing and axle weight calculations.</li>
-      </ul>
+        <ul style="font-size: 0.88em; line-height: 1.6; color: #334155; margin-bottom: 0; text-align: justify;">
+          <li><code>AI (01)</code>: Global Trade Item Number (GTIN) identifying the master SKU (stock-keeping unit).</li>
+          <li><code>AI (10)</code>: Traceability Lot Code (TLC) captured for FDA food safety audits and instant recall queries.</li>
+          <li><code>AI (17)</code>: Expiration Date (YYMMDD format: November 30, 2026), governing First Expired, First Out (FEFO) allocation rules.</li>
+          <li><code>AI (3102)</code>: Catchweight Net Weight in Kilograms with 2 decimal places (0045.25 kg), feeding real-time customer invoicing and axle weight calculations.</li>
+        </ul>
     </div>
 
   </div> <!-- Closes 1.5 -->
