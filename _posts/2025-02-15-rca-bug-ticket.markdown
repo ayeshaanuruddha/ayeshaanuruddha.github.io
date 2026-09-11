@@ -104,3 +104,10 @@ category: Business Analysis & RCA
     <tr><td><strong>Database Forensics</strong></td><td>Transaction Log Analysis (Attached)</td></tr>
   </tbody>
 </table>
+
+<!-- Link to WMS Architecture Whitepaper -->
+<div style="text-align: center; margin: 30px 0 20px;">
+  <a href="warehouse.html" class="btn btn-lg" style="background-color: #18bc9c; border-color: #18bc9c; color: #ffffff; font-weight: 600; padding: 12px 26px; border-radius: 4px; text-decoration: none; display: inline-block; box-shadow: 0 3px 8px rgba(0,0,0,0.12);">
+    <i class="fa-solid fa-warehouse" style="margin-right: 8px;"></i>Explore Full WMS Architecture
+  </a>
+</div>

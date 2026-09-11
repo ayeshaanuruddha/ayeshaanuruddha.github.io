@@ -120,15 +120,15 @@ html {
 
 
 
-    <!-- Recruiter Executive Summary Card -->
+    <!-- Introduction / Executive Summary Card -->
     <div style="background-color: #f8fafc; border-left: 5px solid #18bc9c; padding: 24px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 50px;">
       <h4 style="margin-top: 0; color: #1e293b; font-weight: 700;">
-        <i class="fa-solid fa-bolt" style="color: #18bc9c; margin-right: 8px;"></i>Introduction
+        <i class="fa-solid fa-bolt" style="color: #18bc9c; margin-right: 8px;"></i>INTRODUCTION
       </h4>
-      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; margin-bottom: 12px;">
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; margin-bottom: 12px; text-align: justify;">
         In enterprise logistics, a <strong>Warehouse Management System (WMS)</strong> is not an inventory database; it is an event-driven execution engine coordinating physical labor, material equipment, and storage locations in real time. While corporate ERPs track accounting commitments, the WMS directs sub-second barcode validations, forklift travel, and temperature safeguards on the warehouse floor.
       </p>
-      <ul style="font-size: 0.95em; line-height: 1.6; color: #475569; margin-bottom: 0;">
+      <ul style="font-size: 0.95em; line-height: 1.6; color: #475569; margin-bottom: 0; text-align: justify;">
         <li><strong>Role Demonstrated:</strong> Technical Business Analyst bridging physical operations with Android edge software.</li>
         <li><strong>Domain Competencies:</strong> Multi-temperature inventory state rules, GS1/FSMA traceability, asynchronous database reconciliations, and defect triage.</li>
       </ul>
@@ -162,10 +162,10 @@ html {
       1.2 What is a Warehouse Management System (WMS)?
     </h4>
     <p style="font-size: 1em; line-height: 1.7; color: #475569; text-align: justify;">
-      A <strong>Warehouse Management System (WMS)</strong> is not a passive inventory database or spreadsheet; it is an event-driven real-time execution engine. While an Enterprise Resource Planning (ERP) platform like SAP acts as the commercial "brain"—managing purchase orders, general ledgers, and vendor payments—it has zero real-time visibility into the physical floor. The ERP knows that 5,000 cases of meat were purchased, but cannot determine which aisle, bay level, or freezer rack slot holds them.
+      A <strong>Warehouse Management System (WMS)</strong> is not a passive inventory database or spreadsheet; it is an event-driven real-time execution engine. While an Enterprise Resource Planning (ERP) platform like SAP acts as the commercial "brain" — managing purchase orders, general ledgers, and vendor payments — it has zero real-time visibility into the physical floor. The ERP knows that 5,000 cases of meat were purchased, but cannot determine which aisle, bay level, or freezer rack slot holds them.
     </p>
     <p style="font-size: 1em; line-height: 1.7; color: #475569; text-align: justify;">
-      The WMS acts as the operational "muscle". It translates high-level ERP customer orders into micro-level physical tasks executed on rugged mobile devices:
+      The WMS acts as the operational "muscle." It translates high-level ERP customer orders into micro-level physical tasks executed on rugged mobile devices:
     </p>
     <ul style="font-size: 0.95em; line-height: 1.7; color: #475569;">
       <li><strong>Directed Labor & Path Optimization:</strong> Eliminates non-productive forklift travel by routing operators along shortest-path algorithms.</li>
@@ -208,7 +208,7 @@ html {
               Trailer docking, seal breaking, lumper pallet breakdown, and pulp-temperature probing.
             </td>
             <td>
-              Validates ASN against PO; generates <strong>Quantity Planned (QP)</strong>; enforces mandatory QA temperature-hold rules.
+              Validates ASN against Purchase Order (PO); generates <strong>Quantity Planned (QP)</strong>; enforces mandatory QA temperature-hold rules.
             </td>
           </tr>
 
@@ -218,39 +218,39 @@ html {
               <i class="fa-solid fa-box" style="color: #d97706; margin-right: 6px;"></i>Ambient Dry Storage
             </td>
             <td>
-              $50^\circ\text{F}$ to $70^\circ\text{F}$ ($10^\circ\text{C}$ to $21^\circ\text{C}$); humidity-controlled, clear-span multi-level steel racks.
+              50°F to 70°F (10°C to 21°C); humidity-controlled, clear-span multi-level steel racks.
             </td>
             <td>
               Storage of canned goods, dry grocery, and packaging; high-bay reach-truck putaway.
             </td>
             <td>
-              Optimized for vertical cube utilization; standard FIFO rotation; bulk float cross-dock consolidation.
+              Optimized for vertical cube utilization; standard FIFO (First In First Out) rotation; bulk float cross-dock consolidation.
             </td>
           </tr>
 
           <!-- Refrigerated Cooler Zone -->
           <tr>
             <td style="font-weight: 700; background: #eff6ff;">
-              <i class="fa-solid fa-temperature-half" style="color: #2563eb; margin-right: 6px;"></i>Refrigerated Cooler
+              <i class="fa-solid fa-temperature-half" style="color: #2563eb; margin-right: 6px;"></i>Refrigerated Cooler Storage
             </td>
             <td>
-              $34^\circ\text{F}$ to $38^\circ\text{F}$ ($1^\circ\text{C}$ to $3^\circ\text{C}$); moisture barriers, washdown drainage, anti-fog lens coatings.
+              34°F to 38°F (1°C to 3°C); moisture barriers, washdown drainage, anti-fog lens coatings.
             </td>
             <td>
               High-velocity perishables (dairy, fresh produce, cured meats); rapid daily turnover.
             </td>
             <td>
-              Strict <strong>FEFO allocation</strong>; allergen segregation (separating raw proteins from produce); Catchweight (CWT) capture.
+              Strict <strong>FEFO (First Expired First Out) allocation</strong>; allergen segregation (separating raw proteins from produce); Catchweight (CWT) capture.
             </td>
           </tr>
 
           <!-- Deep Freezer Zone -->
           <tr>
             <td style="font-weight: 700; background: #f0fdf4;">
-              <i class="fa-solid fa-snowflake" style="color: #059669; margin-right: 6px;"></i>Deep Freezer
+              <i class="fa-solid fa-snowflake" style="color: #059669; margin-right: 6px;"></i>Deep Freezer Storage
             </td>
             <td>
-              $0^\circ\text{F}$ to $-20^\circ\text{F}$ ($-18^\circ\text{C}$ to $-28^\circ\text{C}$); subfloor heating, heated door seals, extreme battery-drain zone.
+              0°F to -20°F (-18°C to -28°C); subfloor heating, heated door seals, extreme battery-drain zone.
             </td>
             <td>
               Frozen meats, seafood, bakery items; cold-suit gear; minimize human dwell time.
@@ -269,10 +269,10 @@ html {
               Staging floor lanes directly behind dock doors; multi-compartment refrigerated trailers.
             </td>
             <td>
-              Pallet stretch-wrapping, route staging, and trailer loading in reverse delivery stop order.
+              Pallet or Float stretch-wrapping, route staging, and trailer loading in reverse delivery stop order.
             </td>
             <td>
-              <strong>First-In, Last-Out (FILO)</strong> sequence validation; multi-zone trailer baffle loading (Dry/Cooler/Freezer); Post Goods Issue trigger.
+              <strong>First-In Last-Out (FILO)</strong> sequence validation; multi-zone trailer baffle loading (Dry/Cooler/Freezer); Post Goods Issue trigger.
             </td>
           </tr>
 
@@ -285,10 +285,10 @@ html {
               Ventilated battery-recharging rooms, device management lockboxes, isolated QA hold cages.
             </td>
             <td>
-              Industrial forklift battery swaps, Mobile devices terminal checkout, quarantine re-inspections.
+              Industrial forklift battery swaps, mobile terminal checkout, quarantine re-inspections.
             </td>
             <td>
-              Mobile Device Management policy enforcement; system-level location locks preventing quarantined lots from wave reservation.
+              Mobile Device Management (MDM) policy enforcement; system-level location locks preventing quarantined lots from wave reservation.
             </td>
           </tr>
 
@@ -301,13 +301,252 @@ html {
       <div style="font-weight: 700; color: #0369a1; font-size: 0.95em; margin-bottom: 6px;">
         <i class="fa-solid fa-network-wired" style="margin-right: 6px;"></i>The BA Translation: Why Zoning Dictates Software Rules
       </div>
-      <p style="font-size: 0.9em; line-height: 1.6; color: #475569; margin-bottom: 0;">
-        A generic e-commerce warehouse treats all square footage identically: a bin is simply an $(X, Y, Z)$ coordinate. In a food enterprise facility, software logic must respect structural boundaries. If the WMS generates a putaway task that attempts to route raw chicken into a dairy cooler slot, or drops frozen meat into an ambient staging buffer, the system has created a health and regulatory failure. The Technical BA defines the validation masks, equipment access permissions, and thermal compatibility matrix inside the database schema before a single line of client code is written.
+      <p style="font-size: 0.9em; line-height: 1.6; color: #475569; margin-bottom: 0; text-align: justify;">
+        A generic e-commerce warehouse treats all square footage identically: a bin is simply an <strong>(X, Y, Z)</strong> coordinate. In a food enterprise facility, software logic must respect structural boundaries. If the WMS generates a putaway task that attempts to route raw chicken into a dairy cooler slot, or drops frozen meat into an ambient staging buffer, the system has created a health and regulatory failure. The Technical BA defines the validation masks, equipment access permissions, and thermal compatibility matrix inside the database schema before a single line of client code is written.
       </p>
     </div>
+  
+  <!-- Correctly closing 1.3 before 1.4 -->
 
+  <!-- 1.4 Coordinate Hierarchy: Zone to Position -->
+  <div style="margin-top: 40px;">
+    <h4 style="color: #0284c7; font-weight: 700; font-size: 1.15em;">
+      1.4 Spatial Coordinate Hierarchy & Slot Addressing
+    </h4>
+    <p style="font-size: 1em; line-height: 1.7; color: #475569; text-align: justify;">
+      In an enterprise warehouse, every physical inventory location is mapped as a discrete, six-tier coordinate address. Rather than relying on generic shelf tags, the Warehouse Management System (WMS) parses this alphanumeric string to calculate linear travel paths, optimize forklift mast elevation, and enforce sub-second barcode scans on mobile terminals.
+    </p>
+
+    <!-- Visual Coordinate Decomposition Box -->
+    <div style="background: #0f172a; color: #f8fafc; border-radius: 8px; padding: 22px; margin: 25px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+      <div style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 1.5px; color: #38bdf8; font-weight: 700; margin-bottom: 12px;">
+        Coordinate String Parsing Anatomy
+      </div>
+      
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-family: 'Courier New', Courier, monospace; font-size: 1.4em; font-weight: 700;">
+        <span style="background: #0284c7; padding: 6px 12px; border-radius: 4px;" title="Thermal Zone">F</span>
+        <span style="color: #64748b;">+</span>
+        <span style="background: #0369a1; padding: 6px 12px; border-radius: 4px;" title="Aisle Corridor">A</span>
+        <span style="color: #64748b;">-</span>
+        <span style="background: #334155; padding: 6px 12px; border-radius: 4px;" title="Bay Section">48</span>
+        <span style="color: #64748b;">-</span>
+        <span style="background: #059669; padding: 6px 12px; border-radius: 4px;" title="Level / Vertical Shelf">D</span>
+        <span style="color: #64748b;">-</span>
+        <span style="background: #d97706; padding: 6px 12px; border-radius: 4px;" title="Beam Position">2</span>
+        <span style="font-size: 0.7em; color: #94a3b8; font-family: sans-serif; font-weight: normal; margin-left: 10px;">
+          &rarr; Parsed as <strong>FA48D2</strong> (Check Digit: <strong>84</strong>)
+        </span>
+      </div>
+
+      <div style="margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; font-size: 0.8em; color: #cbd5e1; font-family: sans-serif;">
+        <div><strong style="color: #38bdf8;">Zone (F):</strong> Deep Freezer</div>
+        <div><strong style="color: #38bdf8;">Aisle (FA):</strong> Corridor A</div>
+        <div><strong style="color: #38bdf8;">Bay (48):</strong> Frame 48 (Right side)</div>
+        <div><strong style="color: #38bdf8;">Level (D):</strong> Reserve Tier 4</div>
+        <div><strong style="color: #38bdf8;">Position (2):</strong> Right Pallet Slot</div>
+      </div>
+    </div>
+
+    <!-- Coordinate Hierarchy Detailed Breakdown -->
+    <div class="table-responsive" style="margin: 25px 0;">
+      <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
+        <thead style="background: #f1f5f9; color: #1e293b;">
+          <tr>
+            <th style="width: 15%;">Coordinate Tier</th>
+            <th style="width: 15%;">Segment Example</th>
+            <th style="width: 35%;">Physical Facility Architecture</th>
+            <th style="width: 35%;">WMS System & Labor Execution</th>
+          </tr>
+        </thead>
+        <tbody style="color: #334155;">
+          <tr>
+            <td style="font-weight: 700; background: #f8fafc;">Zone</td>
+            <td><code>F</code> / <code>D</code> / <code>C</code></td>
+            <td>Thermal boundary (Freezer, Dry, Cooler) insulated by sandwich panels and high-speed air-curtains.</td>
+            <td>Validates item temperature requirements; restricts mobile task dispatch to cold-rated equipment and gear.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; background: #f8fafc;">Aisle</td>
+            <td><code>FA</code> / <code>DO</code></td>
+            <td>Linear vehicular hallway bounded by structural uprights; engineered for pallet-jack or turret-truck widths.</td>
+            <td>Establishes travel sequences; coordinates single-direction traffic flow to prevent vehicle gridlock.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; background: #f8fafc;">Rack Frame</td>
+            <td>Continuous Rack</td>
+            <td>Heavy-duty structural steel upright assemblies designed to support multi-ton static pallet loads.</td>
+            <td>Defines rack mechanical attributes: single-selective, deep-reach, drive-in, or gravity-flow roller beds.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; background: #f8fafc;">Bay (Section)</td>
+            <td><code>48</code> / <code>10</code></td>
+            <td>The horizontal span between two structural steel upright posts; holds 2 to 3 pallet positions per beam level.</td>
+            <td>Controls the horizontal X-axis linear pick sequence; dictates odd vs. even traversal rules down the corridor.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; background: #f8fafc;">Level (Tier)</td>
+            <td><code>A</code> through <code>E</code></td>
+            <td>Vertical shelf beam height. <strong>Level A</strong> is floor-accessible; <strong>Levels B–E</strong> are elevated reserve tiers.</td>
+            <td>Differentiates manual floor picking from high-lift mast work; controls automatic replenishment triggers.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; background: #f8fafc;">Position</td>
+            <td><code>1</code>, <code>2</code>, <code>3</code></td>
+            <td>Discrete slot on the horizontal crossbeam. 1 = Left, 2 = Center/Right, 3 = Far Right.</td>
+            <td>Directs the final placement scan; tracks individual License Plate Numbers (LPNs) occupying the slot.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Numbering Conventions & Routing Mechanics -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 25px;">
+      
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #0284c7; border-radius: 6px; padding: 16px 18px;">
+        <div style="font-weight: 700; color: #0369a1; font-size: 0.95em; margin-bottom: 6px;">
+          Odd / Even "Street" Numbering
+        </div>
+        <p style="font-size: 0.88em; line-height: 1.6; color: #475569; margin-bottom: 0;">
+          Warehouses use municipal street numbering: <strong>Odd bays</strong> (01, 03, 05) line the left side of the corridor, while <strong>Even bays</strong> (02, 04, 06) line the right. This allows the WMS routing algorithm to calculate smooth directional passes without forcing forklifts into sharp 90-degree crossings.
+        </p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #10b981; border-radius: 6px; padding: 16px 18px;">
+        <div style="font-weight: 700; color: #047857; font-size: 0.95em; margin-bottom: 6px;">
+          Serpentine vs. U-Shape Pick Paths
+        </div>
+        <p style="font-size: 0.88em; line-height: 1.6; color: #475569; margin-bottom: 0;">
+          <strong>Serpentine (S-Curve):</strong> Selectors pick from both sides of wide aisles while moving forward, weaving across to minimize linear footage. <strong>U-Shape:</strong> Workers travel down one side (odds) and return on the other (evens), standard in narrow aisles to eliminate vehicle deadlock.
+        </p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #d97706; border-radius: 6px; padding: 16px 18px;">
+        <div style="font-weight: 700; color: #b45309; font-size: 0.95em; margin-bottom: 6px;">
+          Validation Check Digits
+        </div>
+        <p style="font-size: 0.88em; line-height: 1.6; color: #475569; margin-bottom: 0;">
+          A randomized 2- or 3-digit check digit (e.g., <strong>84</strong>) is printed adjacent to the slot barcode. The mobile app directs the operator to slot <code>FA48D2</code>, but requires scanning or entering the check digit. This prevents workers from scanning pre-printed cheat-sheets or typing coordinates from memory.
+        </p>
+      </div>
+
+    </div>
   </div>
-</div>
+
+  <!-- 1.5 Unit of Measure (UOM) Hierarchy & Container Identifiers -->
+  <div style="margin-top: 50px;">
+    <h4 style="color: #0284c7; font-weight: 700; font-size: 1.15em;">
+      1.5 Packaging Hierarchy & Handling Unit Breakdown
+    </h4>
+    <p style="font-size: 1em; line-height: 1.7; color: #475569; text-align: justify;">
+      Inventory precision depends on maintaining relational integrity between physical packaging units. A database balance error occurs when systems fail to track the transformation of bulk freight into discrete customer items. The WMS tracks material through four handling stages, from bulk transport platforms down to single eaches:
+    </p>
+
+    <!-- UOM Hierarchy Grid -->
+    <div class="table-responsive" style="margin: 25px 0;">
+      <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
+        <thead style="background: #f1f5f9; color: #1e293b;">
+          <tr>
+            <th style="width: 15%;">Unit of Measure</th>
+            <th style="width: 25%;">Physical Handling Profile</th>
+            <th style="width: 30%;">Barcode & Identification Standard</th>
+            <th style="width: 30%;">WMS Database & Traceability Mechanics</th>
+          </tr>
+        </thead>
+        <tbody style="color: #334155;">
+          
+          <!-- Pallet -->
+          <tr>
+            <td style="font-weight: 700; background: #f8fafc;">
+              <i class="fa-solid fa-pallet" style="color: #0284c7; margin-right: 6px;"></i>Pallet
+            </td>
+            <td>
+              Standard 40" x 48" GMA structural pallet holding 30 to 100+ cartons. Handled via forklifts and motorized pallet jacks.
+            </td>
+            <td>
+              <strong>License Plate Number (LPN):</strong> 18-digit GS1 Serial Shipping Container Code (SSCC-18) or internal tracking barcode.
+            </td>
+            <td>
+              Acts as an aggregate database parent. Relocating an LPN automatically updates all child cartons and lot codes in a single atomic SQL transaction.
+            </td>
+          </tr>
+
+          <!-- Float (Cross-Dock Pallet) -->
+          <tr>
+            <td style="font-weight: 700; background: #fffbeb;">
+              <i class="fa-solid fa-layer-group" style="color: #d97706; margin-right: 6px;"></i>Float
+            </td>
+            <td>
+              Outbound mixed-SKU composite pallet built by order selectors for specific multi-stop delivery routes or RDC-to-OPCO transfers[cite: 1].
+            </td>
+            <td>
+              <strong>Float Routing Label:</strong> Encodes Route Number, Stop Sequence, Assigned Trailer Door, and Cube/Weight metrics.
+            </td>
+            <td>
+              Tracks dynamic pallet assembly in mobile apps (e.g., SOS/SLS)[cite: 1]. Consolidates items across multiple zones to reduce transfer truck dead space by up to 40%[cite: 1].
+            </td>
+          </tr>
+
+          <!-- Master Carton / Case -->
+          <tr>
+            <td style="font-weight: 700; background: #eff6ff;">
+              <i class="fa-solid fa-box" style="color: #2563eb; margin-right: 6px;"></i>Master Carton
+            </td>
+            <td>
+              Factory-sealed corrugated shipping case holding multiple consumer sales units. The baseline transacting unit for commercial customers.
+            </td>
+            <td>
+              <strong>GS1-128 Barcode:</strong> Contains GTIN-14, Traceability Lot Code (TLC), Pack Date, and Expiration Date Application Identifiers[cite: 1].
+            </td>
+            <td>
+              Primary regulatory anchor under FDA FSMA[cite: 1]. For variable-weight items (meats/cheeses), the WMS enforces real-time <strong>Catchweight (CWT)</strong> capture at this level[cite: 1].
+            </td>
+          </tr>
+
+          <!-- Split (Each / Inner) -->
+          <tr>
+            <td style="font-weight: 700; background: #fdf2f8;">
+              <i class="fa-solid fa-box-open" style="color: #db2777; margin-right: 6px;"></i>Split (Each)
+            </td>
+            <td>
+              Broken-case individual unit (e.g., single bottle of liquor, one pouch of spice, or five individual meat cuts).
+            </td>
+            <td>
+              Retail UPC-A / EAN-13 consumer barcode or internal dynamic split container label.
+            </td>
+            <td>
+              <strong>Inherited Lot Lineage:</strong> Splits do not generate new lot codes; they inherit parent carton TLC records in the relational schema to preserve recall audit trails[cite: 1].
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- GS1-128 Barcode Parsing Callout Card -->
+    <div style="background: #ffffff; border: 1px solid #cbd5e1; border-left: 4px solid #6366f1; border-radius: 6px; padding: 20px 22px; margin-top: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+      <div style="font-weight: 700; color: #4338ca; font-size: 1em; margin-bottom: 8px;">
+        <i class="fa-solid fa-barcode" style="margin-right: 8px;"></i>
+        The BA Perspective: Deconstructing the GS1-128 Carton Barcode
+      </div>
+      <p style="font-size: 0.9em; line-height: 1.6; color: #475569; margin-bottom: 12px; text-align: justify;">
+        When a warehouse worker scans a carton label on a Zebra terminal, the WMS client does not treat it as plain text[cite: 1]. The application executes a regular expression (regex) parser to extract concatenated <strong>Application Identifiers (AIs)</strong> defined by GS1 global standards:
+      </p>
+      
+      <div style="background: #1e293b; color: #f8fafc; border-radius: 6px; padding: 14px 18px; font-family: 'Courier New', Courier, monospace; font-size: 0.88em; overflow-x: auto; line-height: 1.5; margin-bottom: 12px;">
+        (01) 10850012345678 (10) BATCH-9921A (17) 261130 (3102) 004525
+      </div>
+
+      <ul style="font-size: 0.88em; line-height: 1.6; color: #334155; margin-bottom: 0;">
+        <li><code>AI (01)</code>: Global Trade Item Number (GTIN) identifying the master SKU (stock-keeping unit).</li>
+        <li><code>AI (10)</code>: Traceability Lot Code (TLC) captured for FDA food safety audits and instant recall queries[cite: 1].</li>
+        <li><code>AI (17)</code>: Expiration Date (YYMMDD format: November 30, 2026), governing First Expired, First Out (FEFO) allocation rules.</li>
+        <li><code>AI (3102)</code>: Catchweight Net Weight in Kilograms with 2 decimal places (0045.25 kg), feeding real-time customer invoicing and axle weight calculations[cite: 1].</li>
+      </ul>
+    </div>
+
+  </div> <!-- Closes 1.5 -->
+
+</div> <!-- Closes Section 1: facility-topology -->
 
 
 
@@ -447,6 +686,32 @@ html {
     </div>
 
   </div>
+
+
+
+
+    <!-- Floating Home Button -->
+    <a href="index.html" class="floating-home-btn" title="Back to Portfolio Home" style="
+      position: fixed;
+      bottom: 80px;
+      right: 18px;
+      width: 50px;
+      height: 50px;
+      background-color: #18bc9c;
+      color: #ffffff !important;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25em;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      z-index: 1030;
+      text-decoration: none !important;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    ">
+      <i class="fa-solid fa-house"></i>
+    </a>
+
 </section>
 
 <!-- Active Section Observer Script -->
