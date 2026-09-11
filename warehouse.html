@@ -1,0 +1,269 @@
+---
+layout: default
+title: Enterprise WMS Architecture & Business Analysis
+permalink: /warehouse.html
+---
+
+<style>
+/* Smooth scrolling and anchor offset */
+html {
+  scroll-behavior: smooth;
+}
+[id] {
+  scroll-margin-top: 120px;
+}
+
+/* Sticky Top Pill Navigation */
+.wms-nav-wrapper {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 60px; /* Adjust to match main theme navbar height */
+  z-index: 1020;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 10px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.wms-nav-container {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 8px;
+  padding: 0 15px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.wms-nav-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Low-Shade State (Inactive) */
+.wms-pill {
+  display: inline-block;
+  font-size: 0.82em;
+  font-weight: 500;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 6px 14px;
+  border-radius: 20px;
+  text-decoration: none !important;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+.wms-pill:hover {
+  color: #1e293b;
+  background: #e2e8f0;
+}
+
+/* High-Shade State (Active Viewport) */
+.wms-pill.active {
+  color: #ffffff !important;
+  background: #2c3e50;
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(44, 62, 80, 0.2);
+  transform: translateY(-1px);
+}
+</style>
+
+<!-- Sticky Navigation Pill Bar -->
+<div id="wms-sticky-nav" class="wms-nav-wrapper">
+  <div class="container-fluid" style="max-width: 1100px;">
+    <div class="wms-nav-container">
+      <a href="#macro-architecture" class="wms-pill active">1. Macro Architecture</a>
+      <a href="#facility-topology" class="wms-pill">2. Facility Topology</a>
+      <a href="#inbound-operations" class="wms-pill">3. Inbound & Putaway</a>
+      <a href="#inventory-replenish" class="wms-pill">4. Inventory & Replenish</a>
+      <a href="#outbound-fulfillment" class="wms-pill">5. Wave Selection</a>
+      <a href="#trailer-loading" class="wms-pill">6. Trailer Loading (SLS)</a>
+      <a href="#reverse-logistics" class="wms-pill">7. Returns & Inspection</a>
+    </div>
+  </div>
+</div>
+
+<section style="padding: 40px 0 60px;">
+  <div class="container" style="max-width: 950px;">
+
+    <!-- Recruiter Executive Summary Card -->
+    <div style="background-color: #f8fafc; border-left: 5px solid #18bc9c; padding: 24px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 50px;">
+      <h4 style="margin-top: 0; color: #1e293b; font-weight: 700;">
+        <i class="fa-solid fa-bolt" style="color: #18bc9c; margin-right: 8px;"></i>Executive Summary for Recruiters
+      </h4>
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; margin-bottom: 12px;">
+        In enterprise logistics, a <strong>Warehouse Management System (WMS)</strong> is not an inventory database; it is an event-driven execution engine coordinating physical labor, material equipment, and storage locations in real time. While corporate ERPs track accounting commitments, the WMS directs sub-second barcode validations, forklift travel, and temperature safeguards on the warehouse floor.
+      </p>
+      <ul style="font-size: 0.95em; line-height: 1.6; color: #475569; margin-bottom: 0;">
+        <li><strong>Role Demonstrated:</strong> Technical Business Analyst bridging physical operations with Android edge software.</li>
+        <li><strong>Domain Competencies:</strong> Multi-temperature inventory state rules, GS1/FSMA traceability, asynchronous database reconciliations, and defect triage.</li>
+      </ul>
+    </div>
+
+    <!-- Section 1: The Macro Layer -->
+    <div id="macro-architecture" style="margin-bottom: 60px;">
+      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        1. The Macro Layer: Enterprise ERP vs. WMS Execution
+      </h3>
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
+        Enterprise supply chains maintain a strict division between commercial governance and floor execution. A central ERP manages procurement contracts, sales orders, and balance sheet valuations, while frontline WMS applications direct real-time scanning, routing, and inventory state transitions across distribution nodes.
+      </p>
+
+      <!-- Architecture Component Cards -->
+      <div style="margin: 35px 0;">
+        
+        <!-- 1. SAP ERP -->
+        <div style="background: #ffffff; border: 1px solid #cbd5e1; border-left: 5px solid #0284c7; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+          <div style="font-weight: 700; color: #0369a1; font-size: 1.05em; margin-bottom: 6px;">
+            1. Enterprise ERP <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Commercial & Financial Brain)</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
+            <div>• Purchase Orders (POs)</div>
+            <div>• Sales Orders (Demand)</div>
+            <div>• Goods Receipt (GR: Vendor Payment)</div>
+            <div>• Post Goods Issue (PGI: Financial Relief)</div>
+          </div>
+        </div>
+
+        <!-- Connector 1 <-> 2 -->
+        <div style="display: flex; justify-content: space-around; padding: 8px 20px; font-size: 0.78em; font-weight: 600; color: #64748b;">
+          <span>↓ Inbound PO Manifest Delivery</span>
+          <span>↑ Outbound PGI Departure Confirmation</span>
+        </div>
+
+        <!-- 2. Database & Middleware -->
+        <div style="background: #ffffff; border: 1px solid #cbd5e1; border-left: 5px solid #ea580c; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+          <div style="font-weight: 700; color: #c2410c; font-size: 1.05em; margin-bottom: 6px;">
+            2. Database Persistence & Middleware <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Data State Engine)</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
+            <div>• Relational Schemas (Manifests, Transaction Logs)</div>
+            <div>• Event Queues & REST Payloads</div>
+            <div>• Inventory State Engine (QP → QOH → QA)</div>
+          </div>
+        </div>
+
+        <!-- Connector 2 <-> 3 -->
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; padding: 8px 15px; font-size: 0.75em; font-weight: 600; color: #64748b; gap: 5px;">
+          <span>↓ Receive Orders</span>
+          <span>↑ Barcode Scan Events</span>
+          <span>↓ Pick Waves</span>
+          <span>↑ Staging & Load Verifications</span>
+        </div>
+
+        <!-- 3. WMS Edge Clients -->
+        <div style="background: #ffffff; border: 1px solid #cbd5e1; border-left: 5px solid #10b981; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+          <div style="font-weight: 700; color: #047857; font-size: 1.05em; margin-bottom: 6px;">
+            3. Frontline WMS Mobile Clients <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Floor Execution Muscle)</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
+            <div>• Dock Receiving & Temp Check-In</div>
+            <div>• Directed High-Bay Putaway</div>
+            <div>• Wearable Order Selection & Catchweight</div>
+            <div>• Reverse-Stop Trailer Loading (FILO)</div>
+          </div>
+        </div>
+
+        <!-- Connector 3 <-> 4 -->
+        <div style="display: flex; justify-content: space-around; padding: 8px 20px; font-size: 0.78em; font-weight: 600; color: #64748b;">
+          <span>↑ Dynamic Slotting Rules & Labor Standards</span>
+          <span>↓ Worker Task Start/Stop Timestamps</span>
+        </div>
+
+        <!-- 4. Planning & Labor Intelligence -->
+        <div style="background: #ffffff; border: 1px solid #cbd5e1; border-left: 5px solid #6366f1; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+          <div style="font-weight: 700; color: #4338ca; font-size: 1.05em; margin-bottom: 6px;">
+            4. Labor & Slotting Optimization <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Planning Intelligence)</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
+            <div>• Dynamic Pick-Face Slotting Calculations</div>
+            <div>• Engineered Labor Standards (WLM)</div>
+            <div>• Shift Productivity & Benchmark Reporting</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 2 Placeholder -->
+    <div id="facility-topology" style="margin-bottom: 60px;">
+      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        2. Facility Topology: Tri-Temp Multi-Zone Dynamics
+      </h3>
+      <p style="color: #64748b; font-style: italic;">[Drafting: Dry, Cooler, and Freezer constraints, coordinate hierarchy, and temperature isolation...]</p>
+    </div>
+
+    <!-- Section 3 Placeholder -->
+    <div id="inbound-operations" style="margin-bottom: 60px;">
+      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        3. Inbound: Receipt & Directed Putaway
+      </h3>
+      <p style="color: #64748b; font-style: italic;">[Drafting: PO receiving, lot capture, and QP to QOH state transitions...]</p>
+    </div>
+
+    <!-- Section 4 Placeholder -->
+    <div id="inventory-replenish" style="margin-bottom: 60px;">
+      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        4. Inventory & Replenishment Execution
+      </h3>
+      <p style="color: #64748b; font-style: italic;">[Drafting: Reserve to pick-face movement, demand vs non-demand triggers, and Swap RACI matrix...]</p>
+    </div>
+
+    <!-- Section 5 Placeholder -->
+    <div id="outbound-fulfillment" style="margin-bottom: 60px;">
+      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        5. Outbound Selection & Waves
+      </h3>
+      <p style="color: #64748b; font-style: italic;">[Drafting: Wearable device ergonomics, catchweights, and defect root cause analysis...]</p>
+    </div>
+
+    <!-- Section 6 Placeholder -->
+    <div id="trailer-loading" style="margin-bottom: 60px;">
+      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        6. Trailer Loading & Verification (SLS)
+      </h3>
+      <p style="color: #64748b; font-style: italic;">[Drafting: FILO sequencing, trailer compartment staging, and PGI departure events...]</p>
+    </div>
+
+    <!-- Section 7 Placeholder -->
+    <div id="reverse-logistics" style="margin-bottom: 60px;">
+      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        7. Returns & Reverse Logistics
+      </h3>
+      <p style="color: #64748b; font-style: italic;">[Drafting: Driver check-in, QA inspection, and discard compliance logs...]</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- Active Section Observer Script -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const sections = document.querySelectorAll("div[id]");
+  const navPills = document.querySelectorAll(".wms-pill");
+
+  const observerOptions = {
+    root: null,
+    rootMargin: "-20% 0px -70% 0px",
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const activeId = entry.target.getAttribute("id");
+
+        navPills.forEach((pill) => {
+          if (pill.getAttribute("href") === `#${activeId}`) {
+            pill.classList.add("active");
+            pill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+          } else {
+            pill.classList.remove("active");
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach((section) => observer.observe(section));
+});
+</script>
