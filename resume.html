@@ -4,18 +4,21 @@ permalink: /resume.html
 ---
 
 <style>
-/* 1. Hide the global dark blue navbar */
-nav,
-.navbar,
-#mainNav,
+/* 1. Hide the homepage hero banner (photo and tagline) */
 header {
   display: none !important;
 }
 
-/* 2. Add top padding for breathing room */
+/* 2. Hide the navigation links (Portfolio, About, Contact) */
+.navbar-nav,
+.navbar-collapse,
+.navbar-toggle {
+  display: none !important;
+}
+
+/* 3. Keep page content from hiding under the fixed bar */
 body {
-  padding-top: 40px !important;
-  margin-top: 0 !important;
+  padding-top: 100px !important;
 }
 </style>
 
