@@ -2,8 +2,8 @@
 #layout: default
 modal-id: 2
 date: 2025-02-15
-img: rca-analysis.png
-alt: Root Cause Analysis Bug Ticket
+img: latency_triage.png
+alt: Asynchronous API Synchronization & UI Latency Resolution
 project-date: February 2025
 client: Enterprise Logistics Firm
 category: Business Analysis & RCA
@@ -11,16 +11,16 @@ category: Business Analysis & RCA
 
 <p>This sanitized bug ticket and Root Cause Analysis document uses standard business analysis structures, including Gherkin syntax and the 5 Whys method, allowing you to showcase your problem-solving process without exposing proprietary data.</p>
 
-<h3>[BUG-1042] [Performance] Mobile App Synchronization Latency During High-Volume Batch Processing</h3>
+<h3>[WMS-BUG-1042] [Performance] Mobile App Synchronization Latency During High-Volume Batch Processing</h3>
 
 <h4>📋 Ticket Completion Status</h4>
 <table class="table table-bordered" style="text-align: left;">
   <tbody>
     <tr><td>🐛 <strong>Type</strong></td><td>Bug</td></tr>
     <tr><td>⏫ <strong>Priority</strong></td><td>High</td></tr>
-    <tr><td>🏷️ <strong>Labels</strong></td><td><code>Android</code> <code>LiveInventory</code> <code>RCA</code> <code>Performance</code></td></tr>
+    <tr><td>🏷️ <strong>Labels</strong></td><td><code>Mobile OS</code> <code>LiveInventory</code> <code>RCA</code> <code>Performance</code></td></tr>
     <tr><td>⭐ <strong>Ticket status</strong></td><td><code>READY FOR REVIEW</code></td></tr>
-    <tr><td>👥 <strong>Ticket owner</strong></td><td>Business Analyst</td></tr>
+    <tr><td>👥 <strong>Ticket Owner</strong></td><td>Business Analyst</td></tr>
     <tr><td>✅ <strong>Reviewed and Signed off</strong></td><td>PO, SME/Dev, QE</td></tr>
   </tbody>
 </table>
@@ -93,7 +93,7 @@ category: Business Analysis & RCA
     <tr><td><strong>WMS Process</strong></td><td>Batch Allocation &amp; Sync</td></tr>
     <tr><td><strong>User Experience</strong></td><td>UI freezing during multi-item scan</td></tr>
     <tr><td><strong>Issue received via/from</strong></td><td>Warehouse Operations Team</td></tr>
-    <tr><td><strong>UAT #ID</strong></td><td><code>BUG-1042-ANON</code></td></tr>
+    <tr><td><strong>UAT #ID</strong></td><td><code>WMS-BUG-1042</code></td></tr>
   </tbody>
 </table>
 
@@ -101,7 +101,7 @@ category: Business Analysis & RCA
 <table class="table table-bordered" style="text-align: left;">
   <tbody>
     <tr><td><strong>Tech Design</strong></td><td>API Payload Analysis &amp; Asynchronous Sync Architecture</td></tr>
-    <tr><td><strong>Database Forensics</strong></td><td>Transaction Log Analysis (Attached)</td></tr>
+    <tr><td><strong>Database Forensics</strong></td><td>Transaction Log Analysis (Shold be Attached)</td></tr>
   </tbody>
 </table>
 
