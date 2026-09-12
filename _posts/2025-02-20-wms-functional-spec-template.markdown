@@ -33,10 +33,15 @@ category: Business Analysis & Functional Design
 <table class="table table-bordered" style="text-align: left;">
   <tbody>
     <tr><td><strong>As a</strong></td><td>Warehouse Operator [Inbound Receiver / High-Bay Forklift Loader, Unloader / Order Selector]</td></tr>
-    <tr><td><strong>I want</strong></td><td> real-time scan verification with instant location confirmation</td></tr>
-    <tr><td><strong>So that I</strong></td><td>eliminate mis-picks</td></tr>
-    <tr><td><strong></strong></td><td>and preserve FEFO shelf-life </td></tr>
-    <tr><td><strong></strong></td><td> and maintain sub-second floor throughput</td></tr>
+    <tr><td><strong>I want</strong></td><td>real-time scan verification with instant location confirmation</td></tr>
+    <tr>
+      <td><strong>So that I</strong></td>
+      <td>
+        • Eliminate mis-picks<br>
+        • Preserve FEFO shelf-life<br>
+        • Maintain sub-second floor throughput
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -52,7 +57,7 @@ category: Business Analysis & Functional Design
       <td>[Describe current operational failure: e.g., Operators manually keying 8-digit slot numbers due to unreadable barcodes, causing a 4.2% inventory discrepancy rate and frequent vehicle congestion at pick faces.]</td>
     </tr>
     <tr>
-      <td><strong>Target State </strong></td>
+      <td><strong>Target State</strong></td>
       <td>[Quantified target: e.g., Transition to single-scan 2D Data Matrix parsing with automated check-digit validation, reducing scan-to-prompt latency below 200ms and cutting manual keying errors to 0%.]</td>
     </tr>
   </tbody>
@@ -60,7 +65,7 @@ category: Business Analysis & Functional Design
 
 <hr>
 
-<h3>(2) Acceptance Criteria </h3>
+<h3>(2) Acceptance Criteria</h3>
 
 <h4>(2.1) Environmental &amp; Operational Preconditions</h4>
 <ul>
@@ -284,9 +289,96 @@ category: Business Analysis & Functional Design
 <h4>(6.1) API Transaction Payload Schema</h4>
 <p>Mobile clients dispatch transaction confirmations asynchronously via lightweight JSON payloads over HTTPS mutual TLS (mTLS):</p>
 
+<!-- Clean HTML Pre-Formatted Dark Code Box -->
+<div style="background: #0f172a; color: #f8fafc; border-radius: 6px; padding: 18px; margin: 18px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.15); overflow-x: auto;">
+<pre style="background: transparent; border: none; color: inherit; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; font-size: 0.88em; line-height: 1.5; white-space: pre;"><span style="color: #94a3b8;">{</span>
+  <span style="color: #38bdf8;">"transaction_id"</span>: <span style="color: #fde047;">"tx_99824_fa48d2"</span>,
+  <span style="color: #38bdf8;">"client_timestamp_utc"</span>: <span style="color: #fde047;">"2026-09-12T14:32:01.204Z"</span>,
+  <span style="color: #38bdf8;">"facility_node"</span>: <span style="color: #fde047;">"DC-04"</span>,
+  <span style="color: #38bdf8;">"operator_id"</span>: <span style="color: #fde047;">"EMP-8841"</span>,
+  <span style="color: #38bdf8;">"device_telemetry"</span>: <span style="color: #94a3b8;">{</span>
+    <span style="color: #38bdf8;">"device_serial"</span>: <span style="color: #fde047;">"ZBR-MC93-84920"</span>,
+    <span style="color: #38bdf8;">"battery_pct"</span>: <span style="color: #4ade80;">84</span>,
+    <span style="color: #38bdf8;">"thermal_sensor_celsius"</span>: <span style="color: #4ade80;">-18.2</span>,
+    <span style="color: #38bdf8;">"wifi_rssi_dbm"</span>: <span style="color: #4ade80;">-68</span>
+  <span style="color: #94a3b8;">}</span>,
+  <span style="color: #38bdf8;">"movement_payload"</span>: <span style="color: #94a3b8;">{</span>
+    <span style="color: #38bdf8;">"source_lpn"</span>: <span style="color: #fde047;">"001085001234567890"</span>,
+    <span style="color: #38bdf8;">"item_gtin"</span>: <span style="color: #fde047;">"10850012345678"</span>,
+    <span style="color: #38bdf8;">"lot_code"</span>: <span style="color: #fde047;">"BATCH-9921A"</span>,
+    <span style="color: #38bdf8;">"target_location"</span>: <span style="color: #fde047;">"FA48D2"</span>,
+    <span style="color: #38bdf8;">"check_digit_verified"</span>: <span style="color: #fde047;">"84"</span>,
+    <span style="color: #38bdf8;">"quantity_moved"</span>: <span style="color: #4ade80;">45</span>,
+    <span style="color: #38bdf8;">"uom"</span>: <span style="color: #fde047;">"CASE"</span>,
+    <span style="color: #38bdf8;">"catchweight_kg"</span>: <span style="color: #4ade80;">45.25</span>
+  <span style="color: #94a3b8;">}</span>
+<span style="color: #94a3b8;">}</span></pre>
+</div>
+
+<h4>(6.2) Persistence &amp; Database State Engine</h4>
+<table class="table table-bordered" style="text-align: left;">
+  <tbody>
+    <tr>
+      <td style="width: 25%;"><strong>Target Database Tables</strong></td>
+      <td><code>INV_BALANCE</code>, <code>INV_TRANSACTION_LOG</code>, <code>LOCATION_MASTER</code>, <code>TASK_QUEUE</code></td>
+    </tr>
+    <tr>
+      <td><strong>State Transition Flow</strong></td>
+      <td><code>Quantity Planned (QP)</code> &rarr; <code>Quantity on Hand (QOH)</code>. Confirmation scan decrements inbound staging buffer balance and increments rack slot balance inside a single atomic ACID transaction.</td>
+    </tr>
+    <tr>
+      <td><strong>Concurrency Guardrail</strong></td>
+      <td>Row-level optimistic locking via record version timestamps (<code>ROW_VERSION_ID</code>) to prevent concurrent forklift operators from updating intersecting slots simultaneously.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h3>(7) References &amp; Traceability</h3>
+
+<h4>(7.1) Upstream Business Requirements</h4>
+<table class="table table-bordered" style="text-align: left;">
+  <tbody>
+    <tr><td><strong>Originating Initiative</strong></td><td>Enterprise WMS Modernization &amp; Edge Optimization</td></tr>
+    <tr><td><strong>Operational Sponsor</strong></td><td>National Logistics &amp; Distribution Operations Council</td></tr>
+    <tr><td><strong>Regulatory Anchor</strong></td><td>FDA FSMA Section 204 Traceability (KDE/CTE Compliance Standards)</td></tr>
+    <tr><td><strong>Traceability Jira Epic</strong></td><td><code>[WMS-EPIC-8800] Frontline Edge Barcode &amp; Scanning Modernization</code></td></tr>
+  </tbody>
+</table>
+
+<h4>(7.2) Engineering &amp; Architecture Notes</h4>
+<table class="table table-bordered" style="text-align: left;">
+  <tbody>
+    <tr><td><strong>Architectural Blueprint</strong></td><td>Enterprise WMS Event-Driven Edge Architecture Specification v4.2</td></tr>
+    <tr><td><strong>API Interface Contract</strong></td><td>OpenAPI 3.1 Spec &mdash; <code>/api/v2/inventory/movement/atomic-confirm</code></td></tr>
+    <tr><td><strong>Observability Monitoring</strong></td><td>Datadog APM Dashboard: <code>[WMS-PROD-MOBILE-LATENCY]</code> &mdash; SLI Alert Target: &lt;200ms at p95</td></tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h3>(8) Definition of Done (DoD)</h3>
+<table class="table table-bordered" style="text-align: left;">
+  <tbody>
+    <tr>
+      <td>
+        <ul style="margin-bottom: 0; line-height: 1.8;">
+          <li>[ ] Functional specification reviewed, groomed, and signed off by Product Owner, Technical Lead, and QE Lead.</li>
+          <li>[ ] Gherkin scenarios implemented into automated Cucumber/Appium mobile testing frameworks.</li>
+          <li>[ ] Field validation masks and check-digit logic verified via unit tests with 100% boundary value coverage.</li>
+          <li>[ ] Physical device testing completed on target form factors across varying temperature profiles (Ambient, Cooler, Freezer).</li>
+          <li>[ ] Store-and-forward offline queuing verified under simulated 100% Wi-Fi packet drop / airplane mode toggle.</li>
+          <li>[ ] UI verified against high-contrast, dark-mode accessibility guidelines with gloves on physical terminals.</li>
+          <li>[ ] User Acceptance Testing (UAT) completed and formal sign-off received from Facility Operations Lead.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- Link to WMS Architecture Whitepaper -->
-<div style="text-align: center; margin: 25px auto 20px; width: 100%;">
+<div style="text-align: center; margin: 35px auto 20px; width: 100%;">
   <a href="warehouse.html" class="btn btn-lg" style="
     background-color: #18bc9c;
     border-color: #18bc9c;
@@ -304,27 +396,3 @@ category: Business Analysis & Functional Design
     <i class="fa-solid fa-warehouse" style="margin-right: 8px;"></i>Explore Full WMS Architecture
   </a>
 </div>
-
-```json
-{
-  "transaction_id": "tx_99824_fa48d2",
-  "client_timestamp_utc": "2026-09-12T14:32:01.204Z",
-  "facility_node": "DC-04",
-  "operator_id": "EMP-8841",
-  "device_telemetry": {
-    "device_serial": "ZBR-MC93-84920",
-    "battery_pct": 84,
-    "thermal_sensor_celsius": -18.2,
-    "wifi_rssi_dbm": -68
-  },
-  "movement_payload": {
-    "source_lpn": "001085001234567890",
-    "item_gtin": "10850012345678",
-    "lot_code": "BATCH-9921A",
-    "target_location": "FA48D2",
-    "check_digit_verified": "84",
-    "quantity_moved": 45,
-    "uom": "CASE",
-    "catchweight_kg": 45.25
-  }
-}
