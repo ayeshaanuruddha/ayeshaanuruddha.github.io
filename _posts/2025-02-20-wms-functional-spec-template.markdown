@@ -50,15 +50,24 @@ category: Business Analysis & Functional Design
   <tbody>
     <tr>
       <td style="width: 25%;"><strong>Elicitation Source</strong></td>
-      <td>[Floor Time-Motion Study / UAT Incident Log / Shift Supervisor Incident Report / Stakeholder Workshop]</td>
+      <td>
+        • Floor Time-Motion Study<br>
+        • UAT Incident Log<br>
+        • Shift Supervisor Incident Report <br>
+        • Stakeholder Workshop
+      </td>
     </tr>
     <tr>
       <td><strong>Current State</strong></td>
-      <td>[Describe current operational failure: e.g., Operators manually keying 8-digit slot numbers due to unreadable barcodes, causing a 4.2% inventory discrepancy rate and frequent vehicle congestion at pick faces.]</td>
+      <td>Operators manually keying 8-digit slot numbers due to unreadable barcodes, causing <br>
+       • a 4.2% inventory discrepancy rate<br>
+       • severe vehicle dwell-time congestion along active pick-face corridors<br>
+       • inflates task cycle times—directly penalizing selector performance metrics under Engineered Labor Standards (ELS) and skewing shift-based incentive pay. <br>
+      </td>
     </tr>
     <tr>
       <td><strong>Target State</strong></td>
-      <td>[Quantified target: e.g., Transition to single-scan 2D Data Matrix parsing with automated check-digit validation, reducing scan-to-prompt latency below 200ms and cutting manual keying errors to 0%.]</td>
+      <td>Enable instant 2D barcode scanning with automated shelf-code verification, cutting screen loading delays and reducing manual location entry errors to zero.</td>
     </tr>
   </tbody>
 </table>
@@ -72,7 +81,7 @@ category: Business Analysis & Functional Design
   <li><strong>Network State:</strong> Device authenticated on warehouse WLAN (WPA3-Enterprise) or functioning in store-and-forward offline buffer mode.</li>
   <li><strong>Hardware Peripherals:</strong> Integrated SE4750/SE4850 long-range imager or Bluetooth ring scanner paired and calibrated.</li>
   <li><strong>User Context:</strong> Operator actively logged in, assigned to target facility node, with equipment profile validated (e.g., freezer-rated lift).</li>
-  <li><strong>Inventory State:</strong> Target License Plate Number (LPN) or location resides in valid prerequisite lifecycle state (e.g., <code>Quantity Planned [QP]</code> or <code>Quantity on Hand [QOH]</code>).</li>
+  <li><strong>Inventory State:</strong> Target License Plate Number (LPN) or location resides in valid prerequisite lifecycle state (e.g., <code>Quantity Planned/ Expected </code> or <code>Quantity on Hand/ Available </code> or <code>Quantity/ Stock Allocated </code>).</li>
 </ul>
 
 <h4>(2.2) Common Acceptance Criteria</h4>
