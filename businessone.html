@@ -1,0 +1,791 @@
+---
+layout: page
+title: Retail POS to Cloud ERP Integration & Financial Reconciliation
+permalink: /businessone.html
+---
+
+<style>
+/* 1. Hide the theme's global navbar and hero header */
+nav,
+.navbar,
+#mainNav,
+header {
+  display: none !important;
+}
+
+/* 2. Remove top padding so content begins flush at viewport top */
+body {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* 3. Smooth scrolling and anchor offset */
+html {
+  scroll-behavior: smooth;
+}
+[id] {
+  scroll-margin-top: 70px;
+}
+
+/* 4. Sticky pill navigation bar */
+.wms-nav-wrapper {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0 !important;
+  z-index: 1020;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #eae8f4;
+  padding: 10px 0;
+  box-shadow: 0 2px 8px rgba(25, 113, 179, 0.05);
+}
+
+.wms-nav-container {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 8px;
+  padding: 0 15px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.wms-nav-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Low-Shade State (Inactive) */
+.wms-pill {
+  display: inline-block;
+  font-size: 0.82em;
+  font-weight: 500;
+  color: #64748b;
+  background: #f8f7fc;
+  border: 1px solid #eae8f4;
+  padding: 6px 14px;
+  border-radius: 20px;
+  text-decoration: none !important;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+.wms-pill:hover {
+  color: #1971b3;
+  background: #eae8f4;
+}
+
+/* High-Shade State (Active Viewport) */
+.wms-pill.active {
+  color: #ffffff !important;
+  background: #1971b3;
+  border-color: #1971b3;
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(25, 113, 179, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Responsive Grid Containers */
+.blueprint-fin-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.blueprint-recon-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+.state-box-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .blueprint-fin-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .blueprint-recon-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+</style>
+
+<!-- Sticky Navigation Pill Bar -->
+<div id="wms-sticky-nav" class="wms-nav-wrapper">
+  <div class="container-fluid" style="max-width: 1100px;">
+    <div class="wms-nav-container">
+      <a href="#settlement-topology" class="wms-pill active">1. Settlement Topology</a>
+      <a href="#data-mapping" class="wms-pill">2. Anatomy & Data Mapping</a>
+      <a href="#state-engine" class="wms-pill">3. State Machine Engine</a>
+      <a href="#edge-cases" class="wms-pill">4. Financial Edge Case Matrix</a>
+      <a href="#reconciliation" class="wms-pill">5. 3-Way Reconciliation</a>
+      <a href="#macro-architecture" class="wms-pill">6. Macro Financial Layer</a>
+    </div>
+  </div>
+</div>
+
+<section style="padding: 40px 0 60px;">
+  <div class="container" style="max-width: 950px;">
+
+    <!-- Main Page Title & Subtitle -->
+    <div style="margin-bottom: 35px; text-align: left;">
+      <h1 style="font-size: 2.4em; font-weight: 800; color: #1e293b; margin-top: 10px; margin-bottom: 12px; line-height: 1.2;">
+        Behind the Tap: <span style="font-style: italic; font-weight: 400; color: #f04675;">What Happens When You Buy a Chocolate Bar?</span>
+      </h1>
+      <p style="font-size: 1.2em; color: #475569; line-height: 1.6; margin: 0;">
+        How a 2-second in-store card tap converts into JSON webhook payloads, balanced double-entry journals, and automated bank reconciliation.
+      </p>
+
+      <!-- Document Status Property -->
+      <table style="font-size: 0.85em; border-collapse: collapse; margin-top: 8px;">
+        <tr>
+          <td style="padding-right: 12px; color: #334155;"><strong>Page status</strong></td>
+          <td><code style="background-color: #fdf2f8; color: #c82255; border: 1px solid #fbcfe8; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.9em;">READY TO VIEW</code></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Introduction / Executive Summary Card -->
+    <div style="background-color: #fbf9fc; border-left: 5px solid #f04675; padding: 24px; border-radius: 6px; box-shadow: 0 2px 8px rgba(240, 70, 117, 0.06); margin-bottom: 50px;">
+      <h4 style="margin-top: 0; color: #1e293b; font-weight: 700;">
+        <i class="fa-solid fa-bolt" style="color: #f04675; margin-right: 8px;"></i>EXECUTIVE SUMMARY
+      </h4>
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; margin-bottom: 12px; text-align: justify;">
+        To a retail consumer, tapping a credit card to buy a <strong>$5.00 premium chocolate bar</strong> is a frictionless two-second interaction. To a Technical Business Analyst, it triggers a multi-system financial lifecycle: capturing EMV contactless payloads at the lane, streaming real-time webhooks, unbundling merchant processing fees, posting balanced double-entry accounting journals into an ERP, and executing automated daily bank reconciliation.
+      </p>
+      <ul style="font-size: 0.95em; line-height: 1.6; color: #475569; margin-bottom: 0; text-align: justify;">
+        <li><strong>Role Demonstrated:</strong> Financial Systems Business Analyst bridging frontline retail POS edge devices with cloud ERP ledger architectures.</li>
+        <li><strong>Domain Competencies:</strong> Double-entry bookkeeping, REST API data contracts, idempotency controls, event-driven state engines, and automated clearing reconciliation.</li>
+      </ul>
+    </div>
+
+    <!-- Section 1: Settlement Topology -->
+    <div id="settlement-topology" style="margin-bottom: 60px;">
+      <table style="font-size: 0.85em; border-collapse: collapse; margin-top: 8px;">
+        <tr>
+          <td style="padding-right: 12px; color: #334155;"><strong>Section status</strong></td>
+          <td><code style="background-color: #f0f9ff; color: #1971b3; border: 1px solid #bae6fd; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.9em;">READY TO VIEW</code></td>
+        </tr>
+      </table>
+
+      <h3 style="border-bottom: 2px solid #f04675; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        1. Settlement Topology: The 4-Tier Payment Ecosystem
+      </h3>
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
+        Money from a card swipe does not instantly arrive in a company's bank account. Instead, it flows through four decoupled technical layers—Point of Sale, Payment Gateway, Middleware Integration Broker, and Enterprise ERP—each maintaining separate operational states, timing windows, and database consistency boundaries.
+      </p>
+
+      <!-- Financial Architecture Blueprint Schematic -->
+      <div style="background: #0f172a; color: #f8fafc; border-radius: 8px; padding: 20px; margin: 25px 0; box-shadow: 0 4px 14px rgba(0,0,0,0.2); border: 1px solid #1e293b; max-width: 100%; box-sizing: border-box; overflow: hidden;">
+        
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 12px; margin-bottom: 18px; gap: 10px;">
+          <div>
+            <span style="font-size: 0.75em; text-transform: uppercase; letter-spacing: 1.5px; color: #22a6e0; font-weight: 700;">
+              System Architecture & Data Boundary
+            </span>
+            <h5 style="margin: 4px 0 0; color: #ffffff; font-weight: 700; font-size: 1.15em;">
+              Retail POS-to-Ledger Integration Topology
+            </h5>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.75em;">
+            <span><span style="display: inline-block; width: 10px; height: 10px; background: #1971b3; border-radius: 2px; margin-right: 4px;"></span>Edge POS</span>
+            <span><span style="display: inline-block; width: 10px; height: 10px; background: #22a6e0; border-radius: 2px; margin-right: 4px;"></span>Gateway</span>
+            <span><span style="display: inline-block; width: 10px; height: 10px; background: #ef70a6; border-radius: 2px; margin-right: 4px;"></span>iPaaS / Queue</span>
+            <span><span style="display: inline-block; width: 10px; height: 10px; background: #c82255; border-radius: 2px; margin-right: 4px;"></span>ERP Ledger</span>
+          </div>
+        </div>
+
+        <!-- Main Topology Container -->
+        <div style="border: 2px dashed #334155; border-radius: 6px; padding: 12px; background: #0b1120;">
+          <div class="blueprint-fin-grid">
+            
+            <!-- Edge POS Tier (Deep Blue) -->
+            <div style="background: rgba(25, 113, 179, 0.12); border: 1px solid #1971b3; border-radius: 6px; padding: 12px;">
+              <div style="font-size: 0.8em; font-weight: 700; color: #9ecded; margin-bottom: 6px; text-transform: uppercase;">
+                <i class="fa-solid fa-cash-register" style="margin-right: 5px;"></i>1. Lane POS
+              </div>
+              <div style="font-size: 0.72em; color: #94a3b8; margin-bottom: 10px;">Offline Storage &bull; EMV Reader</div>
+              <div style="background: #1971b3; border-radius: 3px; padding: 8px; font-size: 0.72em; color: #f8fafc; text-align: center;">
+                Cart: Chocolate ($5.00)<br>+ 8% Tax ($0.40)
+              </div>
+              <div style="margin-top: 8px; font-size: 0.68em; color: #9ecded; text-align: center;">Total Swiped: $5.40</div>
+            </div>
+
+            <!-- Gateway Tier (Cyan Blue) -->
+            <div style="background: rgba(34, 166, 224, 0.12); border: 1px solid #22a6e0; border-radius: 6px; padding: 12px;">
+              <div style="font-size: 0.8em; font-weight: 700; color: #22a6e0; margin-bottom: 6px; text-transform: uppercase;">
+                <i class="fa-solid fa-network-wired" style="margin-right: 5px;"></i>2. Card Gateway
+              </div>
+              <div style="font-size: 0.72em; color: #94a3b8; margin-bottom: 10px;">Auth & Capture &bull; Webhooks</div>
+              <div style="background: #0284c7; border-radius: 3px; padding: 8px; font-size: 0.72em; color: #f8fafc; text-align: center;">
+                Gross Charge: $5.40<br>Fee Withheld: $0.24
+              </div>
+              <div style="margin-top: 8px; font-size: 0.68em; color: #bae6fd; text-align: center;">Net Payout: $5.16</div>
+            </div>
+
+            <!-- Middleware Ingestion Tier (Rose Pink) -->
+            <div style="background: rgba(239, 112, 166, 0.12); border: 1px solid #ef70a6; border-radius: 6px; padding: 12px;">
+              <div style="font-size: 0.8em; font-weight: 700; color: #f472b6; margin-bottom: 6px; text-transform: uppercase;">
+                <i class="fa-solid fa-shuffle" style="margin-right: 5px;"></i>3. Event Broker
+              </div>
+              <div style="font-size: 0.72em; color: #94a3b8; margin-bottom: 10px;">Idempotency &bull; DLQ &bull; Mapping</div>
+              <div style="background: #be185d; border-radius: 3px; padding: 8px; font-size: 0.72em; color: #fdf2f8; text-align: center;">
+                Atomic Balance Check<br>&Sigma; Debit == &Sigma; Credit
+              </div>
+              <div style="margin-top: 8px; font-size: 0.68em; color: #fbcfe8; text-align: center;">Zero Payload Loss</div>
+            </div>
+
+            <!-- ERP General Ledger Tier (Deep Berry) -->
+            <div style="background: rgba(200, 34, 85, 0.12); border: 1px solid #c82255; border-radius: 6px; padding: 12px;">
+              <div style="font-size: 0.8em; font-weight: 700; color: #fb7185; margin-bottom: 6px; text-transform: uppercase;">
+                <i class="fa-solid fa-book" style="margin-right: 5px;"></i>4. Cloud ERP
+              </div>
+              <div style="font-size: 0.72em; color: #94a3b8; margin-bottom: 10px;">General Ledger &bull; NetSuite/SAP</div>
+              <div style="background: #9f1239; border-radius: 3px; padding: 8px; font-size: 0.72em; color: #fff1f2; text-align: center;">
+                Posted Journal Entry<br>Status: UNRECONCILED
+              </div>
+              <div style="margin-top: 8px; font-size: 0.68em; color: #fecdd3; text-align: center;">Audit Trail Logged</div>
+            </div>
+
+          </div>
+
+          <!-- Transit Corridor Indicator -->
+          <div style="background: #1e293b; border: 1px solid #475569; border-radius: 4px; padding: 8px 12px; text-align: center; font-size: 0.75em; font-weight: 600; color: #94a3b8;">
+            <span style="color: #22a6e0;">◀ REAL-TIME HTTPS WEBHOOK DISPATCH (T+0) &bull; ASYNCHRONOUS TREASURY BANK SETTLEMENT (T+2) ▶</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 14px; font-size: 0.8em; color: #94a3b8; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+          <span><i class="fa-solid fa-shield-check" style="color: #22a6e0; margin-right: 6px;"></i><strong>Integrity Contract:</strong> No edge device connects directly to the General Ledger; payloads pass through an idempotent validation queue.</span>
+          <span style="color: #64748b; font-family: monospace;">Payload Standard: JSON REST v2.4</span>
+        </div>
+      </div>
+
+      <!-- BA Translation Card -->
+      <div style="background: #ffffff; border: 1px solid #eae8f4; border-left: 4px solid #1971b3; border-radius: 6px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); margin-top: 25px;">
+        <div style="font-weight: 700; color: #1971b3; font-size: 0.95em; margin-bottom: 6px;">
+          <i class="fa-solid fa-network-wired" style="margin-right: 6px;"></i>The BA Translation: Why Edge Devices Must Never Post Directly to an ERP
+        </div>
+        <p style="font-size: 0.9em; line-height: 1.6; color: #475569; margin-bottom: 0; text-align: justify;">
+          Allowing retail POS terminals to directly call ERP accounting APIs creates catastrophic risk: network drops leave journals half-posted, edge devices expose company-wide ERP database credentials, and retail terminal retry storms can overwhelm enterprise ledger systems. The Technical BA designs an asynchronous, decoupled event-driven buffer layer that queues, deduplicates, and sanitizes transactional payloads before writing to the General Ledger.
+        </p>
+      </div>
+    </div>
+
+    <!-- Section 2: Anatomy & Data Mapping -->
+    <div id="data-mapping" style="margin-bottom: 60px;">
+      <table style="font-size: 0.85em; border-collapse: collapse; margin-top: 8px;">
+        <tr>
+          <td style="padding-right: 12px; color: #334155;"><strong>Section status</strong></td>
+          <td><code style="background-color: #f0f9ff; color: #1971b3; border: 1px solid #bae6fd; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.9em;">READY TO VIEW</code></td>
+        </tr>
+      </table>
+
+      <h3 style="border-bottom: 2px solid #f04675; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        2. Transaction Anatomy & Source-to-Target Data Mapping
+      </h3>
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
+        To design integration software, the BA must deconstruct the financial anatomy of a purchase. When a customer buys a single artisan dark chocolate bar, the transaction decomposes into revenue, sales tax liabilities, and variable merchant gateway fees.
+      </p>
+
+      <!-- Numerical Decomposition Box -->
+      <div style="background: #0f172a; color: #f8fafc; border-radius: 8px; padding: 22px; margin: 25px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+        <div style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 1.5px; color: #22a6e0; font-weight: 700; margin-bottom: 12px;">
+          Single Item Transaction Deconstruction: Premium Chocolate Bar
+        </div>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-family: 'Courier New', Courier, monospace; font-size: 1.15em; font-weight: 700;">
+          <span style="background: #1971b3; padding: 6px 12px; border-radius: 4px;" title="Base Item Price">$5.00 Price</span>
+          <span style="color: #64748b;">+</span>
+          <span style="background: #22a6e0; padding: 6px 12px; border-radius: 4px;" title="8% Sales Tax">$0.40 Tax</span>
+          <span style="color: #64748b;">=</span>
+          <span style="background: #c82255; padding: 6px 12px; border-radius: 4px;" title="Total Swiped on Card">$5.40 Card Swipe</span>
+          <span style="color: #64748b;">&rarr;</span>
+          <span style="background: #ef70a6; padding: 6px 12px; border-radius: 4px;" title="Fee: 2.6% + $0.10">$0.24 Fee</span>
+          <span style="color: #64748b;">+</span>
+          <span style="background: #1971b3; padding: 6px 12px; border-radius: 4px;" title="Net Cash Deposited">$5.16 Net Bank Payout</span>
+        </div>
+
+        <div style="margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; font-size: 0.8em; color: #cbd5e1;">
+          <div><strong style="color: #22a6e0;">SKU:</strong> CHOC-DARK-85</div>
+          <div><strong style="color: #9ecded;">Tax Rate:</strong> 8.00% Local Rate</div>
+          <div><strong style="color: #ef70a6;">Interchange Model:</strong> Blended 2.6% + $0.10</div>
+          <div><strong style="color: #f04675;">Net Realized Margin:</strong> 95.5% of Gross</div>
+        </div>
+      </div>
+
+      <!-- Double Entry Accounting Breakdown Table -->
+      <h4 style="color: #1971b3; font-weight: 700; font-size: 1.15em; margin-top: 30px;">
+        Double-Entry General Ledger Translation
+      </h4>
+      <p style="font-size: 1em; line-height: 1.7; color: #475569; text-align: justify;">
+        An enterprise ERP strictly enforces the fundamental equation of accounting: <strong>Debits must equal Credits</strong>. The Business Analyst translates the inbound transaction into an atomic journal entry:
+      </p>
+
+      <div class="table-responsive" style="margin: 20px 0;">
+        <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
+          <thead style="background: #f8f7fc; color: #1e293b;">
+            <tr>
+              <th style="width: 28%;">Account Name & Number</th>
+              <th style="width: 18%;">Account Type</th>
+              <th style="width: 14%;">Debit ($)</th>
+              <th style="width: 14%;">Credit ($)</th>
+              <th style="width: 26%;">Operational Meaning</th>
+            </tr>
+          </thead>
+          <tbody style="color: #334155;">
+            <tr>
+              <td style="font-weight: 700; background: #fbf9fc;">1050 - Merchant Settlement Clearing</td>
+              <td>Current Asset</td>
+              <td style="font-family: monospace; font-weight: 700; color: #1971b3;">$5.16</td>
+              <td>-</td>
+              <td>Funds owed by card processor, clearing into corporate bank in T+2 days.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #fbf9fc;">6200 - Payment Processing Fees</td>
+              <td>Operating Expense</td>
+              <td style="font-family: monospace; font-weight: 700; color: #f04675;">$0.24</td>
+              <td>-</td>
+              <td>Non-negotiable interchange/gateway fee recognized immediately.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #fbf9fc;">4100 - Retail Merchandise Sales</td>
+              <td>Income / Revenue</td>
+              <td>-</td>
+              <td style="font-family: monospace; font-weight: 700; color: #1971b3;">$5.00</td>
+              <td>Earned revenue recognized upon physical transfer of goods.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #fbf9fc;">2200 - Sales Tax Payable</td>
+              <td>Current Liability</td>
+              <td>-</td>
+              <td style="font-family: monospace; font-weight: 700; color: #c82255;">$0.40</td>
+              <td>Statutory tax collected from consumer, held on behalf of tax authorities.</td>
+            </tr>
+            <tr style="background: #f8f7fc; font-weight: 800;">
+              <td colspan="2" style="text-align: right;">TOTAL BALANCED CHECK:</td>
+              <td style="font-family: monospace; color: #1971b3;">$5.40</td>
+              <td style="font-family: monospace; color: #c82255;">$5.40</td>
+              <td style="color: #c82255;"><i class="fa-solid fa-circle-check"></i> Balanced (&Delta; = $0.00)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Source to Target Data Mapping Table -->
+      <h4 style="color: #1971b3; font-weight: 700; font-size: 1.15em; margin-top: 35px;">
+        Source-to-Target Data Mapping Specification
+      </h4>
+      <div class="table-responsive" style="margin: 20px 0;">
+        <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
+          <thead style="background: #f8f7fc; color: #1e293b;">
+            <tr>
+              <th style="width: 25%;">Source Ingress Field (JSON)</th>
+              <th style="width: 15%;">Sample Value</th>
+              <th style="width: 25%;">Target ERP Field</th>
+              <th style="width: 35%;">Transformation Logic & BA Rules</th>
+            </tr>
+          </thead>
+          <tbody style="color: #334155;">
+            <tr>
+              <td><code>payload.transaction_id</code></td>
+              <td><code>"txn_choc_98124"</code></td>
+              <td><code>Journal.External_ID</code></td>
+              <td>Enforces idempotency. Reject duplicate calls containing this existing key.</td>
+            </tr>
+            <tr>
+              <td><code>payload.store_id</code></td>
+              <td><code>"STORE-COLOMBO-01"</code></td>
+              <td><code>Journal.Cost_Center</code></td>
+              <td>Maps transaction line items to the regional store segment.</td>
+            </tr>
+            <tr>
+              <td><code>payload.line_items[0].subtotal</code></td>
+              <td><code>5.00</code></td>
+              <td><code>GL_4100.Credit</code></td>
+              <td>Gross price excluding tax. Extracted directly to merchandise revenue.</td>
+            </tr>
+            <tr>
+              <td><code>payload.tax_breakdown.total</code></td>
+              <td><code>0.40</code></td>
+              <td><code>GL_2200.Credit</code></td>
+              <td>Aggregated sales tax liability across all cart line items.</td>
+            </tr>
+            <tr>
+              <td><code>payload.fee_breakdown.amount</code></td>
+              <td><code>0.24</code></td>
+              <td><code>GL_6200.Debit</code></td>
+              <td>Parsed from gateway webhook to record operational fee at point of sale.</td>
+            </tr>
+            <tr>
+              <td><code>payload.net_settlement</code></td>
+              <td><code>5.16</code></td>
+              <td><code>GL_1050.Debit</code></td>
+              <td>Calculated: <code>gross_amount - fee_breakdown.amount</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section 3: State Machine Engine -->
+    <div id="state-engine" style="margin-bottom: 60px;">
+      <table style="font-size: 0.85em; border-collapse: collapse; margin-top: 8px;">
+        <tr>
+          <td style="padding-right: 12px; color: #334155;"><strong>Section status</strong></td>
+          <td><code style="background-color: #f0f9ff; color: #1971b3; border: 1px solid #bae6fd; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.9em;">READY TO VIEW</code></td>
+        </tr>
+      </table>
+
+      <h3 style="border-bottom: 2px solid #f04675; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        3. Transaction State Machine & Lifecycle Engine
+      </h3>
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
+        An enterprise financial integration must guarantee transactional non-repudiation: transactions cannot simply vanish, and failure at any stage must branch into a deterministic resolution path.
+      </p>
+
+      <!-- State Transition Visual Boxes (Gradient Flow) -->
+      <div style="background: #0f172a; color: #f8fafc; border-radius: 8px; padding: 22px; margin: 25px 0; border: 1px solid #1e293b;">
+        <div style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 1.5px; color: #22a6e0; font-weight: 700; margin-bottom: 15px;">
+          Primary Lifecycle State Progression
+        </div>
+
+        <div class="state-box-grid">
+          
+          <div style="background: #1e293b; border-top: 3px solid #1971b3; padding: 12px; border-radius: 4px;">
+            <div style="font-size: 0.75em; color: #9ecded; font-weight: 700;">STAGE 1</div>
+            <div style="font-weight: 700; font-size: 0.92em; color: #ffffff;">PENDING_SYNC</div>
+            <div style="font-size: 0.7em; color: #94a3b8; margin-top: 4px;">Card tapped at terminal; EMV token captured locally.</div>
+          </div>
+
+          <div style="background: #1e293b; border-top: 3px solid #22a6e0; padding: 12px; border-radius: 4px;">
+            <div style="font-size: 0.75em; color: #22a6e0; font-weight: 700;">STAGE 2</div>
+            <div style="font-weight: 700; font-size: 0.92em; color: #ffffff;">QUEUED</div>
+            <div style="font-size: 0.7em; color: #94a3b8; margin-top: 4px;">Gateway webhook received; stored in idempotent message broker.</div>
+          </div>
+
+          <div style="background: #1e293b; border-top: 3px solid #9ecded; padding: 12px; border-radius: 4px;">
+            <div style="font-size: 0.75em; color: #9ecded; font-weight: 700;">STAGE 3</div>
+            <div style="font-weight: 700; font-size: 0.92em; color: #ffffff;">VALIDATED</div>
+            <div style="font-size: 0.7em; color: #94a3b8; margin-top: 4px;">Balance check passed: &Sigma;Debits - &Sigma;Credits == 0.00.</div>
+          </div>
+
+          <div style="background: #1e293b; border-top: 3px solid #ef70a6; padding: 12px; border-radius: 4px;">
+            <div style="font-size: 0.75em; color: #f472b6; font-weight: 700;">STAGE 4</div>
+            <div style="font-weight: 700; font-size: 0.92em; color: #ffffff;">ERP_POSTED</div>
+            <div style="font-size: 0.7em; color: #94a3b8; margin-top: 4px;">Journal entry created in General Ledger with unique ERP Doc ID.</div>
+          </div>
+
+          <div style="background: #1e293b; border-top: 3px solid #c82255; padding: 12px; border-radius: 4px;">
+            <div style="font-size: 0.75em; color: #fb7185; font-weight: 700;">STAGE 5</div>
+            <div style="font-weight: 700; font-size: 0.92em; color: #ffffff;">RECONCILED</div>
+            <div style="font-size: 0.7em; color: #94a3b8; margin-top: 4px;">Bank deposit matched 1:1 against merchant clearing payout batch.</div>
+          </div>
+
+        </div>
+
+        <!-- Exception Routing Callouts -->
+        <div style="margin-top: 20px; border-top: 1px solid #334155; padding-top: 14px;">
+          <div style="font-size: 0.75em; text-transform: uppercase; color: #f04675; font-weight: 700; margin-bottom: 8px;">
+            <i class="fa-solid fa-triangle-exclamation" style="margin-right: 5px;"></i>Exception Handling Branches
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; font-size: 0.78em; color: #cbd5e1;">
+            <div>&bull; <strong style="color: #f04675;">PAYLOAD_ERROR (DLQ):</strong> Unbalanced cents or corrupt JSON routed to Dead-Letter Queue.</div>
+            <div>&bull; <strong style="color: #22a6e0;">NETWORK_TIMEOUT:</strong> Transient ERP 5xx errors enter exponential backoff retry.</div>
+            <div>&bull; <strong style="color: #c82255;">POSTING_REJECTED:</strong> Inactive cost centers trigger instant Finance ticket notifications.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Edge Cases -->
+    <div id="edge-cases" style="margin-bottom: 60px;">
+      <table style="font-size: 0.85em; border-collapse: collapse; margin-top: 8px;">
+        <tr>
+          <td style="padding-right: 12px; color: #334155;"><strong>Section status</strong></td>
+          <td><code style="background-color: #f0f9ff; color: #1971b3; border: 1px solid #bae6fd; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.9em;">READY TO VIEW</code></td>
+        </tr>
+      </table>
+
+      <h3 style="border-bottom: 2px solid #f04675; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        4. Financial Edge Case & Error-Handling Matrix
+      </h3>
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
+        Happy-path transactions are simple. Enterprise BA competence is proven by anticipating real-world failure states: gateway retry storms, rounding anomalies, closed accounting periods, and unannounced bank dispute clawbacks.
+      </p>
+
+      <div class="table-responsive" style="margin: 25px 0;">
+        <table class="table table-bordered" style="font-size: 0.88em; background: #ffffff;">
+          <thead style="background: #f8f7fc; color: #1e293b;">
+            <tr>
+              <th style="width: 18%;">Edge Case Scenario</th>
+              <th style="width: 22%;">Root Trigger Condition</th>
+              <th style="width: 25%;">Financial & Accounting Risk</th>
+              <th style="width: 35%;">BA Business Rule & System Specification</th>
+            </tr>
+          </thead>
+          <tbody style="color: #334155;">
+            <tr>
+              <td style="font-weight: 700; background: #fbf9fc;">1. Duplicate Webhook (Retry Storm)</td>
+              <td>Network latency causes the payment processor to resend payment confirmation 3 times.</td>
+              <td>Revenue and sales tax liabilities are duplicated, distorting profitability and overpaying tax.</td>
+              <td><strong>Idempotency Rule:</strong> Middleware caches <code>transaction_id</code> in Redis. If duplicate received, acknowledge with HTTP 200 OK and suppress downstream ERP posting.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #fbf9fc;">2. Sub-Cent Rounding Variance</td>
+              <td>Multi-item basket tax calculation leaves a $0.01 imbalance between Debits and Credits.</td>
+              <td>ERP strictly rejects the journal entry outright, halting automated batch sync queues.</td>
+              <td><strong>Penny-Rounding Rule:</strong> If variance |&Delta;| == $0.01, auto-inject an adjustment line to GL <code>8990 - Cash Over/Short (Rounding Variance)</code> to balance the entry.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #fbf9fc;">3. Closed Accounting Period</td>
+              <td>An offline store terminal syncs transactions from the 28th after month-end books are closed.</td>
+              <td>Writing to a closed period violates statutory compliance; ERP rejects write requests.</td>
+              <td><strong>Period Lock Rule:</strong> Intercept <code>PERIOD_LOCKED</code> error. Update Journal Effective Date to 1st of current open month while logging device timestamp in audit memo.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #fbf9fc;">4. Partial Return with Non-Refundable Fee</td>
+              <td>Customer returns chocolate; merchant issues full refund, but processor retains original fee.</td>
+              <td>Flat journal reversal understates processing expenses and creates phantom clearing balances.</td>
+              <td><strong>Credit Memo Rule:</strong> Reverse merchandise revenue and tax liabilities proportionally. Retain original $0.24 fee in Expense GL 6200.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #fbf9fc;">5. Customer Chargeback Dispute</td>
+              <td>Cardholder reports fraud 30 days later; bank claws back $5.40 plus a $15.00 dispute fine.</td>
+              <td>Treasury bank account is debited without corresponding General Ledger records.</td>
+              <td><strong>Dispute Escrow Rule:</strong> Webhook <code>chargeback.opened</code> debits GL <code>1060 - Dispute Escrow</code> ($5.40) and GL <code>6210 - Dispute Fees</code> ($15.00), crediting Clearing 1050.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #fbf9fc;">6. Out-of-Order Offline Uploads</td>
+              <td>Store network outage from 2:00 PM to 6:00 PM; offline sales uploaded after evening sales.</td>
+              <td>Sales cutoff timing is distorted, compromising daily revenue recognition accuracy.</td>
+              <td><strong>Deterministic Ordering Rule:</strong> Ingestion worker sorts payloads by POS hardware timestamp (UTC) rather than server ingress time prior to ERP posting.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section 5: Reconciliation -->
+    <div id="reconciliation" style="margin-bottom: 60px;">
+      <table style="font-size: 0.85em; border-collapse: collapse; margin-top: 8px;">
+        <tr>
+          <td style="padding-right: 12px; color: #334155;"><strong>Section status</strong></td>
+          <td><code style="background-color: #f0f9ff; color: #1971b3; border: 1px solid #bae6fd; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.9em;">READY TO VIEW</code></td>
+        </tr>
+      </table>
+
+      <h3 style="border-bottom: 2px solid #f04675; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        5. Automated 3-Way End-of-Day Reconciliation
+      </h3>
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
+        The true financial test occurs at midnight. An automated cron script executes a 3-way match across physical store register Z-reports, payment gateway batch files, and actual commercial bank statements (BAI2/CAMT.053).
+      </p>
+
+      <!-- 3-Way Reconciliation Formula Box -->
+      <div style="background: #0f172a; color: #f8fafc; border-radius: 8px; padding: 20px; margin: 25px 0; border: 1px solid #1e293b;">
+        <div style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 1.5px; color: #22a6e0; font-weight: 700; margin-bottom: 15px;">
+          The Automated 3-Way Audit Balancing Formula
+        </div>
+
+        <div class="blueprint-recon-grid">
+          
+          <div style="background: #1e293b; border: 1px solid #1971b3; border-radius: 6px; padding: 14px; text-align: center;">
+            <div style="font-size: 0.75em; color: #9ecded; font-weight: 700; text-transform: uppercase;">1. POS Register Gross</div>
+            <div style="font-size: 1.3em; font-family: monospace; font-weight: 700; color: #ffffff; margin: 6px 0;">$10,800.00</div>
+            <div style="font-size: 0.7em; color: #94a3b8;">Sum of 2,000 in-store transactions</div>
+          </div>
+
+          <div style="background: #1e293b; border: 1px solid #22a6e0; border-radius: 6px; padding: 14px; text-align: center;">
+            <div style="font-size: 0.75em; color: #22a6e0; font-weight: 700; text-transform: uppercase;">2. Gateway Net Batch</div>
+            <div style="font-size: 1.3em; font-family: monospace; font-weight: 700; color: #ffffff; margin: 6px 0;">$10,320.00</div>
+            <div style="font-size: 0.7em; color: #94a3b8;">Less $480.00 processing fees</div>
+          </div>
+
+          <div style="background: #1e293b; border: 1px solid #c82255; border-radius: 6px; padding: 14px; text-align: center;">
+            <div style="font-size: 0.75em; color: #fb7185; font-weight: 700; text-transform: uppercase;">3. Bank Deposit Statement</div>
+            <div style="font-size: 1.3em; font-family: monospace; font-weight: 700; color: #ffffff; margin: 6px 0;">$10,320.00</div>
+            <div style="font-size: 0.7em; color: #94a3b8;">Settled in Operating Checking</div>
+          </div>
+
+        </div>
+
+        <div style="margin-top: 15px; background: rgba(200, 34, 85, 0.15); border: 1px solid #c82255; border-radius: 4px; padding: 10px; text-align: center; font-size: 0.85em; color: #fecdd3; font-weight: 600;">
+          <i class="fa-solid fa-check-circle" style="margin-right: 6px; color: #fb7185;"></i>Reconciliation Status: MATCHED &bull; Variance (&Delta;) = $0.00 &bull; Clearing Account 1050 Zeroed Out
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 6: Macro Financial Layer -->
+    <div id="macro-architecture" style="margin-bottom: 60px;">
+      <table style="font-size: 0.85em; border-collapse: collapse; margin-top: 8px;">
+        <tr>
+          <td style="padding-right: 12px; color: #334155;"><strong>Section status</strong></td>
+          <td><code style="background-color: #f0f9ff; color: #1971b3; border: 1px solid #bae6fd; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.9em;">READY TO VIEW</code></td>
+        </tr>
+      </table>
+
+      <h3 style="border-bottom: 2px solid #f04675; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
+        6. Macro Financial Layer: Commercial Impact & Architecture
+      </h3>
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
+        In modern enterprise commerce, software architecture directly dictates financial reporting velocity. Automating the bridge between the point of sale and the General Ledger eliminates manual accounting overhead while ensuring immutable auditability for corporate governance.
+      </p>
+
+      <!-- Architecture Component Cards (Palette Tinted) -->
+      <div style="margin: 35px 0;">
+        
+        <!-- 1. ERP Brain (Deep Berry Accent) -->
+        <div style="background: #ffffff; border: 1px solid #eae8f4; border-left: 5px solid #c82255; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+          <div style="font-weight: 700; color: #b81d4a; font-size: 1.05em; margin-bottom: 6px;">
+            1. Enterprise Cloud ERP <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Financial Governance & Ledger Brain)</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
+            <div>&bull; Chart of Accounts (CoA)</div>
+            <div>&bull; Statutory Sales Tax Liabilities</div>
+            <div>&bull; Real-Time Store P&L Reporting</div>
+            <div>&bull; Closed Period Audit Locking</div>
+          </div>
+        </div>
+
+        <!-- Connector 1 <-> 2 -->
+        <div style="display: flex; justify-content: space-around; padding: 8px 20px; font-size: 0.78em; font-weight: 600; color: #64748b;">
+          <span>&darr; Chart of Accounts / Cost Centers</span>
+          <span>&uarr; Balanced Journal Entries</span>
+        </div>
+
+        <!-- 2. Integration Middleware (Rose Pink Accent) -->
+        <div style="background: #ffffff; border: 1px solid #eae8f4; border-left: 5px solid #f04675; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+          <div style="font-weight: 700; color: #f04675; font-size: 1.05em; margin-bottom: 6px;">
+            2. Event Broker & Transformation Engine <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Middleware Bridge)</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
+            <div>&bull; Idempotency Deduplication (Redis)</div>
+            <div>&bull; Mathematical Validation (&Sigma;Debit == &Sigma;Credit)</div>
+            <div>&bull; Sub-Cent Rounding Injection (GL 8990)</div>
+            <div>&bull; Dead-Letter Queue (DLQ) Triage</div>
+          </div>
+        </div>
+
+        <!-- Connector 2 <-> 3 -->
+        <div style="display: flex; justify-content: space-around; padding: 8px 20px; font-size: 0.78em; font-weight: 600; color: #64748b;">
+          <span>&darr; Auth / Capture Receipts</span>
+          <span>&uarr; Webhook Ingress Events</span>
+        </div>
+
+        <!-- 3. Frontline Payment Capture (Deep Blue Accent) -->
+        <div style="background: #ffffff; border: 1px solid #eae8f4; border-left: 5px solid #1971b3; border-radius: 6px; padding: 18px 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+          <div style="font-weight: 700; color: #1971b3; font-size: 1.05em; margin-bottom: 6px;">
+            3. Frontline POS & Payment Rails <span style="font-size: 0.85em; font-weight: normal; color: #64748b;">(Edge Transaction Execution)</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9em; color: #334155;">
+            <div>&bull; Contactless EMV Card Tap</div>
+            <div>&bull; Store-and-Forward Offline Queuing</div>
+            <div>&bull; Register Z-Report Generation</div>
+            <div>&bull; Sub-second Payment Authorization</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Measurable Business Value Grid -->
+      <h4 style="color: #1971b3; font-weight: 700; font-size: 1.15em; margin-top: 35px;">
+        Quantified Business Value & ROI
+      </h4>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; margin-top: 15px;">
+        
+        <div style="background: #fbf9fc; border: 1px solid #eae8f4; border-left: 4px solid #1971b3; border-radius: 6px; padding: 16px;">
+          <div style="font-size: 1.4em; font-weight: 800; color: #1e293b;">25+ Hours / Mo</div>
+          <div style="font-weight: 700; color: #1971b3; font-size: 0.9em;">Manual Effort Eliminated</div>
+          <p style="font-size: 0.85em; color: #64748b; margin-top: 6px; margin-bottom: 0;">
+            Eliminated manual Excel CSV exports and manual journal posting across regional store locations.
+          </p>
+        </div>
+
+        <div style="background: #fbf9fc; border: 1px solid #eae8f4; border-left: 4px solid #22a6e0; border-radius: 6px; padding: 16px;">
+          <div style="font-size: 1.4em; font-weight: 800; color: #1e293b;">Zero Duplicate Postings</div>
+          <div style="font-weight: 700; color: #0284c7; font-size: 0.9em;">Idempotent Assurance</div>
+          <p style="font-size: 0.85em; color: #64748b; margin-top: 6px; margin-bottom: 0;">
+            External transaction UUID verification suppressed 100% of duplicate webhooks from gateway retry storms.
+          </p>
+        </div>
+
+        <div style="background: #fbf9fc; border: 1px solid #eae8f4; border-left: 4px solid #f04675; border-radius: 6px; padding: 16px;">
+          <div style="font-size: 1.4em; font-weight: 800; color: #1e293b;">T+2 &rarr; Real-Time</div>
+          <div style="font-weight: 700; color: #c82255; font-size: 0.9em;">Accelerated Financial Close</div>
+          <p style="font-size: 0.85em; color: #64748b; margin-top: 6px; margin-bottom: 0;">
+            Merchant fees and sales tax liabilities are recognized immediately, reducing month-end closing time by 3 business days.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Back to Home Button -->
+    <div class="row" style="margin-top: 40px; margin-bottom: 50px;">
+      <div class="col-lg-12 text-center">
+        <a href="index.html" class="btn btn-lg btn-outline" style="color: #1971b3; border-color: #1971b3;">
+          <i class="fa-solid fa-arrow-left"></i> Back to Home
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Floating Home Button (Palette Pink Accent) -->
+  <a href="index.html" class="floating-home-btn" title="Back to Portfolio Home" style="
+    position: fixed;
+    bottom: 80px;
+    right: 18px;
+    width: 50px;
+    height: 50px;
+    background-color: #f04675;
+    color: #ffffff !important;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25em;
+    box-shadow: 0 4px 12px rgba(240, 70, 117, 0.35);
+    z-index: 1030;
+    text-decoration: none !important;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  ">
+    <i class="fa-solid fa-house"></i>
+  </a>
+
+</section>
+
+<!-- Active Section Observer Script -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const sections = document.querySelectorAll("div[id]");
+  const navPills = document.querySelectorAll(".wms-pill");
+
+  const observerOptions = {
+    root: null,
+    rootMargin: "-20% 0px -70% 0px",
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const activeId = entry.target.getAttribute("id");
+
+        navPills.forEach((pill) => {
+          if (pill.getAttribute("href") === `#${activeId}`) {
+            pill.classList.add("active");
+            pill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+          } else {
+            pill.classList.remove("active");
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach((section) => observer.observe(section));
+});
+</script>
