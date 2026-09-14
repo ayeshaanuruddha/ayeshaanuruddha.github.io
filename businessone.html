@@ -442,10 +442,64 @@ html {
         3. Transaction State Machine & Lifecycle Engine
       </h3>
       <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
-        An enterprise financial integration must guarantee transactional non-repudiation: transactions cannot simply vanish, and failure at any stage must branch into a deterministic resolution path.
+        An enterprise financial integration must guarantee transactional non-repudiation: transactions cannot simply vanish, and failure at any stage must branch into a deterministic resolution path. Below is the end-to-end decision tree mapping edge-to-ledger state transitions and exception routing.
       </p>
 
-      <!-- State Transition Visual Boxes (Gradient Flow) -->
+      <!-- Flowchart Decision Tree Console Box -->
+      <div style="background: #0f172a; border-radius: 8px; padding: 24px; margin: 25px 0; border: 1px solid #1e293b; box-shadow: 0 4px 14px rgba(0,0,0,0.25);">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 12px; margin-bottom: 16px;">
+          <div>
+            <span style="font-size: 0.72em; text-transform: uppercase; letter-spacing: 1.5px; color: #22a6e0; font-weight: 700;">
+              Execution Flow & Decision Logic
+            </span>
+            <div style="font-size: 1.05em; font-weight: 700; color: #ffffff; margin-top: 2px;">
+              Transactional State Transition Decision Tree
+            </div>
+          </div>
+          <span style="background: #1e293b; color: #94a3b8; padding: 3px 8px; border-radius: 3px; font-family: monospace; font-size: 0.72em; border: 1px solid #475569;">
+            FSM Spec v1.8
+          </span>
+        </div>
+
+        <!-- Monospace Flowchart Tree -->
+        <pre style="margin: 0; background: transparent; border: none; padding: 0; font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 0.82em; line-height: 1.45; color: #e2e8f0; overflow-x: auto; white-space: pre; word-wrap: normal;">
+[POS Terminal]
+       │
+       ▼
+( PENDING_SYNC ) ──[Offline Queue / Network Drop]──► [Retry Scheduler]
+       │                                                     │
+ [Webhook Fired]                                      [Re-connected]
+       │                                                     │
+       ▼                                                     │
+  ( QUEUED ) ◄───────────────────────────────────────────────┘
+       │
+       ├──[Schema Invalid / Math Delta != 0]────────► ( PAYLOAD_ERROR / DLQ )
+       │                                                     │
+       ▼                                              [Manual Review]
+( VALIDATION_PASSED )
+       │
+       ├──[ERP Timeout / 5xx Network Failure]──────► ( NETWORK_TIMEOUT )
+       │                                                     │
+       │                                            [Exp. Backoff Retry]
+       │                                                     │
+       ├──[GL Closed / Inactive Account]───────────► ( POSTING_REJECTED )
+       │                                                     │
+       ▼                                            [Finance Escalation]
+ ( ERP_POSTED )
+       │
+       ▼
+[Nightly Batch Matching]
+       │
+       ├──[Bank Deposit == Gateway Net]─────────────► ( RECONCILED )
+       │
+       └──[Variance Detected (&gt; $0.00)]─────────────► ( RECON_DISCREPANCY )
+                                                             │
+                                                    [Audit Ticket Fired]</pre>
+
+      </div>
+
+      <!-- State Transition Visual Summary Cards (Palette Flow) -->
       <div style="background: #0f172a; color: #f8fafc; border-radius: 8px; padding: 22px; margin: 25px 0; border: 1px solid #1e293b;">
         <div style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 1.5px; color: #22a6e0; font-weight: 700; margin-bottom: 15px;">
           Primary Lifecycle State Progression
