@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retail POS State Machine Diagram - Light Mode</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    .diagram-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+      width: 100%;
+      max-width: 900px;
+      padding: 30px 25px;
+    }
+    .diagram-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .badge-bar {
+      display: flex;
+      gap: 14px;
+      font-size: 0.8em;
+      font-weight: 600;
+      color: #475569;
+    }
+    .badge-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="diagram-card">
+    
+    <!-- Diagram Title & Legend Header -->
+    <div class="diagram-header">
+      <div>
+        <div style="font-size: 0.75em; text-transform: uppercase; letter-spacing: 1.5px; color: #1971b3; font-weight: 700;">
+          Finite State Machine &amp; Exception Routing
+        </div>
+        <h2 style="font-size: 1.35em; color: #0f172a; margin-top: 4px; font-weight: 800;">
+          Retail POS-to-Ledger Transaction Lifecycle Decision Tree
+        </h2>
+      </div>
+      <div class="badge-bar">
+        <div class="badge-item">
+          <span class="dot" style="background: #1971b3;"></span> Primary Flow
+        </div>
+        <div class="badge-item">
+          <span class="dot" style="background: #10b981;"></span> Reconciled
+        </div>
+        <div class="badge-item">
+          <span class="dot" style="background: #e11d48;"></span> Exception Branch
+        </div>
+      </div>
+    </div>
+
+    <!-- Light Theme Flowchart SVG -->
+    <div style="background: #f8fafc; border: 1.5px dashed #cbd5e1; border-radius: 8px; padding: 25px 15px;">
+      <svg viewBox="0 0 840 960" width="100%" style="display: block; margin: 0 auto;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#1971b3" />
+          </marker>
+          <marker id="arrow-pink" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#e11d48" />
+          </marker>
+          <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#10b981" />
+          </marker>
+          <marker id="arrow-slate" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#64748b" />
+          </marker>
+        </defs>
+
+        <!-- ================= STEP 0: POS TERMINAL ================= -->
+        <rect x="90" y="20" width="180" height="38" rx="6" fill="#ffffff" stroke="#1971b3" stroke-width="2" />
+        <text x="180" y="44" fill="#0f172a" font-family="'Courier New', monospace" font-size="13" font-weight="700" text-anchor="middle">[ POS Terminal ]</text>
+
+        <!-- Arrow Down to PENDING_SYNC -->
+        <path d="M 180 58 L 180 95" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-slate)" />
+
+        <!-- ================= STEP 1: PENDING_SYNC ================= -->
+        <rect x="85" y="95" width="190" height="40" rx="20" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" />
+        <text x="180" y="120" fill="#0369a1" font-family="'Courier New', monospace" font-size="13" font-weight="700" text-anchor="middle">( PENDING_SYNC )</text>
+
+        <!-- Branch Right: Offline Queue / Network Drop -->
+        <path d="M 275 115 L 550 115" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-slate)" />
+        <rect x="290" y="103" width="240" height="24" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+        <text x="410" y="119" fill="#0284c7" font-family="sans-serif" font-size="11" font-weight="600" text-anchor="middle">[Offline Queue / Network Drop]</text>
+
+        <!-- Node: Retry Scheduler -->
+        <rect x="550" y="96" width="190" height="38" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" />
+        <text x="645" y="120" fill="#0f172a" font-family="'Courier New', monospace" font-size="12" font-weight="700" text-anchor="middle">[ Retry Scheduler ]</text>
+
+        <!-- Path Down & Left from Retry Scheduler to QUEUED -->
+        <path d="M 645 134 L 645 225 L 285 225" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrow-slate)" />
+        <rect x="590" y="165" width="110" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+        <text x="645" y="180" fill="#475569" font-family="sans-serif" font-size="11" font-weight="600" text-anchor="middle">[Re-connected]</text>
+
+        <!-- Main Spine: Webhook Fired Down to QUEUED -->
+        <path d="M 180 135 L 180 205" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-slate)" />
+        <rect x="115" y="157" width="130" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+        <text x="180" y="172" fill="#1971b3" font-family="sans-serif" font-size="11" font-weight="600" text-anchor="middle">[Webhook Fired]</text>
+
+        <!-- ================= STEP 2: QUEUED ================= -->
+        <rect x="95" y="205" width="170" height="40" rx="20" fill="#f0f9ff" stroke="#1971b3" stroke-width="2" />
+        <text x="180" y="230" fill="#1971b3" font-family="'Courier New', monospace" font-size="13" font-weight="700" text-anchor="middle">( QUEUED )</text>
+
+        <!-- Branch Right: DLQ / Schema Invalid -->
+        <path d="M 180 280 L 530 280" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-pink)" />
+        <rect x="235" y="268" width="250" height="24" rx="4" fill="#ffffff" stroke="#fecdd3" stroke-width="1" />
+        <text x="360" y="284" fill="#e11d48" font-family="sans-serif" font-size="11" font-weight="600" text-anchor="middle">[Schema Invalid / Math Delta != 0]</text>
+
+        <!-- Node: PAYLOAD_ERROR / DLQ -->
+        <rect x="530" y="260" width="230" height="40" rx="20" fill="#fff1f2" stroke="#e11d48" stroke-width="2" />
+        <text x="645" y="285" fill="#be123c" font-family="'Courier New', monospace" font-size="12" font-weight="700" text-anchor="middle">( PAYLOAD_ERROR / DLQ )</text>
+
+        <!-- Arrow Down to Manual Review -->
+        <path d="M 645 300 L 645 325" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-slate)" />
+        <rect x="565" y="325" width="160" height="32" rx="4" fill="#ffffff" stroke="#e11d48" stroke-width="1" stroke-dasharray="3 3" />
+        <text x="645" y="345" fill="#e11d48" font-family="'Courier New', monospace" font-size="11" font-weight="700" text-anchor="middle">[Manual Review]</text>
+
+        <!-- Main Spine: QUEUED to VALIDATION_PASSED -->
+        <path d="M 180 245 L 180 370" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-slate)" />
+
+        <!-- ================= STEP 3: VALIDATION_PASSED ================= -->
+        <rect x="70" y="370" width="220" height="40" rx="20" fill="#eff6ff" stroke="#2563eb" stroke-width="2" />
+        <text x="180" y="395" fill="#1d4ed8" font-family="'Courier New', monospace" font-size="13" font-weight="700" text-anchor="middle">( VALIDATION_PASSED )</text>
+
+        <!-- Branch Right 1: Network Timeout -->
+        <path d="M 180 450 L 540 450" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-pink)" />
+        <rect x="230" y="438" width="265" height="24" rx="4" fill="#ffffff" stroke="#fed7aa" stroke-width="1" />
+        <text x="362" y="454" fill="#ea580c" font-family="sans-serif" font-size="11" font-weight="600" text-anchor="middle">[ERP Timeout / 5xx Network Failure]</text>
+
+        <!-- Node: NETWORK_TIMEOUT -->
+        <rect x="540" y="430" width="210" height="40" rx="20" fill="#fff7ed" stroke="#ea580c" stroke-width="2" />
+        <text x="645" y="455" fill="#c2410c" font-family="'Courier New', monospace" font-size="12" font-weight="700" text-anchor="middle">( NETWORK_TIMEOUT )</text>
+
+        <!-- Arrow Down to Exp Backoff Retry -->
+        <path d="M 645 470 L 645 495" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-slate)" />
+        <rect x="555" y="495" width="180" height="32" rx="4" fill="#ffffff" stroke="#ea580c" stroke-width="1" stroke-dasharray="3 3" />
+        <text x="645" y="515" fill="#c2410c" font-family="'Courier New', monospace" font-size="11" font-weight="700" text-anchor="middle">[Exp. Backoff Retry]</text>
+
+        <!-- Branch Right 2: GL Closed / Inactive Account -->
+        <path d="M 180 550 L 540 550" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-pink)" />
+        <rect x="235" y="538" width="255" height="24" rx="4" fill="#ffffff" stroke="#fbcfe8" stroke-width="1" />
+        <text x="362" y="554" fill="#be185d" font-family="sans-serif" font-size="11" font-weight="600" text-anchor="middle">[GL Closed / Inactive Account]</text>
+
+        <!-- Node: POSTING_REJECTED -->
+        <rect x="540" y="530" width="210" height="40" rx="20" fill="#fdf2f8" stroke="#be185d" stroke-width="2" />
+        <text x="645" y="555" fill="#9d174d" font-family="'Courier New', monospace" font-size="12" font-weight="700" text-anchor="middle">( POSTING_REJECTED )</text>
+
+        <!-- Arrow Down to Finance Escalation -->
+        <path d="M 645 570 L 645 595" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-slate)" />
+        <rect x="555" y="595" width="180" height="32" rx="4" fill="#ffffff" stroke="#be185d" stroke-width="1" stroke-dasharray="3 3" />
+        <text x="645" y="615" fill="#9d174d" font-family="'Courier New', monospace" font-size="11" font-weight="700" text-anchor="middle">[Finance Escalation]</text>
+
+        <!-- Main Spine: VALIDATION_PASSED to ERP_POSTED -->
+        <path d="M 180 410 L 180 650" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-slate)" />
+
+        <!-- ================= STEP 4: ERP_POSTED ================= -->
+        <rect x="85" y="650" width="190" height="40" rx="20" fill="#fdf2f8" stroke="#be185d" stroke-width="2" />
+        <text x="180" y="675" fill="#9d174d" font-family="'Courier New', monospace" font-size="13" font-weight="700" text-anchor="middle">( ERP_POSTED )</text>
+
+        <!-- Arrow Down to Nightly Batch Matching -->
+        <path d="M 180 690 L 180 725" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-slate)" />
+
+        <!-- ================= STEP 5: NIGHTLY BATCH MATCHING ================= -->
+        <rect x="65" y="725" width="230" height="38" rx="6" fill="#ffffff" stroke="#1971b3" stroke-width="2" />
+        <text x="180" y="749" fill="#0f172a" font-family="'Courier New', monospace" font-size="12" font-weight="700" text-anchor="middle">[ Nightly Batch Matching ]</text>
+
+        <!-- Branch Right: Bank Deposit == Gateway Net (Happy Path) -->
+        <path d="M 180 795 L 550 795" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-green)" />
+        <rect x="245" y="783" width="245" height="24" rx="4" fill="#ffffff" stroke="#a7f3d0" stroke-width="1" />
+        <text x="367" y="799" fill="#059669" font-family="sans-serif" font-size="11" font-weight="600" text-anchor="middle">[Bank Deposit == Gateway Net]</text>
+
+        <!-- Node: RECONCILED -->
+        <rect x="550" y="775" width="190" height="40" rx="20" fill="#ecfdf5" stroke="#10b981" stroke-width="2" />
+        <text x="645" y="800" fill="#047857" font-family="'Courier New', monospace" font-size="13" font-weight="700" text-anchor="middle">( RECONCILED )</text>
+
+        <!-- Branch Right: Variance Detected -->
+        <path d="M 180 865 L 540 865" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-pink)" />
+        <rect x="245" y="853" width="245" height="24" rx="4" fill="#ffffff" stroke="#fecdd3" stroke-width="1" />
+        <text x="367" y="869" fill="#e11d48" font-family="sans-serif" font-size="11" font-weight="600" text-anchor="middle">[Variance Detected (> $0.00)]</text>
+
+        <!-- Node: RECON_DISCREPANCY -->
+        <rect x="540" y="845" width="210" height="40" rx="20" fill="#fff1f2" stroke="#e11d48" stroke-width="2" />
+        <text x="645" y="870" fill="#be123c" font-family="'Courier New', monospace" font-size="12" font-weight="700" text-anchor="middle">( RECON_DISCREPANCY )</text>
+
+        <!-- Arrow Down to Audit Ticket Fired -->
+        <path d="M 645 885 L 645 910" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-pink)" />
+        <rect x="560" y="910" width="170" height="32" rx="4" fill="#ffffff" stroke="#e11d48" stroke-width="1" stroke-dasharray="3 3" />
+        <text x="645" y="930" fill="#e11d48" font-family="'Courier New', monospace" font-size="11" font-weight="700" text-anchor="middle">[Audit Ticket Fired]</text>
+
+        <!-- Main Spine: Nightly Batch to Bottom Junction -->
+        <path d="M 180 763 L 180 865" fill="none" stroke="#64748b" stroke-width="2" />
+      </svg>
+    </div>
+
+    <!-- Footer Meta -->
+    <div style="margin-top: 15px; font-size: 0.8em; color: #64748b; display: flex; justify-content: space-between; flex-wrap: wrap;">
+      <span><strong>Target Process:</strong> Inbound POS Webhook &rarr; General Ledger Atomic Commit</span>
+      <span>ISO-8601 &bull; ACID Guaranteed</span>
+    </div>
+
+  </div>
+
+</body>
+</html>
