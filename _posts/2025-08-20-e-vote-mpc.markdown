@@ -10,12 +10,12 @@ category: Cybersecurity & Web Development
 description: This project introduces a privacy-preserving, edge-based e-voting system integrating Multi-Party Computation (MPC) specifically architected for Sri Lanka. It leverages edge computing to decentralize ballot processing at polling sites, reducing network dependence, while MPC protocols ensure ballot secrecy and verifiable aggregation. The developed local prototype successfully demonstrates fingerprint-based voter authentication, secure ballot encryption, and distributed MPC tallying to make it technologically impossible for any single authority to tamper with individual votes. 
 ---
 
-<p>This project tackles the challenges of manual, paper-based electoral systems in Sri Lanka by proposing a modern, cost-effective, privacy-preserving electronic voting framework. It leverages edge computing and Multi-Party Computation (MPC) to guarantee the Confidentiality, Integrity, Availability, Authentication, and Non-repudiation (CIAAN) of every vote.</p>
+<p style="text-align: justify;" >This project tackles the challenges of manual, paper-based electoral systems in Sri Lanka by proposing a modern, cost-effective, privacy-preserving electronic voting framework. It leverages edge computing and Multi-Party Computation (MPC) to guarantee the Confidentiality, Integrity, Availability, Authentication, and Non-repudiation (CIAAN) of every vote.</p>
 
 <h3>Edge-Based E-Voting System with MPC</h3>
 
 <h4>📋 Project Overview</h4>
-<table class="table table-bordered" style="text-align: left;">
+<table class="table table-bordered" style="text-align: justify;">
   <tbody>
     <tr><td>🎯 <strong>Objective</strong></td><td>To establish a verifiable, trust-building e-voting system tailored for Sri Lanka's infrastructural constraints.</td></tr>
     <tr><td>🛠️ <strong>Technology Stack</strong></td><td>Remix (Frontend), FastAPI (Backend), MySQL (Database), ESP32 Microcontrollers (Edge).</td></tr>
@@ -27,7 +27,7 @@ description: This project introduces a privacy-preserving, edge-based e-voting s
 <hr>
 
 <h3>(1) Core System Architecture</h3>
-<table class="table table-bordered" style="text-align: left;">
+<table class="table table-bordered" style="text-align: justify;">
   <tbody>
     <tr><td><strong>Tier 1: Edge Nodes</strong></td><td>ESP32 devices handle local biometric voter authentication and ballot encryption at polling stations to reduce network dependence.</td></tr>
     <tr><td><strong>Tier 2: MPC Overlay</strong></td><td>A secure peer-to-peer network distributes secret shares of the votes to enable collective tallying without revealing individual selections.</td></tr>
@@ -36,7 +36,7 @@ description: This project introduces a privacy-preserving, edge-based e-voting s
 </table>
 
 <h3>(2) Key Implementation Features</h3>
-<table class="table table-bordered table-striped" style="text-align: left;">
+<table class="table table-bordered table-striped" style="text-align: justify;">
   <tbody>
     <tr><td><strong>Biometric Authentication</strong></td><td>Voters are authenticated using fingerprint scanners integrated with ESP32 edge nodes, ensuring the one-person-one-vote principle.</td></tr>
     <tr><td><strong>Secure Vote Casting</strong></td><td>Votes are cryptographically encapsulated using advanced protocols before storage to ensure absolute integrity and secrecy.</td></tr>
@@ -45,9 +45,16 @@ description: This project introduces a privacy-preserving, edge-based e-voting s
 </table>
 
 <h3>(3) System Evaluation & Future Work</h3>
-<p>A developed local prototype successfully demonstrated the complete pipeline: fingerprint-based voter authentication, secure ballot encryption, and distributed MPC tallying. While testing successfully proved the feasibility of preventing duplicate voting and protecting against tampering, it was conducted in a controlled environment limited to a single ESP32 device, meaning high-load scalability remains to be fully evaluated.</p>
+<p style="text-align: justify;" >A developed local prototype successfully demonstrated the complete pipeline: fingerprint-based voter authentication, secure ballot encryption, and distributed MPC tallying. While testing successfully proved the feasibility of preventing duplicate voting and protecting against tampering, it was conducted in a controlled environment limited to a single ESP32 device, meaning high-load scalability remains to be fully evaluated.</p>
 
-<p><strong>Future Enhancements:</strong> The roadmap for a nationwide rollout includes extending the prototype to higher-performance edge devices (like the Raspberry Pi), integrating post-quantum cryptography (PQC) for long-term security, and employing multi-biometric sensors for enhanced authentication.</p>
+<br>
+<br>
+
+<p style="text-align: justify;" ><strong>Future Enhancements:</strong> The roadmap for a nationwide rollout includes extending the prototype to higher-performance edge devices (like the Raspberry Pi), integrating post-quantum cryptography (PQC) for long-term security, and employing multi-biometric sensors for enhanced authentication.</p>
+
+<br>
+<br>
+<br>
 
 <!-- Link to GitHub Repository -->
 <div style="text-align: center; margin: 25px auto 20px; width: 100%;">
