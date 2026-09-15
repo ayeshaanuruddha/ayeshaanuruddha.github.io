@@ -24,3 +24,13 @@
 <!-- Disqus Stuff -->
 {% include js_disqus.html %}
 {% endif %}
+
+<!-- Auto-open modal if URL contains modal hash (e.g. index.html#portfolioModal-4) -->
+<script>
+  $(document).ready(function() {
+    var hash = window.location.hash;
+    if (hash && hash.indexOf('portfolioModal') !== -1) {
+      $(hash).modal('show');
+    }
+  });
+</script>
