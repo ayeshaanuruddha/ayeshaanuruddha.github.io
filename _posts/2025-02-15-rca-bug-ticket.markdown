@@ -9,7 +9,8 @@ client: Enterprise Logistics Firm
 category: Business Analysis & RCA
 ---
 
-<p>This sanitized bug ticket and Root Cause Analysis document uses standard business analysis structures, including Gherkin syntax and the 5 Whys method, allowing you to showcase your problem-solving process without exposing proprietary data.</p>
+<h3>Executive Summary</h3>
+<p style="text-align: justify;">This Root Cause Analysis (RCA) document details the investigation and resolution of a critical UI latency issue during high-volume warehouse batch processing. By applying the "5 Whys" methodology, a database locking bottleneck was identified and resolved through an asynchronous synchronization architecture. The resulting action plan ensures system stability and resolves bottlenecks that directly impact warehouse throughput and worker productivity.</p>
 
 <h3>[WMS-BUG-1042] [Performance] Mobile App Synchronization Latency During High-Volume Batch Processing</h3>
 

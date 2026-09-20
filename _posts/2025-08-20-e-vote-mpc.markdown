@@ -13,7 +13,8 @@ description: This project introduces a privacy-preserving, edge-based e-voting s
 <br>
 <br>
 
-<p style="text-align: justify;">This project tackles the challenges of manual, paper-based electoral systems in Sri Lanka by proposing a modern, cost-effective, privacy-preserving electronic voting framework. It leverages edge computing and Multi-Party Computation (MPC) to guarantee the Confidentiality, Integrity, Availability, Authentication, and Non-repudiation (CIAAN) of every vote.</p>
+<h3>Executive Summary</h3>
+<p style="text-align: justify;">This project tackles the challenges of manual, paper-based electoral systems in Sri Lanka by proposing a modern, cost-effective, privacy-preserving electronic voting framework. It leverages edge computing and Multi-Party Computation (MPC) to guarantee the Confidentiality, Integrity, Availability, Authentication, and Non-repudiation (CIAAN) of every vote. By demonstrating successful biometric authentication and secure distributed tallying, this prototype establishes a verifiable and trust-building architecture for national elections.</p>
 
 <br>
 <br>
