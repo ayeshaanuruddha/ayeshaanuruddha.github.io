@@ -102,6 +102,74 @@ html {
   }
 }
 
+/* WMS Flow Diagram Responsive Grid */
+.wms-flow-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr 1.5fr;
+  gap: 20px;
+  align-items: stretch;
+}
+.wms-flow-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.wms-flow-box {
+  border-radius: 6px;
+  padding: 18px 15px;
+  position: relative;
+  box-sizing: border-box;
+}
+.wms-flow-title {
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  background: #0f172a;
+  padding: 0 10px;
+  font-size: 0.75em;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.wms-flow-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.wms-step {
+  padding: 10px 5px;
+  border-radius: 4px;
+  text-align: center;
+  flex: 1 1 70px;
+}
+.wms-arrow {
+  color: #475569;
+  font-size: 0.8em;
+}
+.wms-transition-lr {
+  position: absolute; 
+  font-size: 1.5em;
+}
+.wms-transition-tb {
+  display: none;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+@media (max-width: 1024px) {
+  .wms-flow-grid {
+    grid-template-columns: 1fr;
+  }
+  .wms-transition-lr {
+    display: none !important;
+  }
+  .wms-transition-tb {
+    display: block !important;
+    margin: -5px 0;
+  }
+}
 </style>
 
 <!-- Sticky Navigation Pill Bar -->
@@ -738,7 +806,7 @@ html {
 
 
 <!-- Dark Theme Operational Flow Diagram -->
-<div style="background: #0f172a; color: #f8fafc; border-radius: 8px; padding: 25px; margin: 25px 0 60px; box-shadow: 0 4px 14px rgba(0,0,0,0.2); border: 1px solid #1e293b; max-width: 100%; box-sizing: border-box; overflow-x: auto;">
+<div style="background: #0f172a; color: #f8fafc; border-radius: 8px; padding: 25px; margin: 25px 0 60px; box-shadow: 0 4px 14px rgba(0,0,0,0.2); border: 1px solid #1e293b; max-width: 100%; box-sizing: border-box; overflow: hidden;">
   
   <!-- Schematic Header -->
   <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 15px; margin-bottom: 25px;">
@@ -758,49 +826,79 @@ html {
     </div>
   </div>
 
-  <!-- Main Flow Diagram Container -->
-  <div style="display: flex; gap: 20px; align-items: stretch; min-width: 800px;">
+  <!-- Responsive CSS Grid Container -->
+  <div class="wms-flow-grid">
     
     <!-- Left Column: Inbound & Returns -->
-    <div style="display: flex; flex-direction: column; gap: 20px; flex: 1.2;">
+    <div class="wms-flow-col">
       
       <!-- Inbound -->
-      <div style="border: 2px dashed #0284c7; border-radius: 6px; padding: 15px; background: rgba(2, 132, 199, 0.08); position: relative;">
-        <div style="position: absolute; top: -10px; left: 15px; background: #0f172a; padding: 0 10px; font-size: 0.75em; font-weight: 700; color: #38bdf8; letter-spacing: 1px;">INBOUND</div>
+      <div class="wms-flow-box" style="border: 2px dashed #0284c7; background: rgba(2, 132, 199, 0.08);">
+        <div class="wms-flow-title" style="color: #38bdf8;">INBOUND</div>
         
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px;">
-          <div style="background: #1e293b; border: 1px solid #475569; padding: 10px; border-radius: 4px; text-align: center; flex: 1;">
-            <i class="fa-solid fa-file-invoice" style="color: #94a3b8; font-size: 1.2em; margin-bottom: 5px;"></i><br>
-            <span style="font-size: 0.7em; color: #cbd5e1;">PO Validation</span>
+        <div class="wms-flow-row">
+          
+          <div class="wms-step" style="background: #0f172a; border: 1px dashed #475569;">
+            <i class="fa-solid fa-truck" style="color: #94a3b8; font-size: 1.1em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.65em; color: #cbd5e1;">Supplier Delivery</span>
           </div>
-          <i class="fa-solid fa-chevron-right" style="color: #475569; font-size: 0.8em;"></i>
-          <div style="background: #0c4a6e; border: 1px solid #0284c7; padding: 10px; border-radius: 4px; text-align: center; flex: 1;">
-            <i class="fa-solid fa-clipboard-check" style="color: #7dd3fc; font-size: 1.2em; margin-bottom: 5px;"></i><br>
-            <span style="font-size: 0.7em; color: #bae6fd;">Receiving</span>
+          
+          <i class="fa-solid fa-chevron-right wms-arrow"></i>
+
+          <div class="wms-step" style="background: #1e293b; border: 1px solid #475569;">
+            <i class="fa-solid fa-people-carry-box" style="color: #94a3b8; font-size: 1.1em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.65em; color: #cbd5e1;">Unload & Lump</span>
           </div>
+          
+          <i class="fa-solid fa-chevron-right wms-arrow"></i>
+
+          <div class="wms-step" style="background: #0c4a6e; border: 1px solid #0284c7;">
+            <i class="fa-solid fa-file-invoice" style="color: #7dd3fc; font-size: 1.1em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.65em; color: #bae6fd;">PO Validate</span>
+          </div>
+
           <i class="fa-solid fa-chevron-right" style="color: #0284c7; font-size: 0.8em;"></i>
-          <div style="background: #0c4a6e; border: 1px solid #0284c7; padding: 10px; border-radius: 4px; text-align: center; flex: 1;">
-            <i class="fa-solid fa-pallet" style="color: #7dd3fc; font-size: 1.2em; margin-bottom: 5px;"></i><br>
-            <span style="font-size: 0.7em; color: #bae6fd;">Putaway</span>
+
+          <div class="wms-step" style="background: #0c4a6e; border: 1px solid #0284c7;">
+            <i class="fa-solid fa-clipboard-check" style="color: #7dd3fc; font-size: 1.1em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.65em; color: #bae6fd;">Receiving</span>
+          </div>
+
+          <i class="fa-solid fa-chevron-right" style="color: #0284c7; font-size: 0.8em;"></i>
+
+          <div class="wms-step" style="background: #0c4a6e; border: 1px solid #0284c7;">
+            <i class="fa-solid fa-pallet" style="color: #7dd3fc; font-size: 1.1em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.65em; color: #bae6fd;">Putaway</span>
           </div>
         </div>
       </div>
 
       <!-- Returns -->
-      <div style="border: 2px dashed #9333ea; border-radius: 6px; padding: 15px; background: rgba(147, 51, 234, 0.08); position: relative;">
-        <div style="position: absolute; top: -10px; left: 15px; background: #0f172a; padding: 0 10px; font-size: 0.75em; font-weight: 700; color: #c084fc; letter-spacing: 1px;">REVERSE LOGISTICS</div>
+      <div class="wms-flow-box" style="border: 2px dashed #9333ea; background: rgba(147, 51, 234, 0.08);">
+        <div class="wms-flow-title" style="color: #c084fc;">REVERSE LOGISTICS</div>
         
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px;">
-          <div style="background: #3b0764; border: 1px solid #9333ea; padding: 10px; border-radius: 4px; text-align: center; flex: 1;">
-            <i class="fa-solid fa-truck-ramp-box" style="color: #d8b4fe; font-size: 1.2em; margin-bottom: 5px;"></i><br>
-            <span style="font-size: 0.7em; color: #e9d5ff;">Return Recv</span>
+        <div class="wms-flow-row">
+
+          <div class="wms-step" style="background: #0f172a; border: 1px dashed #475569;">
+            <i class="fa-solid fa-truck-moving" style="color: #94a3b8; font-size: 1.1em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.65em; color: #cbd5e1;">Cust Delivery Return</span>
           </div>
+          
+          <i class="fa-solid fa-chevron-right wms-arrow"></i>
+
+          <div class="wms-step" style="background: #3b0764; border: 1px solid #9333ea;">
+            <i class="fa-solid fa-truck-ramp-box" style="color: #d8b4fe; font-size: 1.1em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.65em; color: #e9d5ff;">Return Recv</span>
+          </div>
+
           <i class="fa-solid fa-chevron-right" style="color: #9333ea; font-size: 0.8em;"></i>
-          <div style="background: #3b0764; border: 1px solid #9333ea; padding: 10px; border-radius: 4px; text-align: center; flex: 1;">
-            <i class="fa-solid fa-magnifying-glass" style="color: #d8b4fe; font-size: 1.2em; margin-bottom: 5px;"></i><br>
-            <span style="font-size: 0.7em; color: #e9d5ff;">Inspect</span>
+
+          <div class="wms-step" style="background: #3b0764; border: 1px solid #9333ea;">
+            <i class="fa-solid fa-magnifying-glass" style="color: #d8b4fe; font-size: 1.1em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.65em; color: #e9d5ff;">Inspect</span>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 5px; font-size: 0.6em; color: #94a3b8; justify-content: center;">
+
+          <div style="display: flex; flex-direction: column; gap: 5px; font-size: 0.6em; color: #94a3b8; justify-content: center; padding-left: 5px;">
             <span><i class="fa-solid fa-arrow-up-right" style="color: #4ade80;"></i> <strong style="color:#f8fafc;">(Y)</strong> Putaway</span>
             <span><i class="fa-solid fa-arrow-down-right" style="color: #f87171;"></i> <strong style="color:#f8fafc;">(N)</strong> Discard</span>
           </div>
@@ -808,71 +906,80 @@ html {
       </div>
     </div>
 
-    <!-- Middle: Inventory -->
-    <div style="display: flex; align-items: center; justify-content: center; position: relative; flex: 0.8;">
-      <!-- Transition Arrows (Left to Middle) -->
-      <i class="fa-solid fa-angles-right" style="color: #475569; font-size: 1.5em; position: absolute; left: -15px; top: 25%;"></i>
-      <i class="fa-solid fa-angles-right" style="color: #475569; font-size: 1.5em; position: absolute; left: -15px; bottom: 25%;"></i>
-      
-      <!-- Transition Arrow (Middle to Right) -->
-      <i class="fa-solid fa-angles-right" style="color: #ea580c; font-size: 1.5em; position: absolute; right: -15px;"></i>
+    <!-- Transition Arrow Stack (Mobile Only) -->
+    <div class="wms-transition-tb">
+      <i class="fa-solid fa-angles-down" style="color: #475569;"></i>
+    </div>
 
-      <div style="border: 2px solid #ea580c; border-radius: 6px; padding: 20px; background: #7c2d12; text-align: center; display: flex; flex-direction: column; gap: 12px; width: 100%; height: 100%; box-sizing: border-box; justify-content: center;">
+    <!-- Middle Column: Inventory -->
+    <div style="display: flex; align-items: center; justify-content: center; position: relative;">
+      
+      <!-- Transition Arrows (Desktop Only) -->
+      <i class="fa-solid fa-angles-right wms-transition-lr" style="color: #475569; left: -20px; top: 25%;"></i>
+      <i class="fa-solid fa-angles-right wms-transition-lr" style="color: #475569; left: -20px; bottom: 25%;"></i>
+      <i class="fa-solid fa-angles-right wms-transition-lr" style="color: #ea580c; right: -20px;"></i>
+
+      <div class="wms-flow-box" style="border: 2px solid #ea580c; background: #7c2d12; text-align: center; display: flex; flex-direction: column; gap: 12px; width: 100%; justify-content: center;">
         <div style="font-size: 0.85em; font-weight: 800; color: #fdba74; letter-spacing: 1px; margin-bottom: 5px;">MANAGE INVENTORY</div>
         
-        <div style="background: #9a3412; border: 1px solid #ea580c; padding: 8px; border-radius: 4px; font-size: 0.75em; color: #fed7aa; text-align: left;">
-          <i class="fa-solid fa-chart-pie" style="width: 20px; text-align: center; margin-right: 5px;"></i>Stock Status (QOH)
+        <div style="background: #9a3412; border: 1px solid #ea580c; padding: 8px 12px; border-radius: 4px; font-size: 0.75em; color: #fed7aa; text-align: left;">
+          <i class="fa-solid fa-chart-pie" style="width: 20px; text-align: center; margin-right: 8px;"></i>Stock Status (QOH)
         </div>
-        <div style="background: #9a3412; border: 1px solid #ea580c; padding: 8px; border-radius: 4px; font-size: 0.75em; color: #fed7aa; text-align: left;">
-          <i class="fa-solid fa-boxes-packing" style="width: 20px; text-align: center; margin-right: 5px;"></i>Replenishment
+        <div style="background: #9a3412; border: 1px solid #ea580c; padding: 8px 12px; border-radius: 4px; font-size: 0.75em; color: #fed7aa; text-align: left;">
+          <i class="fa-solid fa-boxes-packing" style="width: 20px; text-align: center; margin-right: 8px;"></i>Replenishment
         </div>
-        <div style="background: #9a3412; border: 1px solid #ea580c; padding: 8px; border-radius: 4px; font-size: 0.75em; color: #fed7aa; text-align: left;">
-          <i class="fa-solid fa-clipboard-list" style="width: 20px; text-align: center; margin-right: 5px;"></i>Inventory Control
+        <div style="background: #9a3412; border: 1px solid #ea580c; padding: 8px 12px; border-radius: 4px; font-size: 0.75em; color: #fed7aa; text-align: left;">
+          <i class="fa-solid fa-clipboard-list" style="width: 20px; text-align: center; margin-right: 8px;"></i>Inventory Control
         </div>
-        <div style="background: #9a3412; border: 1px solid #ea580c; padding: 8px; border-radius: 4px; font-size: 0.75em; color: #fed7aa; text-align: left;">
-          <i class="fa-solid fa-right-left" style="width: 20px; text-align: center; margin-right: 5px;"></i>Location Swaps
+        <div style="background: #9a3412; border: 1px solid #ea580c; padding: 8px 12px; border-radius: 4px; font-size: 0.75em; color: #fed7aa; text-align: left;">
+          <i class="fa-solid fa-right-left" style="width: 20px; text-align: center; margin-right: 8px;"></i>Location Swaps
         </div>
       </div>
     </div>
 
+    <!-- Transition Arrow Stack (Mobile Only) -->
+    <div class="wms-transition-tb">
+      <i class="fa-solid fa-angles-down" style="color: #ea580c;"></i>
+    </div>
+
     <!-- Right Column: Outbound -->
-    <div style="display: flex; flex-direction: column; flex: 1.5;">
+    <div class="wms-flow-col">
       
       <!-- Outbound -->
-      <div style="border: 2px dashed #16a34a; border-radius: 6px; padding: 15px 15px 30px; background: rgba(22, 163, 74, 0.08); position: relative; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center;">
-        <div style="position: absolute; top: -10px; left: 15px; background: #0f172a; padding: 0 10px; font-size: 0.75em; font-weight: 700; color: #4ade80; letter-spacing: 1px;">OUTBOUND FULFILLMENT</div>
+      <div class="wms-flow-box" style="border: 2px dashed #16a34a; background: rgba(22, 163, 74, 0.08); display: flex; flex-direction: column; justify-content: center;">
+        <div class="wms-flow-title" style="color: #4ade80;">OUTBOUND FULFILLMENT</div>
         
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 5px;">
+        <div class="wms-flow-row">
           
-          <div style="background: #1e293b; border: 1px solid #475569; padding: 10px 5px; border-radius: 4px; text-align: center; flex: 1;">
+          <div class="wms-step" style="background: #1e293b; border: 1px solid #475569;">
             <i class="fa-solid fa-receipt" style="color: #94a3b8; font-size: 1.1em; margin-bottom: 5px;"></i><br>
             <span style="font-size: 0.65em; color: #cbd5e1;">Sales Orders</span>
           </div>
           
-          <i class="fa-solid fa-chevron-right" style="color: #475569; font-size: 0.8em;"></i>
+          <i class="fa-solid fa-chevron-right wms-arrow"></i>
           
-          <div style="background: #14532d; border: 1px solid #16a34a; padding: 10px 5px; border-radius: 4px; text-align: center; flex: 1;">
+          <div class="wms-step" style="background: #14532d; border: 1px solid #16a34a;">
             <i class="fa-solid fa-route" style="color: #86efac; font-size: 1.1em; margin-bottom: 5px;"></i><br>
             <span style="font-size: 0.65em; color: #bbf7d0;">Wave/Route</span>
           </div>
 
           <i class="fa-solid fa-chevron-right" style="color: #16a34a; font-size: 0.8em;"></i>
           
-          <div style="background: #14532d; border: 1px solid #16a34a; padding: 10px 5px; border-radius: 4px; text-align: center; flex: 1;">
+          <div class="wms-step" style="background: #14532d; border: 1px solid #16a34a;">
             <i class="fa-solid fa-hand-pointer" style="color: #86efac; font-size: 1.1em; margin-bottom: 5px;"></i><br>
             <span style="font-size: 0.65em; color: #bbf7d0;">Select/Pick</span>
           </div>
 
           <i class="fa-solid fa-chevron-right" style="color: #16a34a; font-size: 0.8em;"></i>
           
-          <div style="background: #14532d; border: 1px solid #16a34a; padding: 10px 5px; border-radius: 4px; text-align: center; flex: 1;">
+          <div class="wms-step" style="background: #14532d; border: 1px solid #16a34a;">
             <i class="fa-solid fa-dolly" style="color: #86efac; font-size: 1.1em; margin-bottom: 5px;"></i><br>
             <span style="font-size: 0.65em; color: #bbf7d0;">Stage/Pack</span>
           </div>
 
           <i class="fa-solid fa-chevron-right" style="color: #16a34a; font-size: 0.8em;"></i>
           
-          <div style="background: #14532d; border: 1px solid #16a34a; padding: 10px 5px; border-radius: 4px; text-align: center; flex: 1;">
+          <div class="wms-step" style="background: #14532d; border: 1px solid #16a34a;">
             <i class="fa-solid fa-truck-fast" style="color: #86efac; font-size: 1.1em; margin-bottom: 5px;"></i><br>
             <span style="font-size: 0.65em; color: #bbf7d0;">Dispatch</span>
           </div>
