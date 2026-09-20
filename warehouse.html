@@ -737,78 +737,157 @@ html {
 
 
 
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { fontFamily: 'inherit' } });
-</script>
+<!-- Dark Theme Operational Flow Diagram -->
+<div style="background: #0f172a; color: #f8fafc; border-radius: 8px; padding: 25px; margin: 25px 0 60px; box-shadow: 0 4px 14px rgba(0,0,0,0.2); border: 1px solid #1e293b; max-width: 100%; box-sizing: border-box; overflow-x: auto;">
+  
+  <!-- Schematic Header -->
+  <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 15px; margin-bottom: 25px;">
+    <div>
+      <span style="font-size: 0.75em; text-transform: uppercase; letter-spacing: 1.5px; color: #38bdf8; font-weight: 700;">
+        WMS Core Architecture
+      </span>
+      <h5 style="margin: 4px 0 0; color: #ffffff; font-weight: 700; font-size: 1.15em;">
+        WMS Operational Flow (Macro Architecture)
+      </h5>
+    </div>
+    <div style="display: flex; gap: 15px; font-size: 0.75em;">
+      <span><span style="display: inline-block; width: 10px; height: 10px; background: #0284c7; border-radius: 2px; margin-right: 5px;"></span>Inbound</span>
+      <span><span style="display: inline-block; width: 10px; height: 10px; background: #ea580c; border-radius: 2px; margin-right: 5px;"></span>Inventory</span>
+      <span><span style="display: inline-block; width: 10px; height: 10px; background: #16a34a; border-radius: 2px; margin-right: 5px;"></span>Outbound</span>
+      <span><span style="display: inline-block; width: 10px; height: 10px; background: #9333ea; border-radius: 2px; margin-right: 5px;"></span>Returns</span>
+    </div>
+  </div>
 
-    <!-- Visual Flow Diagram -->
-    <div style="background-color: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 60px; padding: 25px; overflow-x: auto;">
-      <h3 style="margin-top: 0; color: #1e293b; font-weight: 700; text-align: center; margin-bottom: 15px;">
-        WMS Operational Flow
-      </h3>
-      <div class="mermaid" style="display: flex; justify-content: center;">
-        flowchart LR
-            classDef inbound fill:#f0f9ff,stroke:#0284c7,stroke-width:2px,color:#0369a1,font-weight:bold;
-            classDef outbound fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#15803d,font-weight:bold;
-            classDef returns fill:#faf5ff,stroke:#9333ea,stroke-width:2px,color:#7e22ce,font-weight:bold;
-            classDef inventory fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#c2410c,font-weight:bold;
-            classDef external fill:#f8fafc,stroke:#94a3b8,stroke-width:1px,stroke-dasharray: 4 4,color:#475569;
+  <!-- Main Flow Diagram Container -->
+  <div style="display: flex; gap: 20px; align-items: stretch; min-width: 800px;">
+    
+    <!-- Left Column: Inbound & Returns -->
+    <div style="display: flex; flex-direction: column; gap: 20px; flex: 1.2;">
+      
+      <!-- Inbound -->
+      <div style="border: 2px dashed #0284c7; border-radius: 6px; padding: 15px; background: rgba(2, 132, 199, 0.08); position: relative;">
+        <div style="position: absolute; top: -10px; left: 15px; background: #0f172a; padding: 0 10px; font-size: 0.75em; font-weight: 700; color: #38bdf8; letter-spacing: 1px;">INBOUND</div>
+        
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px;">
+          <div style="background: #1e293b; border: 1px solid #475569; padding: 10px; border-radius: 4px; text-align: center; flex: 1;">
+            <i class="fa-solid fa-file-invoice" style="color: #94a3b8; font-size: 1.2em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.7em; color: #cbd5e1;">PO Validation</span>
+          </div>
+          <i class="fa-solid fa-chevron-right" style="color: #475569; font-size: 0.8em;"></i>
+          <div style="background: #0c4a6e; border: 1px solid #0284c7; padding: 10px; border-radius: 4px; text-align: center; flex: 1;">
+            <i class="fa-solid fa-clipboard-check" style="color: #7dd3fc; font-size: 1.2em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.7em; color: #bae6fd;">Receiving</span>
+          </div>
+          <i class="fa-solid fa-chevron-right" style="color: #0284c7; font-size: 0.8em;"></i>
+          <div style="background: #0c4a6e; border: 1px solid #0284c7; padding: 10px; border-radius: 4px; text-align: center; flex: 1;">
+            <i class="fa-solid fa-pallet" style="color: #7dd3fc; font-size: 1.2em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.7em; color: #bae6fd;">Putaway</span>
+          </div>
+        </div>
+      </div>
 
-            Suppliers([Suppliers]):::external
-            Truck([Truck Return]):::external
-            Customers([Customers]):::external
-            
-            subgraph INBOUND [INBOUND]
-                direction LR
-                PO[Purchase Order] --> Unload[Unloading]
-                Unload --> Recv[Receiving]
-                Recv --> PutIn[Putaway]
-            end
-            class INBOUND inbound
-            
-            subgraph RETURNS [RETURNS]
-                direction LR
-                RetRecv[Return Receiving] --> Inspect{Resellable?}
-                Inspect -- Y --> PutRet[Putaway]
-                Inspect -- N --> Discard[Discard]
-            end
-            class RETURNS returns
-            
-            subgraph INV [MANAGE INVENTORY]
-                direction TB
-                Status[Stock Status Tracking<br>QOH / QA / QP]
-                Replen[Replenishment<br>Demand & Proactive]
-                Control[Inventory Control<br>Cycle Counts]
-                Admin[Inventory Admin<br>Location Swaps]
-                Status ~~~ Replen
-                Replen ~~~ Control
-                Control ~~~ Admin
-            end
-            class INV inventory
-
-            subgraph OUTBOUND [OUTBOUND]
-                direction LR
-                SO[Sales Orders] --> Route[Routing]
-                Route --> PList[Picking List]
-                PList --> Pick[Select / Pick]
-                Pick --> Pack[Label / Pack]
-                Pack --> Load[Load / Dispatch]
-            end
-            class OUTBOUND outbound
-
-            Suppliers -. Deliver Goods .-> PO
-            Truck -. Returns .-> RetRecv
-            
-            PutIn ==> INV
-            PutRet ==> INV
-            
-            INV ==> PList
-            
-            Load -. Delivery .-> Customers
-            Customers -. Rejected .-> Truck
+      <!-- Returns -->
+      <div style="border: 2px dashed #9333ea; border-radius: 6px; padding: 15px; background: rgba(147, 51, 234, 0.08); position: relative;">
+        <div style="position: absolute; top: -10px; left: 15px; background: #0f172a; padding: 0 10px; font-size: 0.75em; font-weight: 700; color: #c084fc; letter-spacing: 1px;">REVERSE LOGISTICS</div>
+        
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px;">
+          <div style="background: #3b0764; border: 1px solid #9333ea; padding: 10px; border-radius: 4px; text-align: center; flex: 1;">
+            <i class="fa-solid fa-truck-ramp-box" style="color: #d8b4fe; font-size: 1.2em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.7em; color: #e9d5ff;">Return Recv</span>
+          </div>
+          <i class="fa-solid fa-chevron-right" style="color: #9333ea; font-size: 0.8em;"></i>
+          <div style="background: #3b0764; border: 1px solid #9333ea; padding: 10px; border-radius: 4px; text-align: center; flex: 1;">
+            <i class="fa-solid fa-magnifying-glass" style="color: #d8b4fe; font-size: 1.2em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.7em; color: #e9d5ff;">Inspect</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 5px; font-size: 0.6em; color: #94a3b8; justify-content: center;">
+            <span><i class="fa-solid fa-arrow-up-right" style="color: #4ade80;"></i> <strong style="color:#f8fafc;">(Y)</strong> Putaway</span>
+            <span><i class="fa-solid fa-arrow-down-right" style="color: #f87171;"></i> <strong style="color:#f8fafc;">(N)</strong> Discard</span>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- Middle: Inventory -->
+    <div style="display: flex; align-items: center; justify-content: center; position: relative; flex: 0.8;">
+      <!-- Transition Arrows (Left to Middle) -->
+      <i class="fa-solid fa-angles-right" style="color: #475569; font-size: 1.5em; position: absolute; left: -15px; top: 25%;"></i>
+      <i class="fa-solid fa-angles-right" style="color: #475569; font-size: 1.5em; position: absolute; left: -15px; bottom: 25%;"></i>
+      
+      <!-- Transition Arrow (Middle to Right) -->
+      <i class="fa-solid fa-angles-right" style="color: #ea580c; font-size: 1.5em; position: absolute; right: -15px;"></i>
+
+      <div style="border: 2px solid #ea580c; border-radius: 6px; padding: 20px; background: #7c2d12; text-align: center; display: flex; flex-direction: column; gap: 12px; width: 100%; height: 100%; box-sizing: border-box; justify-content: center;">
+        <div style="font-size: 0.85em; font-weight: 800; color: #fdba74; letter-spacing: 1px; margin-bottom: 5px;">MANAGE INVENTORY</div>
+        
+        <div style="background: #9a3412; border: 1px solid #ea580c; padding: 8px; border-radius: 4px; font-size: 0.75em; color: #fed7aa; text-align: left;">
+          <i class="fa-solid fa-chart-pie" style="width: 20px; text-align: center; margin-right: 5px;"></i>Stock Status (QOH)
+        </div>
+        <div style="background: #9a3412; border: 1px solid #ea580c; padding: 8px; border-radius: 4px; font-size: 0.75em; color: #fed7aa; text-align: left;">
+          <i class="fa-solid fa-boxes-packing" style="width: 20px; text-align: center; margin-right: 5px;"></i>Replenishment
+        </div>
+        <div style="background: #9a3412; border: 1px solid #ea580c; padding: 8px; border-radius: 4px; font-size: 0.75em; color: #fed7aa; text-align: left;">
+          <i class="fa-solid fa-clipboard-list" style="width: 20px; text-align: center; margin-right: 5px;"></i>Inventory Control
+        </div>
+        <div style="background: #9a3412; border: 1px solid #ea580c; padding: 8px; border-radius: 4px; font-size: 0.75em; color: #fed7aa; text-align: left;">
+          <i class="fa-solid fa-right-left" style="width: 20px; text-align: center; margin-right: 5px;"></i>Location Swaps
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Outbound -->
+    <div style="display: flex; flex-direction: column; flex: 1.5;">
+      
+      <!-- Outbound -->
+      <div style="border: 2px dashed #16a34a; border-radius: 6px; padding: 15px 15px 30px; background: rgba(22, 163, 74, 0.08); position: relative; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center;">
+        <div style="position: absolute; top: -10px; left: 15px; background: #0f172a; padding: 0 10px; font-size: 0.75em; font-weight: 700; color: #4ade80; letter-spacing: 1px;">OUTBOUND FULFILLMENT</div>
+        
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 5px;">
+          
+          <div style="background: #1e293b; border: 1px solid #475569; padding: 10px 5px; border-radius: 4px; text-align: center; flex: 1;">
+            <i class="fa-solid fa-receipt" style="color: #94a3b8; font-size: 1.1em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.65em; color: #cbd5e1;">Sales Orders</span>
+          </div>
+          
+          <i class="fa-solid fa-chevron-right" style="color: #475569; font-size: 0.8em;"></i>
+          
+          <div style="background: #14532d; border: 1px solid #16a34a; padding: 10px 5px; border-radius: 4px; text-align: center; flex: 1;">
+            <i class="fa-solid fa-route" style="color: #86efac; font-size: 1.1em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.65em; color: #bbf7d0;">Wave/Route</span>
+          </div>
+
+          <i class="fa-solid fa-chevron-right" style="color: #16a34a; font-size: 0.8em;"></i>
+          
+          <div style="background: #14532d; border: 1px solid #16a34a; padding: 10px 5px; border-radius: 4px; text-align: center; flex: 1;">
+            <i class="fa-solid fa-hand-pointer" style="color: #86efac; font-size: 1.1em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.65em; color: #bbf7d0;">Select/Pick</span>
+          </div>
+
+          <i class="fa-solid fa-chevron-right" style="color: #16a34a; font-size: 0.8em;"></i>
+          
+          <div style="background: #14532d; border: 1px solid #16a34a; padding: 10px 5px; border-radius: 4px; text-align: center; flex: 1;">
+            <i class="fa-solid fa-dolly" style="color: #86efac; font-size: 1.1em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.65em; color: #bbf7d0;">Stage/Pack</span>
+          </div>
+
+          <i class="fa-solid fa-chevron-right" style="color: #16a34a; font-size: 0.8em;"></i>
+          
+          <div style="background: #14532d; border: 1px solid #16a34a; padding: 10px 5px; border-radius: 4px; text-align: center; flex: 1;">
+            <i class="fa-solid fa-truck-fast" style="color: #86efac; font-size: 1.1em; margin-bottom: 5px;"></i><br>
+            <span style="font-size: 0.65em; color: #bbf7d0;">Dispatch</span>
+          </div>
+
+        </div>
+
+        <div style="position: absolute; bottom: -12px; right: 20px; font-size: 0.7em; color: #94a3b8; background: #0f172a; padding: 0 10px;">
+          ➔ Delivery to Customers
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Dark Theme Operational Flow Diagram End -->
 
     <!-- Section 2: Inbound -->
     <div id="inbound-operations" style="margin-bottom: 60px;">
