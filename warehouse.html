@@ -135,7 +135,7 @@ html {
       <table style="font-size: 0.85em; border-collapse: collapse; margin-top: 8px;">
         <tr>
           <td style="padding-right: 12px; color: #334155;"><strong>Page status</strong></td>
-          <td><code style="background-color: #fef3c7; color: #b45309; border: 1px solid #fde68a; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.9em;">UNDER CONSTRUCTION</code></td>
+          <td><code style="background-color: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 0.9em;">PUBLISHED</code></td>
         </tr>
       </table>
 
@@ -742,15 +742,67 @@ html {
       <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
         2. Inbound: Receipt & Directed Putaway
       </h3>
-      <p style="color: #64748b; font-style: italic;">[Drafting: PO receiving, lot capture, and QP to QOH state transitions...]</p>
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
+        The inbound workflow acts as the critical entry point where commercial Purchase Orders (POs) become physical inventory. The WMS orchestrates this transformation through strict compliance checks, updating inventory states from <strong>Quantity Planned (QP)</strong> to <strong>Quantity on Hand (QOH)</strong>.
+      </p>
+      <div class="table-responsive" style="margin: 25px 0;">
+        <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
+          <thead style="background: #f1f5f9; color: #1e293b;">
+            <tr>
+              <th style="width: 25%;">Workflow Step</th>
+              <th style="width: 75%;">WMS Operations & Business Logic</th>
+            </tr>
+          </thead>
+          <tbody style="color: #334155;">
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-clipboard-check" style="color: #0284c7; margin-right: 6px;"></i>Receiving & Check-In</td>
+              <td>Unloaders scan barcodes on incoming pallets. The WMS verifies PO accuracy, captures lot numbers, and applies pre-printed or dynamically generated labels. When a PO is opened, the system automatically updates the <strong>Quantity Planned (QP)</strong>, and as goods are received, the <strong>Quantity on Hand (QOH)</strong> adjusts in real-time.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-file-signature" style="color: #d97706; margin-right: 6px;"></i>Close PO</td>
+              <td>Supervisors finalize the receipt by reconciling received versus ordered quantities. Discrepancies are flagged for procurement review, and the WMS automatically updates the corporate ERP and financial ledgers to authorize vendor payments.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-arrow-up-right-dots" style="color: #2563eb; margin-right: 6px;"></i>Directed Putaway</td>
+              <td>Instead of allowing drivers to place pallets arbitrarily, the WMS pushes <strong>Directed Tasking</strong> instructions to vehicle-mounted terminals (VMT). The algorithm calculates the optimal storage slot based on temperature zones, allergen segregation rules, and pick frequency.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Section 3: Inventory & Replenish -->
     <div id="inventory-replenish" style="margin-bottom: 60px;">
       <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
-        3. Inventory & Replenishment Execution
+        3. Inventory Management & Replenishment
       </h3>
-      <p style="color: #64748b; font-style: italic;">[Drafting: Reserve to pick-face movement, demand vs non-demand triggers, and Swap RACI matrix...]</p>
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
+        A static warehouse degrades into chaos. The WMS constantly rebalances the floor, driving reserve pallets into active pick-faces to prevent selection bottlenecks, while tracking regulatory constraints like lot codes and expirations.
+      </p>
+      <div class="table-responsive" style="margin: 25px 0;">
+        <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
+          <thead style="background: #f1f5f9; color: #1e293b;">
+            <tr>
+              <th style="width: 25%;">Functionality</th>
+              <th style="width: 75%;">WMS Operations & Business Logic</th>
+            </tr>
+          </thead>
+          <tbody style="color: #334155;">
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-boxes-packing" style="color: #10b981; margin-right: 6px;"></i>Replenishment Triggers</td>
+              <td><strong>Demand-Driven:</strong> Triggered automatically when active pick-face stock drops below the order volume threshold. <br><strong>Proactive (Non-Demand):</strong> Anticipatory restocking based on historical velocity, promotions, or seasonal surges (e.g., pre-stocking holiday items).</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-right-left" style="color: #8b5cf6; margin-right: 6px;"></i>Transfer / Swap</td>
+              <td>Warehouse optimization routines where single SKUs are relocated to condense space, or two SKUs are swapped. This enforces <strong>First Expired, First Out (FEFO)</strong> by cycling older inventory into high-velocity pick zones.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-magnifying-glass-chart" style="color: #f59e0b; margin-right: 6px;"></i>Inventory Control & Audits</td>
+              <td>Maintains real-time accuracy via RF-guided cycle counts. Crucially, it manages <strong>regulatory lot and date tracking</strong> to enable immediate recalls in the event of food safety alerts (e.g., pathogen outbreaks).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Section 4: Wave Selection -->
@@ -758,7 +810,33 @@ html {
       <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
         4. Outbound Selection & Waves
       </h3>
-      <p style="color: #64748b; font-style: italic;">[Drafting: Wearable device ergonomics, catchweights, and defect root cause analysis...]</p>
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
+        Order selection is the most labor-intensive phase. The <strong>Order Selection Application</strong> runs on industrial wearable devices, providing selectors with route-sequenced picking lists to fulfill demand for thousands of customer locations.
+      </p>
+      <div class="table-responsive" style="margin: 25px 0;">
+        <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
+          <thead style="background: #f1f5f9; color: #1e293b;">
+            <tr>
+              <th style="width: 25%;">Operational Phase</th>
+              <th style="width: 75%;">WMS Operations & Business Logic</th>
+            </tr>
+          </thead>
+          <tbody style="color: #334155;">
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-layer-group" style="color: #ef4444; margin-right: 6px;"></i>Batching & Wave Planning</td>
+              <td>Supervisors use the WMS to batch orders through route and stop optimization algorithms. The system generates aisle-sequenced paths so selectors travel the minimum necessary distance without crossing paths.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-hand-pointer" style="color: #3b82f6; margin-right: 6px;"></i>Wearable RF Picking</td>
+              <td>Selectors receive location-specific commands on wrist-mounted touchscreens with ring scanners. The system mandates validation scans, captures <strong>Catchweights</strong> for variable-weight proteins, and guides workers to designated staging areas.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-sitemap" style="color: #14b8a6; margin-right: 6px;"></i>Multi-Node Palletization</td>
+              <td>Enables multi-node fulfillment by splitting orders across Regional Distribution Centers (RDCs) and Last-Mile Sites (LMS). Items are built into mixed-SKU "floats," which reduces transfer truck dead-space by up to 40% and accelerates last-mile delivery.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Section 5: Trailer Loading -->
@@ -766,7 +844,29 @@ html {
       <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
         5. Trailer Loading & Verification
       </h3>
-      <p style="color: #64748b; font-style: italic;">[Drafting: FILO sequencing, trailer compartment staging, and PGI departure events...]</p>
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
+        The <strong>Outbound Loading Application</strong> provides the final validation safeguard before a delivery truck departs. It prevents mis-ships, ensures proper weight distribution, and enforces temperature compliance across tri-temp trailers.
+      </p>
+      <div class="table-responsive" style="margin: 25px 0;">
+        <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
+          <thead style="background: #f1f5f9; color: #1e293b;">
+            <tr>
+              <th style="width: 25%;">Loading Protocol</th>
+              <th style="width: 75%;">WMS Operations & Business Logic</th>
+            </tr>
+          </thead>
+          <tbody style="color: #334155;">
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-truck-fast" style="color: #6366f1; margin-right: 6px;"></i>Load Optimization</td>
+              <td>Generates door-specific loading sequences enforcing <strong>First-In, Last-Out (FILO)</strong> rules based on the driver's delivery route. Pallets are segregated into Dry, Cooler, and Freezer compartments to prevent cross-contamination and spoilage.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-barcode" style="color: #8b5cf6; margin-right: 6px;"></i>Pallet Verification</td>
+              <td>Loaders scan every pallet. The mobile application flags each batch state in real time: Selection in Progress (S), Ready to Load (C), Loading in Progress (L), and Already Loaded (*). A single incorrect pallet scan triggers a hard block on the loading bay.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Section 6: Reverse Logistics -->
@@ -774,7 +874,33 @@ html {
       <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
         6. Returns & Reverse Logistics
       </h3>
-      <p style="color: #64748b; font-style: italic;">[Drafting: Driver check-in, QA inspection, and discard compliance logs...]</p>
+      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
+        Handling customer returns in food distribution involves stringent biological and regulatory checks. The WMS must determine if an item is safe for redistribution or if it must be discarded with an immutable audit trail.
+      </p>
+      <div class="table-responsive" style="margin: 25px 0;">
+        <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
+          <thead style="background: #f1f5f9; color: #1e293b;">
+            <tr>
+              <th style="width: 25%;">Return Phase</th>
+              <th style="width: 75%;">WMS Operations & Business Logic</th>
+            </tr>
+          </thead>
+          <tbody style="color: #334155;">
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-truck-ramp-box" style="color: #0ea5e9; margin-right: 6px;"></i>Driver Check-In</td>
+              <td>Drivers return with rejected goods. The system scans the items against the Return Manifest. Goods are routed automatically: Return to Stock, Hold for Inspection, Hold for Credit, or placed in a QA Quarantine cage.</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-microscope" style="color: #ec4899; margin-right: 6px;"></i>Inspection & Disposition</td>
+              <td><strong>Resellable:</strong> Rescanned and re-entered into active inventory via the Putaway workflow.<br><strong>Not Resellable:</strong> Discarded immediately with regulatory-compliant disposal logs (e.g., spoiled meat or broken cold-chain).</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-file-invoice-dollar" style="color: #10b981; margin-right: 6px;"></i>Credit Issuance</td>
+              <td>Upon disposition approval, the WMS automatically signals the corporate ERP to initiate financial refunds or credit memos for the customer, reconciling the final delivery invoice.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Section 7: The Macro Layer (Moved to Grand Synthesis) -->
