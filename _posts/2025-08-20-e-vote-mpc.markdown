@@ -10,83 +10,52 @@ category: Cybersecurity & Web Development
 description: This project introduces a privacy-preserving, edge-based e-voting system integrating Multi-Party Computation (MPC) specifically architected for Sri Lanka. It leverages edge computing to decentralize ballot processing at polling sites, reducing network dependence, while MPC protocols ensure ballot secrecy and verifiable aggregation. The developed local prototype successfully demonstrates fingerprint-based voter authentication, secure ballot encryption, and distributed MPC tallying to make it technologically impossible for any single authority to tamper with individual votes. 
 ---
 
-<br>
-<br>
+### Executive Summary
+{: .text-justify }
 
-<h3>Executive Summary</h3>
-<p style="text-align: justify;">This project tackles the challenges of manual, paper-based electoral systems in Sri Lanka by proposing a modern, cost-effective, privacy-preserving electronic voting framework. It leverages edge computing and Multi-Party Computation (MPC) to guarantee the Confidentiality, Integrity, Availability, Authentication, and Non-repudiation (CIAAN) of every vote. By demonstrating successful biometric authentication and secure distributed tallying, this prototype establishes a verifiable and trust-building architecture for national elections.</p>
+This project tackles the challenges of manual, paper-based electoral systems in Sri Lanka by proposing a modern, cost-effective, privacy-preserving electronic voting framework. It leverages edge computing and Multi-Party Computation (MPC) to guarantee the Confidentiality, Integrity, Availability, Authentication, and Non-repudiation (CIAAN) of every vote. By demonstrating successful biometric authentication and secure distributed tallying, this prototype establishes a verifiable and trust-building architecture for national elections.
 
-<br>
-<br>
+### Edge-Based E-Voting System with MPC
 
-<h3>Edge-Based E-Voting System with MPC</h3>
+#### 📋 Project Overview
 
-<br>
-<br>
+| | |
+|---|---|
+| 🎯 **Objective** | To establish a verifiable, trust-building e-voting system tailored for Sri Lanka's infrastructural constraints. |
+| 🛠️ **Technology Stack** | Remix (Frontend), FastAPI (Backend), MySQL (Database), ESP32 Microcontrollers (Edge). |
+| 🔒 **Security Model** | CIAAN Architecture, Biometric Authentication, Secret-Sharing Algorithms. |
+| 🎓 **Context** | BSc Honours in Computer Science Final Year Project, Faculty of Computing and Technology, University of Kelaniya. |
+{: .table .table-bordered }
 
-<h4>📋 Project Overview</h4>
-<table class="table table-bordered">
-  <tbody>
-    <tr><td>🎯 <strong>Objective</strong></td><td style="text-align: justify;">To establish a verifiable, trust-building e-voting system tailored for Sri Lanka's infrastructural constraints.</td></tr>
-    <tr><td>🛠️ <strong>Technology Stack</strong></td><td style="text-align: justify;">Remix (Frontend), FastAPI (Backend), MySQL (Database), ESP32 Microcontrollers (Edge).</td></tr>
-    <tr><td>🔒 <strong>Security Model</strong></td><td style="text-align: justify;">CIAAN Architecture, Biometric Authentication, Secret-Sharing Algorithms.</td></tr>
-    <tr><td>🎓 <strong>Context</strong></td><td style="text-align: justify;">BSc Honours in Computer Science Final Year Project, Faculty of Computing and Technology, University of Kelaniya.</td></tr>
-  </tbody>
-</table>
+---
 
-<br>
-<br>
+### (1) Core System Architecture
 
-<hr>
+| | |
+|---|---|
+| **Tier 1: Edge Nodes** | ESP32 devices handle local biometric voter authentication and ballot encryption at polling stations to reduce network dependence. |
+| **Tier 2: MPC Overlay** | A secure peer-to-peer network distributes secret shares of the votes to enable collective tallying without revealing individual selections. |
+| **Tier 3: Central Services** | A high-performance FastAPI backend manages the voter registry, API routing, and final encrypted result storage via MySQL. |
+{: .table .table-bordered }
 
-<h3>(1) Core System Architecture</h3>
-<table class="table table-bordered">
-  <tbody>
-    <tr><td><strong>Tier 1: Edge Nodes</strong></td><td style="text-align: justify;">ESP32 devices handle local biometric voter authentication and ballot encryption at polling stations to reduce network dependence.</td></tr>
-    <tr><td><strong>Tier 2: MPC Overlay</strong></td><td style="text-align: justify;">A secure peer-to-peer network distributes secret shares of the votes to enable collective tallying without revealing individual selections.</td></tr>
-    <tr><td><strong>Tier 3: Central Services</strong></td><td style="text-align: justify;">A high-performance FastAPI backend manages the voter registry, API routing, and final encrypted result storage via MySQL.</td></tr>
-  </tbody>
-</table>
+### (2) Key Implementation Features
 
-<br>
+| | |
+|---|---|
+| **Biometric Authentication** | Voters are authenticated using fingerprint scanners integrated with ESP32 edge nodes, ensuring the one-person-one-vote principle. |
+| **Secure Vote Casting** | Votes are cryptographically encapsulated using advanced protocols before storage to ensure absolute integrity and secrecy. |
+| **Distributed Tallying** | MPC protocols guarantee that it is technologically impossible for any single authority to tamper with or reconstruct individual votes. |
+{: .table .table-bordered .table-striped }
 
-<h3>(2) Key Implementation Features</h3>
-<table class="table table-bordered table-striped">
-  <tbody>
-    <tr><td><strong>Biometric Authentication</strong></td><td style="text-align: justify;">Voters are authenticated using fingerprint scanners integrated with ESP32 edge nodes, ensuring the one-person-one-vote principle.</td></tr>
-    <tr><td><strong>Secure Vote Casting</strong></td><td style="text-align: justify;">Votes are cryptographically encapsulated using advanced protocols before storage to ensure absolute integrity and secrecy.</td></tr>
-    <tr><td><strong>Distributed Tallying</strong></td><td style="text-align: justify;">MPC protocols guarantee that it is technologically impossible for any single authority to tamper with or reconstruct individual votes.</td></tr>
-  </tbody>
-</table>
+### (3) System Evaluation & Future Work
+{: .text-justify }
 
-<br>
+A developed local prototype successfully demonstrated the complete pipeline: fingerprint-based voter authentication, secure ballot encryption, and distributed MPC tallying. While testing successfully proved the feasibility of preventing duplicate voting and protecting against tampering, it was conducted in a controlled environment limited to a single ESP32 device, meaning high-load scalability remains to be fully evaluated.
 
-<h3>(3) System Evaluation & Future Work</h3>
-<p style="text-align: justify;">A developed local prototype successfully demonstrated the complete pipeline: fingerprint-based voter authentication, secure ballot encryption, and distributed MPC tallying. While testing successfully proved the feasibility of preventing duplicate voting and protecting against tampering, it was conducted in a controlled environment limited to a single ESP32 device, meaning high-load scalability remains to be fully evaluated.</p>
+**Future Enhancements:** The roadmap for a nationwide rollout includes extending the prototype to higher-performance edge devices (like the Raspberry Pi), integrating post-quantum cryptography (PQC) for long-term security, and employing multi-biometric sensors for enhanced authentication.
 
-<br>
-
-<p style="text-align: justify;"><strong>Future Enhancements:</strong> The roadmap for a nationwide rollout includes extending the prototype to higher-performance edge devices (like the Raspberry Pi), integrating post-quantum cryptography (PQC) for long-term security, and employing multi-biometric sensors for enhanced authentication.</p>
-
-<br>
-<br>
-
-<!-- Link to GitHub Repository -->
-<div style="text-align: center; margin: 25px auto 20px; width: 100%;">
-  <a href="https://github.com/ayeshaanuruddha/e-vote-main" target="_blank" class="btn btn-lg" style="
-    background-color: #24292e;
-    border-color: #24292e;
-    color: #ffffff;
-    font-weight: 600;
-    padding: 12px 16px;
-    border-radius: 4px;
-    text-decoration: none;
-    display: inline-block;
-    width: 100%;
-    max-width: 420px;
-    box-sizing: border-box;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
-  ">
-    <i class="fa-brands fa-github" style="margin-right: 8px;"></i>View Source Code on GitHub
+<div class="text-center" style="margin: 2rem 0;">
+  <a href="https://github.com/ayeshaanuruddha/e-vote-main" target="_blank" rel="noopener noreferrer" class="btn btn-lg" style="background-color: #24292e; color: #fff; width: 100%; max-width: 420px;">
+    <i class="fa-brands fa-github"></i> View Source Code on GitHub
   </a>
 </div>
