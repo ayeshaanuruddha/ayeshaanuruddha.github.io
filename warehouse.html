@@ -737,34 +737,117 @@ html {
 
 
 
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { fontFamily: 'inherit' } });
+</script>
+
+    <!-- Visual Flow Diagram -->
+    <div style="background-color: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 60px; padding: 25px; overflow-x: auto;">
+      <h3 style="margin-top: 0; color: #1e293b; font-weight: 700; text-align: center; margin-bottom: 15px;">
+        WMS Operational Flow
+      </h3>
+      <div class="mermaid" style="display: flex; justify-content: center;">
+        flowchart LR
+            classDef inbound fill:#f0f9ff,stroke:#0284c7,stroke-width:2px,color:#0369a1,font-weight:bold;
+            classDef outbound fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#15803d,font-weight:bold;
+            classDef returns fill:#faf5ff,stroke:#9333ea,stroke-width:2px,color:#7e22ce,font-weight:bold;
+            classDef inventory fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#c2410c,font-weight:bold;
+            classDef external fill:#f8fafc,stroke:#94a3b8,stroke-width:1px,stroke-dasharray: 4 4,color:#475569;
+
+            Suppliers([Suppliers]):::external
+            Truck([Truck Return]):::external
+            Customers([Customers]):::external
+            
+            subgraph INBOUND [INBOUND]
+                direction LR
+                PO[Purchase Order] --> Unload[Unloading]
+                Unload --> Recv[Receiving]
+                Recv --> PutIn[Putaway]
+            end
+            class INBOUND inbound
+            
+            subgraph RETURNS [RETURNS]
+                direction LR
+                RetRecv[Return Receiving] --> Inspect{Resellable?}
+                Inspect -- Y --> PutRet[Putaway]
+                Inspect -- N --> Discard[Discard]
+            end
+            class RETURNS returns
+            
+            subgraph INV [MANAGE INVENTORY]
+                direction TB
+                Status[Stock Status Tracking<br>QOH / QA / QP]
+                Replen[Replenishment<br>Demand & Proactive]
+                Control[Inventory Control<br>Cycle Counts]
+                Admin[Inventory Admin<br>Location Swaps]
+                Status ~~~ Replen
+                Replen ~~~ Control
+                Control ~~~ Admin
+            end
+            class INV inventory
+
+            subgraph OUTBOUND [OUTBOUND]
+                direction LR
+                SO[Sales Orders] --> Route[Routing]
+                Route --> PList[Picking List]
+                PList --> Pick[Select / Pick]
+                Pick --> Pack[Label / Pack]
+                Pack --> Load[Load / Dispatch]
+            end
+            class OUTBOUND outbound
+
+            Suppliers -. Deliver Goods .-> PO
+            Truck -. Returns .-> RetRecv
+            
+            PutIn ==> INV
+            PutRet ==> INV
+            
+            INV ==> PList
+            
+            Load -. Delivery .-> Customers
+            Customers -. Rejected .-> Truck
+      </div>
+    </div>
+
     <!-- Section 2: Inbound -->
     <div id="inbound-operations" style="margin-bottom: 60px;">
       <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
         2. Inbound: Receipt & Directed Putaway
       </h3>
       <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
-        The inbound workflow acts as the critical entry point where commercial Purchase Orders (POs) become physical inventory. The WMS orchestrates this transformation through strict compliance checks, updating inventory states from <strong>Quantity Planned (QP)</strong> to <strong>Quantity on Hand (QOH)</strong>.
+        The inbound workflow is the gateway where commercial Purchase Orders (POs) become physical inventory. For a Business Analyst, the complexity lies in managing exceptions—overages, shortages, and damages (OS&D)—and enforcing strict regulatory compliance before inventory becomes available for sale.
       </p>
       <div class="table-responsive" style="margin: 25px 0;">
         <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
           <thead style="background: #f1f5f9; color: #1e293b;">
             <tr>
               <th style="width: 25%;">Workflow Step</th>
-              <th style="width: 75%;">WMS Operations & Business Logic</th>
+              <th style="width: 75%;">BA & System Logic / Exception Handling</th>
             </tr>
           </thead>
           <tbody style="color: #334155;">
             <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-clipboard-check" style="color: #0284c7; margin-right: 6px;"></i>Receiving & Check-In</td>
-              <td>Unloaders scan barcodes on incoming pallets. The WMS verifies PO accuracy, captures lot numbers, and applies pre-printed or dynamically generated labels. When a PO is opened, the system automatically updates the <strong>Quantity Planned (QP)</strong>, and as goods are received, the <strong>Quantity on Hand (QOH)</strong> adjusts in real-time.</td>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-clipboard-check" style="color: #0284c7; margin-right: 6px;"></i>Receiving & Verification</td>
+              <td>
+                <strong>Happy Path:</strong> Barcode scans match the Advance Shipping Notice (ASN). System captures Lot Number and Expiry Date. <strong>Quantity Planned (QP)</strong> translates into <strong>Quantity on Hand (QOH)</strong>.<br><br>
+                <strong>Exception (Blind Receipt):</strong> No ASN exists. The WMS forces a supervisor override to manually create a PO to receive against, ensuring financial reconciliation.<br>
+                <strong>Exception (Damaged Goods):</strong> Items are scanned but immediately flagged. Inventory state transitions to <strong>Quantity on Hold (QA)</strong> preventing allocation.
+              </td>
             </tr>
             <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-file-signature" style="color: #d97706; margin-right: 6px;"></i>Close PO</td>
-              <td>Supervisors finalize the receipt by reconciling received versus ordered quantities. Discrepancies are flagged for procurement review, and the WMS automatically updates the corporate ERP and financial ledgers to authorize vendor payments.</td>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-file-signature" style="color: #d97706; margin-right: 6px;"></i>Reconciliation & PO Closure</td>
+              <td>
+                <strong>Logic:</strong> Supervisors reconcile received quantities against ordered quantities. <br>
+                <strong>Business Rule:</strong> A tolerance threshold (e.g., +/- 5%) dictates whether the system auto-closes the PO or triggers a procurement review. Upon closure, an API call is made to the corporate ERP to authorize vendor payment (Goods Receipt).
+              </td>
             </tr>
             <tr>
               <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-arrow-up-right-dots" style="color: #2563eb; margin-right: 6px;"></i>Directed Putaway</td>
-              <td>Instead of allowing drivers to place pallets arbitrarily, the WMS pushes <strong>Directed Tasking</strong> instructions to vehicle-mounted terminals (VMT). The algorithm calculates the optimal storage slot based on temperature zones, allergen segregation rules, and pick frequency.</td>
+              <td>
+                <strong>Logic:</strong> The WMS prohibits manual pallet drops. Instead, the Putaway Algorithm pushes commands to vehicle-mounted terminals (VMT).<br>
+                <strong>Slotting Constraints:</strong> The algorithm dynamically evaluates Temperature Zones, Allergen Segregation rules (e.g., peanuts cannot be stored above flour), Weight Limits, and Pick Frequency.
+              </td>
             </tr>
           </tbody>
         </table>
@@ -774,31 +857,50 @@ html {
     <!-- Section 3: Inventory & Replenish -->
     <div id="inventory-replenish" style="margin-bottom: 60px;">
       <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
-        3. Inventory Management & Replenishment
+        3. Inventory Management & Admin
       </h3>
       <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
-        A static warehouse degrades into chaos. The WMS constantly rebalances the floor, driving reserve pallets into active pick-faces to prevent selection bottlenecks, while tracking regulatory constraints like lot codes and expirations.
+        A static warehouse degrades into chaos. Continuous data synchronization between physical racks and logical databases is required. This module represents the core "engine" of the WMS, handling data state transitions and physical relocation to maintain operational velocity.
       </p>
       <div class="table-responsive" style="margin: 25px 0;">
         <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
           <thead style="background: #f1f5f9; color: #1e293b;">
             <tr>
-              <th style="width: 25%;">Functionality</th>
-              <th style="width: 75%;">WMS Operations & Business Logic</th>
+              <th style="width: 25%;">Admin Functionality</th>
+              <th style="width: 75%;">BA & System Logic / Exception Handling</th>
             </tr>
           </thead>
           <tbody style="color: #334155;">
             <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-boxes-packing" style="color: #10b981; margin-right: 6px;"></i>Replenishment Triggers</td>
-              <td><strong>Demand-Driven:</strong> Triggered automatically when active pick-face stock drops below the order volume threshold. <br><strong>Proactive (Non-Demand):</strong> Anticipatory restocking based on historical velocity, promotions, or seasonal surges (e.g., pre-stocking holiday items).</td>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-chart-pie" style="color: #f43f5e; margin-right: 6px;"></i>Stock Status Tracking</td>
+              <td>
+                <strong>Logic:</strong> Inventory possesses logical states restricting operations.<br>
+                • <code>QOH (Quantity On Hand)</code>: Physically present but potentially allocated to an order.<br>
+                • <code>QA (Quantity Available)</code>: Ready and free to be picked.<br>
+                • <code>QP (Quantity Planned)</code>: Expected inbound from suppliers.<br>
+                • <code>Hold/Quarantine</code>: Locked from allocation due to quality inspection or recalls.
+              </td>
             </tr>
             <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-right-left" style="color: #8b5cf6; margin-right: 6px;"></i>Transfer / Swap</td>
-              <td>Warehouse optimization routines where single SKUs are relocated to condense space, or two SKUs are swapped. This enforces <strong>First Expired, First Out (FEFO)</strong> by cycling older inventory into high-velocity pick zones.</td>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-boxes-packing" style="color: #10b981; margin-right: 6px;"></i>Replenishment Triggers</td>
+              <td>
+                <strong>Demand-Driven (Reactive):</strong> Triggered automatically when active pick-face stock drops below the order allocation requirement. Creates a high-priority "Hot Replen" task.<br>
+                <strong>Proactive (Non-Demand):</strong> Anticipatory restocking triggered overnight based on historical velocity, promotions, or seasonal surges.
+              </td>
+            </tr>
+            <tr>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-right-left" style="color: #8b5cf6; margin-right: 6px;"></i>Location Swaps (Admin)</td>
+              <td>
+                <strong>Logic:</strong> Inventory administrators execute "Swaps" to consolidate space or optimize pick paths. <br>
+                <strong>Business Rule:</strong> A Swap command requires scanning both the source and target bin barcodes to ensure the database accurately reflects the new physical coordinates, enforcing <strong>First Expired, First Out (FEFO)</strong>.
+              </td>
             </tr>
             <tr>
               <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-magnifying-glass-chart" style="color: #f59e0b; margin-right: 6px;"></i>Inventory Control & Audits</td>
-              <td>Maintains real-time accuracy via RF-guided cycle counts. Crucially, it manages <strong>regulatory lot and date tracking</strong> to enable immediate recalls in the event of food safety alerts (e.g., pathogen outbreaks).</td>
+              <td>
+                <strong>Logic:</strong> Instead of annual shutdowns, the WMS directs rolling <strong>Cycle Counts</strong> via RF guns. <br>
+                <strong>Exception (Discrepancy):</strong> If a picker reports a "Short Pick" (item missing from slot), the WMS instantly locks the location and auto-generates a Cycle Count task for Inventory Admin to verify and adjust the logical record.
+              </td>
             </tr>
           </tbody>
         </table>
@@ -811,28 +913,37 @@ html {
         4. Outbound Selection & Waves
       </h3>
       <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
-        Order selection is the most labor-intensive phase. The <strong>Order Selection Application</strong> runs on industrial wearable devices, providing selectors with route-sequenced picking lists to fulfill demand for thousands of customer locations.
+        Order selection is the most labor-intensive and error-prone phase. From a systems perspective, the goal is to batch orders intelligently and enforce strict validation scans at the point of action.
       </p>
       <div class="table-responsive" style="margin: 25px 0;">
         <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
           <thead style="background: #f1f5f9; color: #1e293b;">
             <tr>
               <th style="width: 25%;">Operational Phase</th>
-              <th style="width: 75%;">WMS Operations & Business Logic</th>
+              <th style="width: 75%;">BA & System Logic / Exception Handling</th>
             </tr>
           </thead>
           <tbody style="color: #334155;">
             <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-layer-group" style="color: #ef4444; margin-right: 6px;"></i>Batching & Wave Planning</td>
-              <td>Supervisors use the WMS to batch orders through route and stop optimization algorithms. The system generates aisle-sequenced paths so selectors travel the minimum necessary distance without crossing paths.</td>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-layer-group" style="color: #ef4444; margin-right: 6px;"></i>Wave Planning & Routing</td>
+              <td>
+                <strong>Logic:</strong> Supervisors pool hundreds of sales orders into a "Wave". The system sequences the picking list by location (Aisle → Rack → Bin) so selectors travel in a unidirectional "Z-pattern", minimizing travel distance.<br>
+                <strong>Exception:</strong> High-priority rush orders bypass standard wave delays and are injected directly into active pick queues via "Hot Picks".
+              </td>
             </tr>
             <tr>
               <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-hand-pointer" style="color: #3b82f6; margin-right: 6px;"></i>Wearable RF Picking</td>
-              <td>Selectors receive location-specific commands on wrist-mounted touchscreens with ring scanners. The system mandates validation scans, captures <strong>Catchweights</strong> for variable-weight proteins, and guides workers to designated staging areas.</td>
+              <td>
+                <strong>Logic:</strong> Selectors interact via wrist-mounted screens and ring scanners. The system mandates validation scans on the slot barcode to confirm location accuracy before prompting for quantity.<br>
+                <strong>Catchweights:</strong> For variable-weight items (e.g., wholesale meat), the WMS pauses the workflow and forces the picker to scan the exact weight barcode, ensuring accurate billing.
+              </td>
             </tr>
             <tr>
               <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-sitemap" style="color: #14b8a6; margin-right: 6px;"></i>Multi-Node Palletization</td>
-              <td>Enables multi-node fulfillment by splitting orders across Regional Distribution Centers (RDCs) and Last-Mile Sites (LMS). Items are built into mixed-SKU "floats," which reduces transfer truck dead-space by up to 40% and accelerates last-mile delivery.</td>
+              <td>
+                <strong>Logic:</strong> Fulfilling an order by splitting it across a Regional Distribution Center and a Last-Mile Site. <br>
+                <strong>Business Rule:</strong> The WMS tracks cross-dock "floats" (mixed-SKU pallets). It must retain the logical linkage between the parent sales order and multiple child delivery vehicles until the final merge.
+              </td>
             </tr>
           </tbody>
         </table>
@@ -842,27 +953,34 @@ html {
     <!-- Section 5: Trailer Loading -->
     <div id="trailer-loading" style="margin-bottom: 60px;">
       <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
-        5. Trailer Loading & Verification
+        5. Trailer Loading & Dispatch Verification
       </h3>
       <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
-        The <strong>Outbound Loading Application</strong> provides the final validation safeguard before a delivery truck departs. It prevents mis-ships, ensures proper weight distribution, and enforces temperature compliance across tri-temp trailers.
+        Loading is the final firewall. A single mis-shipped pallet results in driver delays, customer credits, and spoilage. The Outbound Loading Application serves as a real-time validation gate.
       </p>
       <div class="table-responsive" style="margin: 25px 0;">
         <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
           <thead style="background: #f1f5f9; color: #1e293b;">
             <tr>
               <th style="width: 25%;">Loading Protocol</th>
-              <th style="width: 75%;">WMS Operations & Business Logic</th>
+              <th style="width: 75%;">BA & System Logic / Exception Handling</th>
             </tr>
           </thead>
           <tbody style="color: #334155;">
             <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-truck-fast" style="color: #6366f1; margin-right: 6px;"></i>Load Optimization</td>
-              <td>Generates door-specific loading sequences enforcing <strong>First-In, Last-Out (FILO)</strong> rules based on the driver's delivery route. Pallets are segregated into Dry, Cooler, and Freezer compartments to prevent cross-contamination and spoilage.</td>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-truck-fast" style="color: #6366f1; margin-right: 6px;"></i>Load Optimization (FILO)</td>
+              <td>
+                <strong>Logic:</strong> The application dictates a <strong>First-In, Last-Out (FILO)</strong> loading sequence. The pallet for the driver's last delivery stop must be loaded first (at the nose of the trailer).<br>
+                <strong>Constraint Mapping:</strong> Tri-temp trailers force the system to route dry, chilled, and frozen pallets into specific bulkhead compartments to prevent temperature abuse.
+              </td>
             </tr>
             <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-barcode" style="color: #8b5cf6; margin-right: 6px;"></i>Pallet Verification</td>
-              <td>Loaders scan every pallet. The mobile application flags each batch state in real time: Selection in Progress (S), Ready to Load (C), Loading in Progress (L), and Already Loaded (*). A single incorrect pallet scan triggers a hard block on the loading bay.</td>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-barcode" style="color: #8b5cf6; margin-right: 6px;"></i>Pallet Verification & PGI</td>
+              <td>
+                <strong>Logic:</strong> Loaders scan the trailer door, then scan every pallet entering it. The mobile application flags batch states: <code>(S) Selection Progress</code>, <code>(C) Ready to Load</code>, <code>(L) Loading</code>, <code>(*) Loaded</code>.<br>
+                <strong>Exception (Hard Block):</strong> Scanning an incorrect pallet triggers an audible error and locks the terminal until a supervisor clears it.<br>
+                <strong>Dispatch:</strong> Closing the trailer door triggers the Post Goods Issue (PGI) event, instantly relieving financial inventory in the corporate ERP.
+              </td>
             </tr>
           </tbody>
         </table>
@@ -875,28 +993,36 @@ html {
         6. Returns & Reverse Logistics
       </h3>
       <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
-        Handling customer returns in food distribution involves stringent biological and regulatory checks. The WMS must determine if an item is safe for redistribution or if it must be discarded with an immutable audit trail.
+        Handling customer returns introduces complex logical forks. The system must immediately distinguish between financially valid returns and physically viable inventory, maintaining strict audit trails for regulatory bodies.
       </p>
       <div class="table-responsive" style="margin: 25px 0;">
         <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
           <thead style="background: #f1f5f9; color: #1e293b;">
             <tr>
               <th style="width: 25%;">Return Phase</th>
-              <th style="width: 75%;">WMS Operations & Business Logic</th>
+              <th style="width: 75%;">BA & System Logic / Exception Handling</th>
             </tr>
           </thead>
           <tbody style="color: #334155;">
             <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-truck-ramp-box" style="color: #0ea5e9; margin-right: 6px;"></i>Driver Check-In</td>
-              <td>Drivers return with rejected goods. The system scans the items against the Return Manifest. Goods are routed automatically: Return to Stock, Hold for Inspection, Hold for Credit, or placed in a QA Quarantine cage.</td>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-truck-ramp-box" style="color: #0ea5e9; margin-right: 6px;"></i>Driver Check-In & Manifest</td>
+              <td>
+                <strong>Logic:</strong> Returning drivers submit physical goods against a system-generated Return Manifest. <br>
+                <strong>Routing Rules:</strong> The WMS evaluates reason codes to auto-route items: "Customer Ordered Wrong Item" (Hold for Inspection) vs. "Temperature Abuse" (Immediate Quarantine).
+              </td>
             </tr>
             <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-microscope" style="color: #ec4899; margin-right: 6px;"></i>Inspection & Disposition</td>
-              <td><strong>Resellable:</strong> Rescanned and re-entered into active inventory via the Putaway workflow.<br><strong>Not Resellable:</strong> Discarded immediately with regulatory-compliant disposal logs (e.g., spoiled meat or broken cold-chain).</td>
+              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-microscope" style="color: #ec4899; margin-right: 6px;"></i>Inspection Disposition</td>
+              <td>
+                <strong>Resellable Path:</strong> QA approves the item. The WMS generates a Putaway task to return the inventory state from <code>Quarantine</code> to <code>Quantity Available (QA)</code>.<br>
+                <strong>Discard Path:</strong> QA rejects the item. The WMS mandates a disposal reason code and updates regulatory disposal logs to ensure compliance (critical for food/pharma safety).
+              </td>
             </tr>
             <tr>
               <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-file-invoice-dollar" style="color: #10b981; margin-right: 6px;"></i>Credit Issuance</td>
-              <td>Upon disposition approval, the WMS automatically signals the corporate ERP to initiate financial refunds or credit memos for the customer, reconciling the final delivery invoice.</td>
+              <td>
+                <strong>Logic:</strong> Physical disposition is decoupled from financial credit. Even if an item is discarded, the WMS must verify the fault. If the company is at fault, an API payload is pushed to the corporate ERP to automatically issue a customer refund.
+              </td>
             </tr>
           </tbody>
         </table>
