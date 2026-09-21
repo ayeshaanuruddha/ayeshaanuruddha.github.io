@@ -1151,133 +1151,55 @@ html {
     <!-- Section 3: Inventory & Replenish -->
     <div id="inventory-replenish" style="margin-bottom: 60px;">
       <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
-        3. Inventory Management & Admin
+        3. Inventory Management & Admin (A BA Timeline)
       </h3>
       <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
         A static warehouse degrades into chaos. Continuous data synchronization between physical racks and logical databases is required. This module represents the core "engine" of the WMS, handling data state transitions and physical relocation to maintain operational velocity.
       </p>
-      <div class="table-responsive" style="margin: 25px 0;">
-        <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
-          <thead style="background: #f1f5f9; color: #1e293b;">
-            <tr>
-              <th style="width: 25%;">Admin Functionality</th>
-              <th style="width: 75%;">BA & System Logic / Exception Handling</th>
-            </tr>
-          </thead>
-          <tbody style="color: #334155;">
-            <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-chart-pie" style="color: #f43f5e; margin-right: 6px;"></i>Stock Status Tracking</td>
-              <td>
-                <strong>Logic:</strong> Inventory possesses logical states restricting operations.<br>
-                • <code>QOH (Quantity On Hand)</code>: Physically present but potentially allocated to an order.<br>
-                • <code>QA (Quantity Available)</code>: Ready and free to be picked.<br>
-                • <code>QP (Quantity Planned)</code>: Expected inbound from suppliers.<br>
-                • <code>Hold/Quarantine</code>: Locked from allocation due to quality inspection or recalls.
-              </td>
-            </tr>
-            <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-boxes-packing" style="color: #10b981; margin-right: 6px;"></i>Replenishment Triggers</td>
-              <td>
-                <strong>Demand-Driven (Reactive):</strong> Triggered automatically when active pick-face stock drops below the order allocation requirement. Creates a high-priority "Hot Replen" task.<br>
-                <strong>Proactive (Non-Demand):</strong> Anticipatory restocking triggered overnight based on historical velocity, promotions, or seasonal surges.
-              </td>
-            </tr>
-            <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-right-left" style="color: #8b5cf6; margin-right: 6px;"></i>Location Swaps (Admin)</td>
-              <td>
-                <strong>Logic:</strong> Inventory administrators execute "Swaps" to consolidate space or optimize pick paths. <br>
-                <strong>Business Rule:</strong> A Swap command requires scanning both the source and target bin barcodes to ensure the database accurately reflects the new physical coordinates, enforcing <strong>First Expired, First Out (FEFO)</strong>.
-              </td>
-            </tr>
-            <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-magnifying-glass-chart" style="color: #f59e0b; margin-right: 6px;"></i>Inventory Control & Audits</td>
-              <td>
-                <strong>Logic:</strong> Instead of annual shutdowns, the WMS directs rolling <strong>Cycle Counts</strong> via RF guns. <br>
-                <strong>Exception (Discrepancy):</strong> If a picker reports a "Short Pick" (item missing from slot), the WMS instantly locks the location and auto-generates a Cycle Count task for Inventory Admin to verify and adjust the logical record.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
 
-    <!-- Section 4: Wave Selection -->
-    <div id="outbound-fulfillment" style="margin-bottom: 60px;">
-      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
-        4. Outbound Selection & Waves
-      </h3>
-      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
-        Order selection is the most labor-intensive and error-prone phase. From a systems perspective, the goal is to batch orders intelligently and enforce strict validation scans at the point of action.
-      </p>
-      <div class="table-responsive" style="margin: 25px 0;">
-        <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
-          <thead style="background: #f1f5f9; color: #1e293b;">
-            <tr>
-              <th style="width: 25%;">Operational Phase</th>
-              <th style="width: 75%;">BA & System Logic / Exception Handling</th>
-            </tr>
-          </thead>
-          <tbody style="color: #334155;">
-            <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-layer-group" style="color: #ef4444; margin-right: 6px;"></i>Wave Planning & Routing</td>
-              <td>
-                <strong>Logic:</strong> Supervisors pool hundreds of sales orders into a "Wave". The system sequences the picking list by location (Aisle → Rack → Bin) so selectors travel in a unidirectional "Z-pattern", minimizing travel distance.<br>
-                <strong>Exception:</strong> High-priority rush orders bypass standard wave delays and are injected directly into active pick queues via "Hot Picks".
-              </td>
-            </tr>
-            <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-hand-pointer" style="color: #3b82f6; margin-right: 6px;"></i>Wearable RF Picking</td>
-              <td>
-                <strong>Logic:</strong> Selectors interact via wrist-mounted screens and ring scanners. The system mandates validation scans on the slot barcode to confirm location accuracy before prompting for quantity.<br>
-                <strong>Catchweights:</strong> For variable-weight items (e.g., wholesale meat), the WMS pauses the workflow and forces the picker to scan the exact weight barcode, ensuring accurate billing.
-              </td>
-            </tr>
-            <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-sitemap" style="color: #14b8a6; margin-right: 6px;"></i>Multi-Node Palletization</td>
-              <td>
-                <strong>Logic:</strong> Fulfilling an order by splitting it across a Regional Distribution Center and a Last-Mile Site. <br>
-                <strong>Business Rule:</strong> The WMS tracks cross-dock "floats" (mixed-SKU pallets). It must retain the logical linkage between the parent sales order and multiple child delivery vehicles until the final merge.
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- 3.1 Replenishment -->
+      <h4 style="color: #8b5cf6; font-weight: 700; font-size: 1.15em; margin-top: 30px;">
+        3.1 Min/Max Replenishment (Let-Downs)
+      </h4>
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #8b5cf6; border-radius: 6px; padding: 20px; margin-top: 15px;">
+        <p style="font-size: 0.9em; color: #475569; margin-bottom: 10px;">
+          <strong>System Actor:</strong> Replenishment Forklift Operator.<br>
+          <strong>Hardware:</strong> VMT.
+        </p>
+        <p style="font-size: 0.9em; color: #475569; margin-bottom: 0; text-align: justify;">
+          <strong>Process Execution &amp; BA Logic:</strong> The WMS constantly monitors the active pick faces. When inventory drops below a configured "Min" threshold, it triggers a Let-Down task.<br><br>
+          <strong>BA Case (Priority Sequencing):</strong> A "Hot Replen" is generated if a picker is actively waiting for the product. A "Standard Replen" is generated overnight. The WMS prioritizes Hot Replens to the top of the VMT queue to prevent shipping delays.
+        </p>
       </div>
-    </div>
 
-    <!-- Section 5: Trailer Loading -->
-    <div id="trailer-loading" style="margin-bottom: 60px;">
-      <h3 style="border-bottom: 2px solid #18bc9c; padding-bottom: 8px; color: #1e293b; font-weight: 700;">
-        5. Trailer Loading & Dispatch Verification
-      </h3>
-      <p style="font-size: 1.05em; line-height: 1.7; color: #334155; text-align: justify;">
-        Loading is the final firewall. A single mis-shipped pallet results in driver delays, customer credits, and spoilage. The Outbound Loading Application serves as a real-time validation gate.
-      </p>
-      <div class="table-responsive" style="margin: 25px 0;">
-        <table class="table table-bordered" style="font-size: 0.9em; background: #ffffff;">
-          <thead style="background: #f1f5f9; color: #1e293b;">
-            <tr>
-              <th style="width: 25%;">Loading Protocol</th>
-              <th style="width: 75%;">BA & System Logic / Exception Handling</th>
-            </tr>
-          </thead>
-          <tbody style="color: #334155;">
-            <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-truck-fast" style="color: #6366f1; margin-right: 6px;"></i>Load Optimization (FILO)</td>
-              <td>
-                <strong>Logic:</strong> The application dictates a <strong>First-In, Last-Out (FILO)</strong> loading sequence. The pallet for the driver's last delivery stop must be loaded first (at the nose of the trailer).<br>
-                <strong>Constraint Mapping:</strong> Tri-temp trailers force the system to route dry, chilled, and frozen pallets into specific bulkhead compartments to prevent temperature abuse.
-              </td>
-            </tr>
-            <tr>
-              <td style="font-weight: 700; background: #f8fafc;"><i class="fa-solid fa-barcode" style="color: #8b5cf6; margin-right: 6px;"></i>Pallet Verification & PGI</td>
-              <td>
-                <strong>Logic:</strong> Loaders scan the trailer door, then scan every pallet entering it. The mobile application flags batch states: <code>(S) Selection Progress</code>, <code>(C) Ready to Load</code>, <code>(L) Loading</code>, <code>(*) Loaded</code>.<br>
-                <strong>Exception (Hard Block):</strong> Scanning an incorrect pallet triggers an audible error and locks the terminal until a supervisor clears it.<br>
-                <strong>Dispatch:</strong> Closing the trailer door triggers the Post Goods Issue (PGI) event, instantly relieving financial inventory in the corporate ERP.
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- 3.2 FEFO Swaps -->
+      <h4 style="color: #8b5cf6; font-weight: 700; font-size: 1.15em; margin-top: 30px;">
+        3.2 Inventory Swaps & Consolidations
+      </h4>
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #c084fc; border-radius: 6px; padding: 20px; margin-top: 15px;">
+        <p style="font-size: 0.9em; color: #475569; margin-bottom: 10px;">
+          <strong>System Actor:</strong> Inventory Control (IC) Admin.<br>
+          <strong>Hardware:</strong> Handheld RF Scanner.
+        </p>
+        <p style="font-size: 0.9em; color: #475569; margin-bottom: 0; text-align: justify;">
+          <strong>Process Execution &amp; BA Logic:</strong> IC Admins consolidate half-empty pallets to free up slotting space.<br><br>
+          <strong>BA Case (FEFO Enforcement):</strong> When merging two pallets of the same SKU, the WMS enforces First-Expired, First-Out (FEFO). If the admin tries to merge a newer batch into an older batch, the system blocks the transaction to prevent mixed expiration dates on a single LPN.
+        </p>
+      </div>
+
+      <!-- 3.3 Cycle Counting -->
+      <h4 style="color: #8b5cf6; font-weight: 700; font-size: 1.15em; margin-top: 30px;">
+        3.3 Short Picks & Cycle Counting
+      </h4>
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #f43f5e; border-radius: 6px; padding: 20px; margin-top: 15px;">
+        <p style="font-size: 0.9em; color: #475569; margin-bottom: 10px;">
+          <strong>System Actor:</strong> Order Selector & IC Admin.<br>
+          <strong>Hardware:</strong> RF Scanner.
+        </p>
+        <p style="font-size: 0.9em; color: #475569; margin-bottom: 0; text-align: justify;">
+          <strong>Process Execution &amp; BA Logic:</strong> If an order selector arrives at a slot and the product is missing, they input a "Short Pick" exception code.<br><br>
+          <strong>BA Case (Auto-Cycle Count):</strong> The WMS instantly locks the location to prevent further allocation. It auto-generates a Cycle Count task. An IC Admin must physically verify the empty slot, confirm zero quantity, and the WMS transmits an inventory adjustment down to the ERP to true-up the financial ledger.
+        </p>
       </div>
     </div>
 
@@ -1297,11 +1219,11 @@ html {
       </h4>
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #4f46e5; border-radius: 6px; padding: 20px; margin-top: 15px;">
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 10px;">
-          <strong>Whodunit:</strong> Wave Planner / WMS Administrator.<br>
+          <strong>System Actor:</strong> Wave Planner / WMS Administrator.<br>
           <strong>Hardware:</strong> WMS Command Center Dashboard.
         </p>
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 0; text-align: justify;">
-          <strong>Howdunit &amp; BA Logic:</strong> The WMS pulls thousands of Sales Orders dropped from the ERP. The planner builds a "Wave" (a logical grouping of work). They might group orders by geography (e.g., all trucks heading to City X) and temperature zone (e.g., dispatching Frozen picks first to protect the cold chain).<br><br>
+          <strong>Process Execution &amp; BA Logic:</strong> The WMS pulls thousands of Sales Orders dropped from the ERP. The planner builds a "Wave" (a logical grouping of work). They might group orders by geography (e.g., all trucks heading to City X) and temperature zone (e.g., dispatching Frozen picks first to protect the cold chain).<br><br>
           <strong>BA Case (Shortage Allocation Rules):</strong> If five customers order the same scarce item but only 10 cases exist, the WMS Allocation Engine applies business rules (e.g., <em>Pro-Rata</em> split, or <em>VIP Customer Prioritization</em>). The system "soft-allocates" these 10 cases to specific orders before a single worker hits the floor.
         </p>
       </div>
@@ -1312,11 +1234,11 @@ html {
       </h4>
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #06b6d4; border-radius: 6px; padding: 20px; margin-top: 15px;">
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 10px;">
-          <strong>Whodunit:</strong> Order Selector.<br>
+          <strong>System Actor:</strong> Order Selector.<br>
           <strong>Hardware:</strong> Wearable Voice-Pick Headset (e.g., Vocollect) &amp; Pallet Jack.
         </p>
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 0; text-align: justify;">
-          <strong>Howdunit &amp; BA Logic:</strong> The WMS transmits the work assignment to the headset. It generates a <strong>serpentine pick path</strong>, routing the worker sequentially down the aisles (e.g., slot 01, then 02, then 03) to eliminate wasted zigzag walking (deadheading).<br><br>
+          <strong>Process Execution &amp; BA Logic:</strong> The WMS transmits the work assignment to the headset. It generates a <strong>serpentine pick path</strong>, routing the worker sequentially down the aisles (e.g., slot 01, then 02, then 03) to eliminate wasted zigzag walking (deadheading).<br><br>
           <strong>BA Case (Check-Digit Validation):</strong> To guarantee 100% accuracy, the headset speaks: <em>"Go to Aisle 1, Slot 12."</em> The worker must read back the 2-digit random "Check Digit" printed on the rack. The headset validates the audio. Then, the headset says: <em>"Pick 5."</em> The worker picks the cases and speaks <em>"5"</em> into the microphone to confirm the database deduction.
         </p>
       </div>
@@ -1327,11 +1249,11 @@ html {
       </h4>
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #8b5cf6; border-radius: 6px; padding: 20px; margin-top: 15px;">
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 10px;">
-          <strong>Whodunit:</strong> Order Selector.<br>
+          <strong>System Actor:</strong> Order Selector.<br>
           <strong>Hardware:</strong> Mobile Printer &amp; RF Ring Scanner.
         </p>
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 0; text-align: justify;">
-          <strong>Howdunit &amp; BA Logic:</strong> The WMS routes heavier, structurally sound items (canned goods) first, so they form the base of the pallet, and crushable items (bread, chips) last.<br><br>
+          <strong>Process Execution &amp; BA Logic:</strong> The WMS routes heavier, structurally sound items (canned goods) first, so they form the base of the pallet, and crushable items (bread, chips) last.<br><br>
           <strong>BA Case (Billing Accuracy via Catchweights):</strong> If a customer ordered 2 boxes of chicken breast, picking "2 boxes" isn't enough for invoicing because weight varies. The selector MUST scan the exact weight barcode on those specific boxes (e.g., 41.2 lbs). The WMS packages this exact data into a <code>Post Goods Issue (PGI)</code> payload, ensuring the ERP bills the restaurant for precisely 41.2 lbs.
         </p>
       </div>
@@ -1353,11 +1275,11 @@ html {
       </h4>
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #f43f5e; border-radius: 6px; padding: 20px; margin-top: 15px;">
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 10px;">
-          <strong>Whodunit:</strong> Forklift Operator.<br>
+          <strong>System Actor:</strong> Forklift Operator.<br>
           <strong>Hardware:</strong> Vehicle Mounted Terminal (VMT) &amp; Barcode Scanner.
         </p>
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 0; text-align: justify;">
-          <strong>Howdunit &amp; BA Logic:</strong> Pallets built by various selectors (frozen, cooler, dry) must converge at a single dock door for a specific truck. The operator scans the LPN and scans the barcode painted on the floor of the staging lane.<br><br>
+          <strong>Process Execution &amp; BA Logic:</strong> Pallets built by various selectors (frozen, cooler, dry) must converge at a single dock door for a specific truck. The operator scans the LPN and scans the barcode painted on the floor of the staging lane.<br><br>
           <strong>BA Case (Staging Validation):</strong> If an operator attempts to drop a pallet assigned to <em>Route 101</em> into the staging lane for <em>Route 202</em>, the WMS throws a hard "Mis-Stage" error. This system block prevents entire pallets from being delivered to the wrong city.
         </p>
       </div>
@@ -1368,11 +1290,11 @@ html {
       </h4>
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #d946ef; border-radius: 6px; padding: 20px; margin-top: 15px;">
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 10px;">
-          <strong>Whodunit:</strong> Loader.<br>
+          <strong>System Actor:</strong> Loader.<br>
           <strong>Hardware:</strong> Rugged Tablet / Handheld Scanner.
         </p>
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 0; text-align: justify;">
-          <strong>Howdunit &amp; BA Logic:</strong> The loader drives the pallet into the 53-foot trailer and scans it onto the truck manifest. The WMS enforces a strict <strong>First-In, Last-Out (FILO)</strong> loading sequence based on the driver's delivery route.<br><br>
+          <strong>Process Execution &amp; BA Logic:</strong> The loader drives the pallet into the 53-foot trailer and scans it onto the truck manifest. The WMS enforces a strict <strong>First-In, Last-Out (FILO)</strong> loading sequence based on the driver's delivery route.<br><br>
           <strong>BA Case (Driver Efficiency):</strong> If the truck has three delivery stops, the pallets for <em>Stop 3</em> must be loaded first (deepest in the nose of the trailer), and <em>Stop 1</em> loaded last (closest to the roll-up door). If the loader scans Stop 3's pallet after Stop 1's, the system blocks the load to prevent the driver from having to unload the entire truck at their first stop just to reach the right boxes.
         </p>
       </div>
@@ -1383,11 +1305,11 @@ html {
       </h4>
       <div style="background: #fffbeb; border: 1px solid #fde68a; border-left: 4px solid #f59e0b; border-radius: 6px; padding: 20px; margin-top: 15px;">
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 10px;">
-          <strong>Whodunit:</strong> Shipping Clerk.<br>
+          <strong>System Actor:</strong> Shipping Clerk.<br>
           <strong>Hardware:</strong> WMS Portal.
         </p>
         <p style="font-size: 0.9em; color: #92400e; margin-bottom: 0; text-align: justify;">
-          <strong>Howdunit &amp; BA Logic:</strong> Once the truck is full and the physical doors are sealed, the clerk clicks "Ship" in the WMS. This action closes the wave and dispatches the manifest.<br><br>
+          <strong>Process Execution &amp; BA Logic:</strong> Once the truck is full and the physical doors are sealed, the clerk clicks "Ship" in the WMS. This action closes the wave and dispatches the manifest.<br><br>
           <strong>BA Case (Financial Relief):</strong> This physical departure triggers the <code>Post Goods Issue (PGI)</code> API payload back to the Corporate ERP. This single transaction deducts the inventory value from the company's financial balance sheet and instantly triggers Accounts Receivable to invoice the customer.
         </p>
       </div>
@@ -1408,11 +1330,11 @@ html {
       </h4>
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #0d9488; border-radius: 6px; padding: 20px; margin-top: 15px;">
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 10px;">
-          <strong>Whodunit:</strong> Delivery Driver &amp; Receiving Clerk.<br>
+          <strong>System Actor:</strong> Delivery Driver &amp; Receiving Clerk.<br>
           <strong>Hardware:</strong> Handheld Scanner.
         </p>
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 0; text-align: justify;">
-          <strong>Howdunit &amp; BA Logic:</strong> The driver brings back rejected goods. The clerk generates a Return Manifest. The WMS forces the clerk to input a <strong>Reason Code</strong> which dictates the immediate physical routing of the product.<br><br>
+          <strong>Process Execution &amp; BA Logic:</strong> The driver brings back rejected goods. The clerk generates a Return Manifest. The WMS forces the clerk to input a <strong>Reason Code</strong> which dictates the immediate physical routing of the product.<br><br>
           <strong>BA Case (Auto-Routing):</strong> If the reason is <em>"Customer Ordered Wrong Item"</em> (e.g., dry napkins), the WMS routes it to the standard QA inspection lane. If the reason is <em>"Temperature Abuse"</em> (e.g., warm chicken), the WMS auto-routes it directly to the Quarantine/Discard zone to prevent cross-contamination.
         </p>
       </div>
@@ -1423,11 +1345,11 @@ html {
       </h4>
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #059669; border-radius: 6px; padding: 20px; margin-top: 15px;">
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 10px;">
-          <strong>Whodunit:</strong> QA Inspector.<br>
+          <strong>System Actor:</strong> QA Inspector.<br>
           <strong>Hardware:</strong> Rugged Tablet.
         </p>
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 0; text-align: justify;">
-          <strong>Howdunit &amp; BA Logic:</strong> The inspector evaluates the physical condition of the return and submits a disposition decision to the WMS.<br><br>
+          <strong>Process Execution &amp; BA Logic:</strong> The inspector evaluates the physical condition of the return and submits a disposition decision to the WMS.<br><br>
           <strong>BA Case (Resell vs Discard):</strong> <br>
           • <strong>Resellable Path:</strong> If approved, the WMS changes the state from <code>Hold</code> to <code>QA (Available)</code> and generates a Putaway task to slot it back into the racks.<br>
           • <strong>Discard Path:</strong> If rejected, the WMS mandates a disposal action code. The system logs the destruction date, time, and user ID into a permanent table, generating a compliance report for FDA or regulatory audits.
@@ -1440,11 +1362,11 @@ html {
       </h4>
       <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #16a34a; border-radius: 6px; padding: 20px; margin-top: 15px;">
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 10px;">
-          <strong>Whodunit:</strong> System Automation (WMS &amp; ERP).<br>
+          <strong>System Actor:</strong> System Automation (WMS &amp; ERP).<br>
           <strong>Hardware:</strong> Backend Middleware.
         </p>
         <p style="font-size: 0.9em; color: #475569; margin-bottom: 0; text-align: justify;">
-          <strong>Howdunit &amp; BA Logic:</strong> Physical disposition of the item (resell vs discard) is completely decoupled from the customer's financial credit. <br><br>
+          <strong>Process Execution &amp; BA Logic:</strong> Physical disposition of the item (resell vs discard) is completely decoupled from the customer's financial credit. <br><br>
           <strong>BA Case (Customer Refund):</strong> Even if an item is physically discarded and destroyed, the WMS evaluates the fault code. If the company is at fault (e.g., driver crushed the box), the WMS pushes an automated payload to the Corporate ERP to issue a refund to the customer's account, ensuring customer service isn't waiting on warehouse floor operations.
         </p>
       </div>
