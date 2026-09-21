@@ -1019,6 +1019,29 @@ git rm -q -r js _includes/js.html _includes/js_disqus.html \
 Delete `color:` (all four), `skills:`, `disqus_shortname:`, `contact:`, the
 `address:` block, and the `credits:` visitor-badge line.
 
+Verified before this task ran: every template reference to those keys lives inside a
+file this task deletes (`header.html` used `site.skills`, `js.html` used
+`site.contact`, `js_disqus.html` used `disqus_shortname`, `footer.html` used
+`site.address` and `site.credits`). Nothing else reads them.
+
+- [ ] **Step 3b: Remove the dead IE8 shim from `_includes/head.html`**
+
+Delete this block entirely:
+
+```html
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+```
+
+Three reasons it is pure dead weight: conditional comments were removed in IE10 and
+are ignored by every browser in use; `oss.maxcdn.com` was shut down, so both URLs are
+dead; and Respond.js exists to polyfill media queries, which this redesign's
+breakpoints do not need on any supported browser.
+
 - [ ] **Step 4: Verify the output is clean**
 
 ```bash
