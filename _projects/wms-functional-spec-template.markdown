@@ -25,28 +25,14 @@ ticket:
   signoff: PO, SME/Dev, QE
 ---
 
-<h3>Executive Summary</h3>
+<h2>Executive Summary</h2>
 <p>This functional specification template provides an enterprise standard for documenting frontline mobile execution workflows across diverse operating systems (Android, iOS, Windows CE/WEH, Embedded Linux, and RTOS). Designed for high-concurrency warehouse environments, it establishes clear UI ergonomics, offline edge resiliency, and Gherkin-syntax acceptance criteria to directly reduce manual entry errors, accelerate development cycles, and improve frontline operational throughput.</p>
-
-<h3>[WMS-FST-0104] Mobile Functional Specification: [Flow / Module Name]</h3>
-
-<h4>📋 Ticket Completion Status</h4>
-<div class="table-wrap"><table>
-  <tbody>
-    <tr><td>🐛 <strong>Type</strong></td><td>Story</td></tr>
-    <tr><td>⏫ <strong>Priority</strong></td><td>High</td></tr>
-    <tr><td>🏷️ <strong>Labels</strong></td><td><code>MobileOS</code> <code>Device</code> <code>Scan</code> <code>Performance</code></td></tr>
-    <tr><td>⭐ <strong>Ticket status</strong></td><td><code>UNDER CONSTRUCTION</code></td></tr>
-    <tr><td>👥 <strong>Ticket Owner</strong></td><td>Business Analyst</td></tr>
-    <tr><td>✅ <strong>Reviewed and Signed off</strong></td><td>PO, SME/Dev, QE</td></tr>
-  </tbody>
-</table></div>
 
 <hr>
 
-<h3>(1) Operational Context &amp; User Story</h3>
+<h2>(1) Operational Context &amp; User Story</h2>
 
-<h4>(1.1) Summary</h4>
+<h3>(1.1) Summary</h3>
 <div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>As a</strong></td><td>Warehouse Operator [Inbound Receiver / High-Bay Forklift Loader, Unloader / Order Selector]</td></tr>
@@ -62,7 +48,7 @@ ticket:
   </tbody>
 </table></div>
 
-<h4>(1.2) Operational Elicitation &amp; Problem Statement</h4>
+<h3>(1.2) Operational Elicitation &amp; Problem Statement</h3>
 <div class="table-wrap"><table>
   <tbody>
     <tr>
@@ -91,9 +77,9 @@ ticket:
 
 <hr>
 
-<h3>(2) Acceptance Criteria</h3>
+<h2>(2) Acceptance Criteria</h2>
 
-<h4>(2.1) Environmental &amp; Operational Preconditions</h4>
+<h3>(2.1) Environmental &amp; Operational Preconditions</h3>
 <ul>
   <li><strong>Network State:</strong> Device authenticated on warehouse WLAN (WPA3-Enterprise) or functioning in store-and-forward offline buffer mode.</li>
   <li><strong>Hardware Peripherals:</strong> Integrated SE4750/SE4850 long-range imager or Bluetooth ring scanner paired and calibrated.</li>
@@ -101,10 +87,10 @@ ticket:
   <li><strong>Inventory State:</strong> Target License Plate Number (LPN) or location resides in valid prerequisite lifecycle state (e.g., <code>Quantity Planned/ Expected </code> or <code>Quantity on Hand/ Available </code> or <code>Quantity/ Stock Allocated </code>).</li>
 </ul>
 
-<h4>(2.2) Common Acceptance Criteria</h4>
+<h3>(2.2) Common Acceptance Criteria</h3>
 <p>All mobile screens governed by this specification must conform to global warehouse UX standards: minimum 48dp touch targets for heavy glove operation, high-contrast dark theme mode (pure black #000000 background for OLED battery conservation and cold-vault legibility), and mandatory dual-channel feedback (audio tone + haptic vibration) on all scan events.</p>
 
-<h4>(2.3) Functional Scenarios</h4>
+<h3>(2.3) Functional Scenarios</h3>
 
 <div class="table-wrap"><table>
   <thead>
@@ -143,7 +129,7 @@ ticket:
   </tbody>
 </table></div>
 
-<h4>(2.4) Field-Level Input Specifications</h4>
+<h3>(2.4) Field-Level Input Specifications</h3>
 <div class="table-wrap"><table>
   <thead>
     <tr>
@@ -191,7 +177,7 @@ ticket:
   </tbody>
 </table></div>
 
-<h4>(2.5) Alerts, Validation Messages &amp; Physical Feedback</h4>
+<h3>(2.5) Alerts, Validation Messages &amp; Physical Feedback</h3>
 <div class="table-wrap"><table>
   <thead>
     <tr>
@@ -236,7 +222,7 @@ ticket:
 
 <hr>
 
-<h3>(3) Privilege of Functionality (Role-Based Access Control)</h3>
+<h2>(3) Privilege of Functionality (Role-Based Access Control)</h2>
 <div class="table-wrap"><table>
   <thead>
     <tr>
@@ -281,7 +267,7 @@ ticket:
 
 <hr>
 
-<h3>(4) Scope Boundaries &amp; Operational Exclusions</h3>
+<h2>(4) Scope Boundaries &amp; Operational Exclusions</h2>
 <ul>
   <li><strong>Hardware Exclusions:</strong> This feature is optimized for industrial terminals equipped with dedicated hardware scan engines; consumer smartphones lacking integrated hardware imagers are out of scope for high-velocity wave execution.</li>
   <li><strong>ERP Financial Accounting Boundaries:</strong> All financial ledgers, vendor invoice settlements, and customer pricing updates remain within the central ERP (e.g., SAP S/4HANA); the mobile WMS application solely updates physical inventory quantities and location balances.</li>
@@ -290,7 +276,7 @@ ticket:
 
 <hr>
 
-<h3>(5) Edge Hardware &amp; Environmental Ergonomics</h3>
+<h2>(5) Edge Hardware &amp; Environmental Ergonomics</h2>
 <div class="table-wrap"><table>
   <tbody>
     <tr>
@@ -310,9 +296,9 @@ ticket:
 
 <hr>
 
-<h3>(6) Technical Architecture &amp; Integration Contracts</h3>
+<h2>(6) Technical Architecture &amp; Integration Contracts</h2>
 
-<h4>(6.1) API Transaction Payload Schema</h4>
+<h3>(6.1) API Transaction Payload Schema</h3>
 <p>Mobile clients dispatch transaction confirmations asynchronously via lightweight JSON payloads over HTTPS mutual TLS (mTLS):</p>
 
 <!-- Clean HTML Pre-Formatted Dark Code Box -->
@@ -341,7 +327,7 @@ ticket:
 }</pre>
 </div>
 
-<h4>(6.2) Persistence &amp; Database State Engine</h4>
+<h3>(6.2) Persistence &amp; Database State Engine</h3>
 <div class="table-wrap"><table>
   <tbody>
     <tr>
@@ -361,9 +347,9 @@ ticket:
 
 <hr>
 
-<h3>(7) References &amp; Traceability</h3>
+<h2>(7) References &amp; Traceability</h2>
 
-<h4>(7.1) Upstream Business Requirements</h4>
+<h3>(7.1) Upstream Business Requirements</h3>
 <div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>Originating Initiative</strong></td><td>Enterprise WMS Modernization &amp; Edge Optimization</td></tr>
@@ -373,7 +359,7 @@ ticket:
   </tbody>
 </table></div>
 
-<h4>(7.2) Engineering &amp; Architecture Notes</h4>
+<h3>(7.2) Engineering &amp; Architecture Notes</h3>
 <div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>Architectural Blueprint</strong></td><td>Enterprise WMS Event-Driven Edge Architecture Specification v4.2</td></tr>
@@ -384,7 +370,7 @@ ticket:
 
 <hr>
 
-<h3>(8) Definition of Done (DoD)</h3>
+<h2>(8) Definition of Done (DoD)</h2>
 <div class="table-wrap"><table>
   <tbody>
     <tr>

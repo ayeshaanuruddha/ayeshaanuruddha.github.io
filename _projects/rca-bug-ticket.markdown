@@ -25,28 +25,14 @@ ticket:
   signoff: PO, SME/Dev, QE
 ---
 
-<h3>Executive Summary</h3>
+<h2>Executive Summary</h2>
 <p>This Root Cause Analysis (RCA) document details the investigation and resolution of a critical UI latency issue during high-volume warehouse batch processing. By applying the "5 Whys" methodology, a database locking bottleneck was identified and resolved through an asynchronous synchronization architecture. The resulting action plan ensures system stability and resolves bottlenecks that directly impact warehouse throughput and worker productivity.</p>
-
-<h3>[WMS-BUG-1042] [Performance] Mobile App Synchronization Latency During High-Volume Batch Processing</h3>
-
-<h4>📋 Ticket Completion Status</h4>
-<div class="table-wrap"><table>
-  <tbody>
-    <tr><td>🐛 <strong>Type</strong></td><td>Bug</td></tr>
-    <tr><td>⏫ <strong>Priority</strong></td><td>High</td></tr>
-    <tr><td>🏷️ <strong>Labels</strong></td><td><code>Mobile OS</code> <code>LiveInventory</code> <code>RCA</code> <code>Performance</code></td></tr>
-    <tr><td>⭐ <strong>Ticket status</strong></td><td><code>READY FOR REVIEW</code></td></tr>
-    <tr><td>👥 <strong>Ticket Owner</strong></td><td>Business Analyst</td></tr>
-    <tr><td>✅ <strong>Reviewed and Signed off</strong></td><td>PO, SME/Dev, QE</td></tr>
-  </tbody>
-</table></div>
 
 <hr>
 
-<h3>(1) User Story Details</h3>
+<h2>(1) User Story Details</h2>
 
-<h4>(1.1) Summary</h4>
+<h3>(1.1) Summary</h3>
 <div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>As a</strong></td><td>warehouse selector</td></tr>
@@ -55,7 +41,7 @@ ticket:
   </tbody>
 </table></div>
 
-<h3>(2) User Experience &amp; Preconditions</h3>
+<h2>(2) User Experience &amp; Preconditions</h2>
 <div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>Preconditions</strong></td><td>The mobile client device is operating on a stable warehouse Wi-Fi network and processing a multi-item batch selection.</td></tr>
@@ -64,7 +50,7 @@ ticket:
   </tbody>
 </table></div>
 
-<h3>(3) Root Cause Analysis (5 Whys Method)</h3>
+<h2>(3) Root Cause Analysis (5 Whys Method)</h2>
 <p><strong>Problem Statement:</strong> Mobile application experiences UI freezing and high latency during inventory allocation scans.</p>
 <div class="table-wrap"><table>
   <tbody>
@@ -76,7 +62,7 @@ ticket:
   </tbody>
 </table></div>
 
-<h3>(4) Acceptance Criteria</h3>
+<h2>(4) Acceptance Criteria</h2>
 <div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>GIVEN</strong></td><td>the user is processing a multi-item batch</td></tr>
@@ -99,9 +85,9 @@ ticket:
   </tbody>
 </table></div>
 
-<h3>(5) References</h3>
+<h2>(5) References</h2>
 
-<h4>(5.1) UAT Requirement</h4>
+<h3>(5.1) UAT Requirement</h3>
 <div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>Tested Version</strong></td><td><code>[Sanitized Build Version ANDROID]</code></td></tr>
@@ -114,7 +100,7 @@ ticket:
   </tbody>
 </table></div>
 
-<h4>(5.2) Developer Notes</h4>
+<h3>(5.2) Developer Notes</h3>
 <div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>Tech Design</strong></td><td>API Payload Analysis &amp; Asynchronous Sync Architecture</td></tr>

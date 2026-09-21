@@ -20,13 +20,13 @@ full_spec: https://github.com/ayeshaanuruddha/e-vote-main
 full_spec_label: View source
 ---
 
-### Executive Summary
+## Executive Summary
 
 This project tackles the challenges of manual, paper-based electoral systems in Sri Lanka by proposing a modern, cost-effective, privacy-preserving electronic voting framework. It leverages edge computing and Multi-Party Computation (MPC) to guarantee the Confidentiality, Integrity, Availability, Authentication, and Non-repudiation (CIAAN) of every vote. By demonstrating successful biometric authentication and secure distributed tallying, this prototype establishes a verifiable and trust-building architecture for national elections.
 
-### Edge-Based E-Voting System with MPC
+## Edge-Based E-Voting System with MPC
 
-#### 📋 Project Overview
+### 📋 Project Overview
 
 <div class="table-wrap"><table>
   <tbody>
@@ -39,7 +39,7 @@ This project tackles the challenges of manual, paper-based electoral systems in 
 
 ---
 
-### (1) Core System Architecture
+## (1) Core System Architecture
 
 <div class="table-wrap"><table>
   <tbody>
@@ -49,7 +49,7 @@ This project tackles the challenges of manual, paper-based electoral systems in 
   </tbody>
 </table></div>
 
-### (2) Key Implementation Features
+## (2) Key Implementation Features
 
 <div class="table-wrap"><table>
   <tbody>
@@ -59,7 +59,7 @@ This project tackles the challenges of manual, paper-based electoral systems in 
   </tbody>
 </table></div>
 
-### (3) System Evaluation & Future Work
+## (3) System Evaluation & Future Work
 
 A developed local prototype successfully demonstrated the complete pipeline: fingerprint-based voter authentication, secure ballot encryption, and distributed MPC tallying. While testing successfully proved the feasibility of preventing duplicate voting and protecting against tampering, it was conducted in a controlled environment limited to a single ESP32 device, meaning high-load scalability remains to be fully evaluated.
 

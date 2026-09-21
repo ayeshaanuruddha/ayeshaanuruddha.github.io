@@ -24,28 +24,14 @@ ticket:
   signoff: Product Owner (Finance), Lead Integration Architect, Lead QE, Lead Dev, Principal Controller, SME/Dev
 ---
 
-<h3>Executive Summary</h3>
+<h2>Executive Summary</h2>
 <p>This project automates the reconciliation of Point of Sale (POS) transactions into a cloud General Ledger ERP, saving the finance team over 18 hours per month. By unbundling fees and taxes in real-time while strictly adhering to SOX 404 compliance, it completely eliminates manual data entry errors. The following specification bridges complex accounting requirements with robust technical API integrations to ensure secure and balanced financial reporting.</p>
-
-<h3>[FIN-INT-101] Functional Specification: POS Webhook Ingestion &amp; Balanced Journal Entry Creation</h3>
-
-<h4>📋 Ticket Completion Status</h4>
-<div class="table-wrap"><table>
-  <tbody>
-    <tr><td>🐛 <strong>Type</strong></td><td>Story</td></tr>
-    <tr><td>⏫ <strong>Priority</strong></td><td>High</td></tr>
-    <tr><td>🏷️ <strong>Labels</strong></td><td><code>Functional Requirement</code> <code>Finance-Integration</code> <code>POS-Engine</code> <code>General-Ledger</code> <code>ERP</code></td></tr>
-    <tr><td>⭐ <strong>Ticket Status</strong></td><td><code>UNDER CONSTRUCTION</code></td></tr>
-    <tr><td>👥 <strong>Ticket Owner</strong></td><td>Business Analyst</td></tr>
-    <tr><td>✅ <strong>Reviewed and Signed off</strong></td><td>Product Owner (Finance), Lead Integration Architect, Lead QE, Lead Dev, Principal Controller, SME/Dev</td></tr>
-  </tbody>
-</table></div>
 
 <hr>
 
-<h3>(1) Business Context &amp; User Story</h3>
+<h2>(1) Business Context &amp; User Story</h2>
 
-<h4>(1.1) Summary</h4>
+<h3>(1.1) Summary</h3>
 <div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>As a</strong></td><td>Corporate Revenue Accountant</td></tr>
@@ -61,7 +47,7 @@ ticket:
   </tbody>
 </table></div>
 
-<h4>(1.2) Operational Elicitation and System Requirements</h4>
+<h3>(1.2) Operational Elicitation and System Requirements</h3>
 <div class="table-wrap"><table>
   <thead>
     <tr>
@@ -101,23 +87,23 @@ ticket:
 
 <hr>
 
-<h3>(2) Acceptance Criteria (Behavioral &amp; Data Engine)</h3>
+<h2>(2) Acceptance Criteria (Behavioral &amp; Data Engine)</h2>
 
-<h4>(2.1) Environmental &amp; Operational Preconditions</h4>
+<h3>(2.1) Environmental &amp; Operational Preconditions</h3>
 <ul>
   <li><strong>Security &amp; Auth:</strong> Webhooks dispatched over TLS 1.3 with a valid HMAC-SHA256 signature matching the shared secret in the key vault.</li>
   <li><strong>Entity Availability:</strong> Target General Ledger accounts (<code>1050</code>, <code>6200</code>, <code>4100</code>, <code>2200</code>) and store <code>Cost_Center</code> entities must reside in an <code>ACTIVE</code> status within the ERP Chart of Accounts.</li>
   <li><strong>Fiscal Calendar:</strong> Transaction timestamp must fall within an open accounting period in the corporate ERP general ledger.</li>
 </ul>
 
-<h4>(2.2) Common Non-Functional Baselines</h4>
+<h3>(2.2) Common Non-Functional Baselines</h3>
 <ul>
   <li><strong>Payload Ingestion SLA:</strong> Webhook acknowledgment (<code>HTTP 200 OK</code>) must return within &le; 300ms of socket receipt.</li>
   <li><strong>Transactional Atomicity:</strong> All ledger legs must commit within an atomic ACID boundary; partial or single-leg journal entries must never post.</li>
   <li><strong>Audit Lineage:</strong> Every transaction must preserve raw ingress JSON payloads and the returned ERP Journal Document ID within an immutable audit table.</li>
 </ul>
 
-<h4>(2.3) Functional Scenarios (Gherkin Syntax)</h4>
+<h3>(2.3) Functional Scenarios (Gherkin Syntax)</h3>
 
 <div class="table-wrap"><table>
   <thead>
@@ -156,7 +142,7 @@ ticket:
   </tbody>
 </table></div>
 
-<h4>(2.4) Field-Level Input Specifications &amp; Data Dictionary</h4>
+<h3>(2.4) Field-Level Input Specifications &amp; Data Dictionary</h3>
 <div class="table-wrap"><table>
   <thead>
     <tr>
@@ -228,7 +214,7 @@ ticket:
   </tbody>
 </table></div>
 
-<h4>(2.5) Alerts, Feedback &amp; Error Messages</h4>
+<h3>(2.5) Alerts, Feedback &amp; Error Messages</h3>
 <div class="table-wrap"><table>
   <thead>
     <tr>
@@ -273,7 +259,7 @@ ticket:
 
 <hr>
 
-<h3>(3) Security &amp; Access Control (RBAC Matrix)</h3>
+<h2>(3) Security &amp; Access Control (RBAC Matrix)</h2>
 <div class="table-wrap"><table>
   <thead>
     <tr>
@@ -318,7 +304,7 @@ ticket:
 
 <hr>
 
-<h3>(4) Scope Boundaries &amp; Operational Exclusions</h3>
+<h2>(4) Scope Boundaries &amp; Operational Exclusions</h2>
 <ul>
   <li><strong>PCI-DSS Card Tokenization:</strong> Point-to-Point Encryption (P2PE), PAN handling, and card brand authorization handshakes are fully executed by the physical pin-pad and gateway; this service ingests post-authorization webhooks only.</li>
   <li><strong>Bank Payout Statement Clearing:</strong> Matching posted clearing balances in GL <code>1050</code> against electronic bank statements (BAI2 / CAMT.053) is governed separately under the 3-Way Bank Reconciliation specification.</li>
@@ -327,9 +313,9 @@ ticket:
 
 <hr>
 
-<h3>(5) Integration Contracts &amp; Technical Architecture</h3>
+<h2>(5) Integration Contracts &amp; Technical Architecture</h2>
 
-<h4>(5.1) Inbound POS Webhook Payload Schema</h4>
+<h3>(5.1) Inbound POS Webhook Payload Schema</h3>
 <p>Inbound payment events are accepted via HTTPS POST with mutual TLS (mTLS) and payload HMAC verification:</p>
 
 <!-- Dark Mode Code Container -->
@@ -366,7 +352,7 @@ ticket:
 }</pre>
 </div>
 
-<h4>(5.2) Persistence &amp; Database State Transitions</h4>
+<h3>(5.2) Persistence &amp; Database State Transitions</h3>
 
 <!-- State Diagram Graphic -->
 <div>
@@ -389,9 +375,9 @@ ticket:
 
 <hr>
 
-<h3>(6) Traceability &amp; Definition of Done (DoD)</h3>
+<h2>(6) Traceability &amp; Definition of Done (DoD)</h2>
 
-<h4>(6.1) Upstream Traceability</h4>
+<h3>(6.1) Upstream Traceability</h3>
 <div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>Jira Epic Link</strong></td><td><code>[FIN-EPIC-4400] Omnichannel Retail POS to Cloud ERP General Ledger Modernization</code></td></tr>
@@ -400,7 +386,7 @@ ticket:
   </tbody>
 </table></div>
 
-<h4>(6.2) Definition of Done Checklist</h4>
+<h3>(6.2) Definition of Done Checklist</h3>
 <div class="table-wrap"><table>
   <tbody>
     <tr>

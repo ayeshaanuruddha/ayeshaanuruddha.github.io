@@ -9,14 +9,16 @@
     <h1>{{ page.title }}</h1>
     {% if page.ticket %}
     <div class="card cs__ticket">
-      <table>
-        <tr><th>Type</th><td>{{ page.ticket.type }}</td></tr>
-        <tr><th>Priority</th><td>{{ page.ticket.priority }}</td></tr>
-        <tr><th>Labels</th><td><span class="cs__labels">{{ page.ticket.labels | join: " · " }}</span></td></tr>
-        <tr><th>Ticket Status</th><td><span class="status status--{{ page.status_tone }}">{{ page.status }}</span></td></tr>
-        <tr><th>Ticket Owner</th><td>{{ page.ticket.owner }}</td></tr>
-        <tr><th>Signed off</th><td>{{ page.ticket.signoff }}</td></tr>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Type</th><td>{{ page.ticket.type }}</td></tr>
+          <tr><th>Priority</th><td>{{ page.ticket.priority }}</td></tr>
+          <tr><th>Labels</th><td><span class="cs__labels">{{ page.ticket.labels | join: " · " }}</span></td></tr>
+          <tr><th>Ticket Status</th><td><span class="status status--{{ page.status_tone }}">{{ page.status }}</span></td></tr>
+          <tr><th>Ticket Owner</th><td>{{ page.ticket.owner }}</td></tr>
+          <tr><th>Signed off</th><td>{{ page.ticket.signoff }}</td></tr>
+        </table>
+      </div>
     </div>
     {% endif %}
     <div class="cs-body">{{ content }}</div>
