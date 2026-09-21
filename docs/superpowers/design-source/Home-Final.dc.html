@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<template id="__bundler_thumbnail" data-bg-color="#FAF8F4">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#FAF8F4"/>
+    <circle cx="140" cy="140" r="40" fill="#5B3A8E"/>
+    <text x="90" y="150" font-family="sans-serif" font-size="30" font-weight="800" fill="#FAF8F4">AA</text>
+    <rect x="120" y="260" width="620" height="50" rx="10" fill="#1E1A2E"/>
+    <rect x="120" y="330" width="420" height="24" rx="6" fill="#E8E3DD"/>
+    <rect x="120" y="420" width="220" height="60" rx="14" fill="#5B3A8E"/>
+    <rect x="360" y="420" width="220" height="60" rx="14" fill="#EFE9F8"/>
+    <rect x="800" y="200" width="280" height="360" rx="24" fill="#EFE9F8"/>
+    <rect x="120" y="500" width="120" height="8" fill="#A9822E"/>
+  </svg>
+</template>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;box-sizing:border-box;}
+  *{box-sizing:border-box;}
+  a{color:#5B3A8E;text-decoration:none;}
+  a:hover{color:#3E2860;}
+</style>
+<script src="./image-slot.js"></script>
+</helmet>
+
+<div style="background:#FAF8F4;color:#1E1A2E;font-family:'Manrope',sans-serif;min-height:100vh;">
+
+  <header style="position:sticky;top:0;z-index:20;background:rgba(250,248,244,0.85);backdrop-filter:blur(10px);border-bottom:1px solid #E8E3DD;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;flex-wrap:wrap;gap:16px;">
+    <a href="#page-top" style="display:flex;align-items:center;gap:10px;font-size:15px;font-weight:800;color:#1E1A2E;">
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;background:#5B3A8E;color:#FAF8F4;font-size:12px;font-weight:700;">AA</span>
+      Ayesha Anuruddha
+    </a>
+    <nav style="display:flex;gap:6px;flex-wrap:wrap;font-size:14px;font-weight:600;background:#F1EEE7;border-radius:999px;padding:5px;">
+      <a href="#about" style="color:#5B5867;padding:9px 18px;border-radius:999px;">About</a>
+      <a href="#portfolio" style="color:#5B5867;padding:9px 18px;border-radius:999px;">Work</a>
+      <a href="Resume-Final.dc.html" style="color:#5B5867;padding:9px 18px;border-radius:999px;">Resume</a>
+      <a href="CreativeHub-Final.dc.html" style="color:#5B5867;padding:9px 18px;border-radius:999px;">Creative Hub</a>
+      <a href="#contact" style="color:#FAF8F4;background:#5B3A8E;padding:9px 18px;border-radius:999px;">Contact</a>
+    </nav>
+  </header>
+
+  <section id="page-top" style="max-width:1200px;margin:0 auto;padding:88px 48px 64px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,0.85fr);gap:56px;align-items:center;">
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#5B3A8E;background:#EFE9F8;padding:8px 16px;border-radius:999px;margin-bottom:22px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#1F7A56;"></span>
+        Business Analyst &middot; Cybersecurity
+      </div>
+      <h1 style="font-size:clamp(38px,5.4vw,58px);line-height:1.08;font-weight:800;margin:0 0 20px;letter-spacing:-0.02em;">Turning complex systems into clear, actionable delivery.</h1>
+      <p style="font-size:18px;color:#5B5867;max-width:480px;line-height:1.6;margin:0 0 32px;">BSc (Hons) in Computer Science, specializing in Cyber Security &mdash; University of Kelaniya. I translate operational chaos into requirements, tests, and root-cause clarity.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <a href="https://ayeshaanuruddha.github.io/Ayesha_Anuruddha_CV_BA.pdf" style="font-size:14px;font-weight:700;background:#1E1A2E;color:#FAF8F4;padding:15px 26px;border-radius:12px;">Download CV</a>
+        <a href="#portfolio" style="font-size:14px;font-weight:700;color:#1E1A2E;padding:15px 26px;border-radius:12px;border:1px solid #E8E3DD;">View case studies &rarr;</a>
+      </div>
+    </div>
+    <div style="border-radius:24px;overflow:hidden;box-shadow:0 20px 45px -12px rgba(30,26,46,0.18);">
+      <image-slot id="f-home-headshot" shape="rect" style="width:100%;height:min(420px,80vw);" placeholder="Professional headshot — replace stage photo" credit=""></image-slot>
+    </div>
+  </section>
+
+  <section id="about" style="max-width:1200px;margin:0 auto;padding:56px 48px 88px;">
+    <div style="font-size:13px;font-weight:700;color:#1F7A56;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">About</div>
+    <div style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px;">
+      <div style="background:#FFFFFF;border:1px solid #E8E3DD;border-radius:20px;padding:36px;">
+        <h2 style="font-size:26px;font-weight:800;margin:0 0 16px;line-height:1.25;">Results-oriented Business Analyst, grounded in data privacy and cyber security.</h2>
+        <p style="font-size:16px;line-height:1.75;color:#3A3745;margin:0 0 14px;">I excel at translating complex operational logic into clear, actionable technical documentation to support seamless solution delivery. My expertise spans functional and non-functional requirements gathering, User Acceptance Testing (UAT) coordination, and utilizing monitoring and database tools for data validation and root cause analysis.</p>
+        <p style="font-size:16px;line-height:1.75;color:#3A3745;margin:0;">I am driven by a passion for solving intricate problems, designing secure edge-based architectures, and fostering stakeholder alignment in dynamic technical landscapes.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="background:#EFE9F8;border-left:4px solid #5B3A8E;border-radius:16px;padding:22px 24px;box-shadow:0 6px 16px -10px rgba(91,58,142,0.35);">
+          <div style="font-size:32px;font-weight:800;color:#3E2860;">2+ yrs</div>
+          <div style="font-size:14px;color:#3A3745;font-weight:600;margin-top:4px;">BA experience across fintech &amp; logistics</div>
+        </div>
+        <div style="background:#E4F3EC;border-left:4px solid #1F7A56;border-radius:16px;padding:22px 24px;box-shadow:0 6px 16px -10px rgba(31,122,86,0.3);">
+          <div style="font-size:32px;font-weight:800;color:#154A35;">4</div>
+          <div style="font-size:14px;color:#3A3745;font-weight:600;margin-top:4px;">Functional specs &amp; RCA case studies</div>
+        </div>
+        <div style="background:#F6EDD8;border-left:4px solid #A9822E;border-radius:16px;padding:22px 24px;box-shadow:0 6px 16px -10px rgba(169,130,46,0.3);">
+          <div style="font-size:32px;font-weight:800;color:#7A5A11;">BSc Hons</div>
+          <div style="font-size:14px;color:#3A3745;font-weight:600;margin-top:4px;">Computer Science, Cyber Security</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;">
+      <a href="Resume-Final.dc.html#experience" style="font-size:13px;font-weight:600;color:#5B3A8E;background:#F1EEE7;padding:10px 18px;border-radius:999px;">Experience</a>
+      <a href="Resume-Final.dc.html#education" style="font-size:13px;font-weight:600;color:#5B3A8E;background:#F1EEE7;padding:10px 18px;border-radius:999px;">Education</a>
+      <a href="Resume-Final.dc.html#skills" style="font-size:13px;font-weight:600;color:#5B3A8E;background:#F1EEE7;padding:10px 18px;border-radius:999px;">Skills</a>
+      <a href="Resume-Final.dc.html#achievements" style="font-size:13px;font-weight:600;color:#5B3A8E;background:#F1EEE7;padding:10px 18px;border-radius:999px;">Achievements</a>
+      <a href="Resume-Final.dc.html#references" style="font-size:13px;font-weight:600;color:#5B3A8E;background:#F1EEE7;padding:10px 18px;border-radius:999px;">References</a>
+    </div>
+  </section>
+
+  <section id="portfolio" style="background:#F1EEE7;padding:80px 48px;">
+    <div style="max-width:1200px;margin:0 auto;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;flex-wrap:wrap;gap:16px;">
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#1F7A56;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">Selected work</div>
+        <h2 style="font-size:32px;font-weight:800;margin:0;">Case studies &amp; specifications</h2>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button onClick="{{ scrollPrev }}" aria-label="Previous" style="width:42px;height:42px;border-radius:50%;border:1px solid #D9D2C6;background:#FFFFFF;font-size:16px;cursor:pointer;color:#1E1A2E;">&larr;</button>
+        <button onClick="{{ scrollNext }}" aria-label="Next" style="width:42px;height:42px;border-radius:50%;border:1px solid #D9D2C6;background:#FFFFFF;font-size:16px;cursor:pointer;color:#1E1A2E;">&rarr;</button>
+      </div>
+    </div>
+    <div id="f-portfolio-track" style="display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;">
+
+      <div style="flex:0 0 300px;width:300px;scroll-snap-align:start;background:#FFFFFF;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform 0.2s ease,box-shadow 0.2s ease;" style-hover="transform:translateY(-6px);box-shadow:0 20px 40px -14px rgba(30,26,46,0.2);">
+        <image-slot id="f-card-evote" shape="rect" style="width:100%;height:170px;" placeholder="Project screenshot or diagram"></image-slot>
+        <div style="padding:24px;display:flex;flex-direction:column;gap:12px;flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5B5867;">FYP &middot; 2025</span>
+            <span style="font-size:11px;font-weight:700;color:#5B3A8E;background:#EFE9F8;padding:4px 12px;border-radius:999px;">FEATURED</span>
+          </div>
+          <h3 style="font-size:19px;font-weight:800;margin:0;">Edge-Based E-Voting System with MPC</h3>
+          <p style="font-size:14px;color:#5B5867;line-height:1.6;margin:0;">An edge-computing e-voting framework combining ESP32 biometric authentication with Multi-Party Computation to guarantee CIAAN across every vote.</p>
+          <div style="background:#F7F5F1;border-radius:12px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.6;color:#5B5867;">Objective: to establish a verifiable, trust-building e-voting system tailored for Sri Lanka&rsquo;s infrastructural constraints.</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;font-size:12px;color:#5B5867;">
+            <span>University of Kelaniya</span>
+            <a href="https://github.com/ayeshaanuruddha/e-vote-main" style="font-weight:700;color:#5B3A8E;display:inline-block;transition:transform 0.15s ease;" style-hover="transform:translateX(4px);">View source &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:0 0 300px;width:300px;scroll-snap-align:start;background:#FFFFFF;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform 0.2s ease,box-shadow 0.2s ease;" style-hover="transform:translateY(-6px);box-shadow:0 20px 40px -14px rgba(30,26,46,0.2);">
+        <image-slot id="f-card-pos" shape="rect" style="width:100%;height:170px;" placeholder="Project screenshot or diagram"></image-slot>
+        <div style="padding:24px;display:flex;flex-direction:column;gap:12px;flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5B5867;">FIN-INT-101</span>
+            <span style="font-size:11px;font-weight:700;color:#7A5A11;background:#F6EDD8;padding:4px 12px;border-radius:999px;">UNDER CONSTRUCTION</span>
+          </div>
+          <h3 style="font-size:19px;font-weight:800;margin:0;">POS Webhook Ingestion &amp; Balanced Journal Entries</h3>
+          <p style="font-size:14px;color:#5B5867;line-height:1.6;margin:0;">Integration contract and double-entry accounting engine between an edge POS gateway and a cloud ERP general ledger, built under strict SOX 404 compliance.</p>
+          <div style="background:#F7F5F1;border-radius:12px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.6;color:#5B5867;">GIVEN a $5.40 sale WHEN the payment.captured webhook fires THEN &Sigma;Debits &minus; &Sigma;Credits = $0.00 before ERP commit.</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;font-size:12px;color:#5B5867;">
+            <span>Omnichannel Retail Enterprise</span>
+            <a href="CaseStudy-Final.dc.html" style="font-weight:700;color:#5B3A8E;display:inline-block;transition:transform 0.15s ease;" style-hover="transform:translateX(4px);">Explore &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:0 0 300px;width:300px;scroll-snap-align:start;background:#FFFFFF;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform 0.2s ease,box-shadow 0.2s ease;" style-hover="transform:translateY(-6px);box-shadow:0 20px 40px -14px rgba(30,26,46,0.2);">
+        <image-slot id="f-card-wms" shape="rect" style="width:100%;height:170px;" placeholder="Project screenshot or diagram"></image-slot>
+        <div style="padding:24px;display:flex;flex-direction:column;gap:12px;flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5B5867;">WMS-FST-0104</span>
+            <span style="font-size:11px;font-weight:700;color:#7A5A11;background:#F6EDD8;padding:4px 12px;border-radius:999px;">UNDER CONSTRUCTION</span>
+          </div>
+          <h3 style="font-size:19px;font-weight:800;margin:0;">Mobile Store-and-Forward &amp; Barcode Parsing</h3>
+          <p style="font-size:14px;color:#5B5867;line-height:1.6;margin:0;">Enterprise spec template for mobile scan-and-verify workflows across warehouse OS platforms, covering data contracts and glove-mode ergonomics.</p>
+          <div style="background:#F7F5F1;border-radius:12px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.6;color:#5B5867;">GIVEN a barcode scan WHEN it matches the validation mask THEN parse payload, sound 1800Hz tone, flash green border within 200ms.</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;font-size:12px;color:#5B5867;">
+            <span>Enterprise Logistics Firm</span>
+            <a href="CaseStudy-Final.dc.html" style="font-weight:700;color:#5B3A8E;display:inline-block;transition:transform 0.15s ease;" style-hover="transform:translateX(4px);">Explore &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:0 0 300px;width:300px;scroll-snap-align:start;background:#FFFFFF;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform 0.2s ease,box-shadow 0.2s ease;" style-hover="transform:translateY(-6px);box-shadow:0 20px 40px -14px rgba(30,26,46,0.2);">
+        <image-slot id="f-card-rca" shape="rect" style="width:100%;height:170px;" placeholder="Project screenshot or diagram"></image-slot>
+        <div style="padding:24px;display:flex;flex-direction:column;gap:12px;flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5B5867;">WMS-BUG-1042</span>
+            <span style="font-size:11px;font-weight:700;color:#1F7A56;background:#E4F3EC;padding:4px 12px;border-radius:999px;">READY FOR REVIEW</span>
+          </div>
+          <h3 style="font-size:19px;font-weight:800;margin:0;">Mobile Sync Latency &mdash; Root Cause Analysis</h3>
+          <p style="font-size:14px;color:#5B5867;line-height:1.6;margin:0;">RCA for a mobile sync latency bug, tracing UI freezes during high-volume batch scanning to database row-locking via the 5 Whys method.</p>
+          <div style="background:#F7F5F1;border-radius:12px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.6;color:#5B5867;">Why 5 (root cause): the DB lacks optimized indexing for parallel batch processing, forcing synchronous waits.</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;font-size:12px;color:#5B5867;">
+            <span>Enterprise Logistics Firm</span>
+            <a href="CaseStudy-Final.dc.html" style="font-weight:700;color:#5B3A8E;display:inline-block;transition:transform 0.15s ease;" style-hover="transform:translateX(4px);">Explore &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </section>
+
+  <section id="contact" style="max-width:1200px;margin:0 auto;padding:88px 48px;">
+    <div style="display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:24px;background:#241C36;border-radius:28px;padding:56px;color:#FAF8F4;">
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#D9B24A;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Contact</div>
+        <h2 style="font-size:30px;font-weight:800;margin:0 0 24px;">Let&rsquo;s work together.</h2>
+        <div style="display:flex;flex-direction:column;gap:14px;font-size:14px;color:#D7D0DE;">
+          <span style="display:flex;align-items:center;gap:10px;"><span style="width:8px;height:8px;border-radius:50%;background:#D9B24A;display:inline-block;"></span>Kegalle, Sri Lanka</span>
+          <a href="mailto:ayeshaanuruddha@gmail.com" style="display:flex;align-items:center;gap:10px;color:#D7D0DE;"><span style="width:8px;height:8px;border-radius:50%;background:#D9B24A;display:inline-block;"></span>ayeshaanuruddha@gmail.com</a>
+          <span style="display:flex;align-items:center;gap:10px;"><span style="width:8px;height:8px;border-radius:50%;background:#D9B24A;display:inline-block;"></span>(+94) 71 632 5463</span>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;">
+          <a href="http://linkedin.com/in/ayesha-anuruddha" style="font-size:12px;font-weight:600;color:#FAF8F4;background:rgba(255,255,255,0.1);padding:9px 16px;border-radius:10px;">LinkedIn</a>
+          <a href="https://github.com/ayeshaanuruddha" style="font-size:12px;font-weight:600;color:#FAF8F4;background:rgba(255,255,255,0.1);padding:9px 16px;border-radius:10px;">GitHub</a>
+          <a href="https://web.facebook.com/anuruddha.ayesha" style="font-size:12px;font-weight:600;color:#FAF8F4;background:rgba(255,255,255,0.1);padding:9px 16px;border-radius:10px;">Facebook</a>
+        </div>
+      </div>
+      <form style="display:flex;flex-direction:column;gap:14px;" onsubmit="return false;">
+        <input type="text" placeholder="Name" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);border-radius:12px;color:#FAF8F4;font-family:'Manrope',sans-serif;font-size:15px;padding:14px 16px;outline:none;" />
+        <input type="email" placeholder="Email address" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);border-radius:12px;color:#FAF8F4;font-family:'Manrope',sans-serif;font-size:15px;padding:14px 16px;outline:none;" />
+        <textarea rows="4" placeholder="Message" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);border-radius:12px;color:#FAF8F4;font-family:'Manrope',sans-serif;font-size:15px;padding:14px 16px;outline:none;resize:vertical;"></textarea>
+        <button type="submit" style="align-self:flex-start;font-size:14px;font-weight:700;background:#D9B24A;color:#241C36;padding:14px 28px;border-radius:12px;border:none;margin-top:4px;">Send message</button>
+      </form>
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid #E8E3DD;padding:24px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13px;color:#5B5867;">
+    <span>&copy; Ayesha Anuruddha 2026</span>
+    <a href="CreativeHub-Final.dc.html" style="color:#5B5867;">Creative Hub &mdash; fiction &amp; essays &rarr;</a>
+    <a href="#page-top" style="color:#5B5867;">Back to top &uarr;</a>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  scrollBy(dir) {
+    const el = document.getElementById('f-portfolio-track');
+    if (!el) return;
+    const start = el.scrollLeft;
+    const target = start + dir * 324;
+    const duration = 300;
+    const startTime = performance.now();
+    const step = (now) => {
+      const t = Math.min(1, (now - startTime) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.scrollLeft = start + (target - start) * eased;
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  renderVals() {
+    return {
+      scrollPrev: () => this.scrollBy(-1),
+      scrollNext: () => this.scrollBy(1),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
