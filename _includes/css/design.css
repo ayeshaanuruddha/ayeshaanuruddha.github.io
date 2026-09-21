@@ -188,3 +188,19 @@ body.legacy{font-size:15px;line-height:1.42857143;}
 .contact-form button{align-self:flex-start;font-size:14px;font-weight:700;
   background:var(--gold-bright);color:var(--purple-deep);padding:14px 28px;
   border-radius:12px;border:none;margin-top:4px;cursor:pointer;}
+
+/* Case study — project body */
+.cs-body{font-size:15px;line-height:1.75;color:var(--body);}
+.cs-body h3{font-size:20px;font-weight:800;margin:32px 0 16px;color:var(--ink);}
+.cs-body h4{font-size:16px;font-weight:700;margin:24px 0 12px;color:var(--ink);}
+.cs-body hr{border:0;border-top:1px solid var(--line);margin:32px 0;}
+.cs-body ul{padding-left:20px;line-height:1.7;}
+.cs-body li{margin-bottom:6px;}
+.cs-body code{background:var(--surface-quiet);padding:2px 6px;border-radius:4px;font-size:12.5px;}
+.cs-body .table-wrap{overflow-x:auto;border:1px solid var(--line);
+  border-radius:16px;margin:0 0 32px;}
+.cs-body table{border-collapse:collapse;width:100%;min-width:520px;}
+.cs-body th,.cs-body td{border:1px solid var(--line);padding:12px;
+  font-size:13.5px;text-align:left;vertical-align:top;}
+.cs-body th{background:var(--surface-alt);font-weight:700;}
+.cs-body img{border-radius:12px;border:1px solid var(--line);margin:8px 0;}

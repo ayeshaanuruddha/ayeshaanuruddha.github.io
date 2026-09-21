@@ -26,12 +26,12 @@ ticket:
 ---
 
 <h3>Executive Summary</h3>
-<p style="text-align: justify;">This functional specification template provides an enterprise standard for documenting frontline mobile execution workflows across diverse operating systems (Android, iOS, Windows CE/WEH, Embedded Linux, and RTOS). Designed for high-concurrency warehouse environments, it establishes clear UI ergonomics, offline edge resiliency, and Gherkin-syntax acceptance criteria to directly reduce manual entry errors, accelerate development cycles, and improve frontline operational throughput.</p>
+<p>This functional specification template provides an enterprise standard for documenting frontline mobile execution workflows across diverse operating systems (Android, iOS, Windows CE/WEH, Embedded Linux, and RTOS). Designed for high-concurrency warehouse environments, it establishes clear UI ergonomics, offline edge resiliency, and Gherkin-syntax acceptance criteria to directly reduce manual entry errors, accelerate development cycles, and improve frontline operational throughput.</p>
 
 <h3>[WMS-FST-0104] Mobile Functional Specification: [Flow / Module Name]</h3>
 
 <h4>📋 Ticket Completion Status</h4>
-<table class="table table-bordered" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr><td>🐛 <strong>Type</strong></td><td>Story</td></tr>
     <tr><td>⏫ <strong>Priority</strong></td><td>High</td></tr>
@@ -40,14 +40,14 @@ ticket:
     <tr><td>👥 <strong>Ticket Owner</strong></td><td>Business Analyst</td></tr>
     <tr><td>✅ <strong>Reviewed and Signed off</strong></td><td>PO, SME/Dev, QE</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <hr>
 
 <h3>(1) Operational Context &amp; User Story</h3>
 
 <h4>(1.1) Summary</h4>
-<table class="table table-bordered" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>As a</strong></td><td>Warehouse Operator [Inbound Receiver / High-Bay Forklift Loader, Unloader / Order Selector]</td></tr>
     <tr><td><strong>I want</strong></td><td>real-time scan verification with instant location confirmation</td></tr>
@@ -60,13 +60,13 @@ ticket:
       </td>
     </tr>
   </tbody>
-</table>
+</table></div>
 
 <h4>(1.2) Operational Elicitation &amp; Problem Statement</h4>
-<table class="table table-bordered" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr>
-      <td style="width: 25%;"><strong>Elicitation Source</strong></td>
+      <td><strong>Elicitation Source</strong></td>
       <td>
         • Floor Time-Motion Study<br>
         • UAT Incident Log<br>
@@ -87,7 +87,7 @@ ticket:
       <td>Enable instant 2D barcode scanning with automated shelf-code verification, cutting screen loading delays and reducing manual location entry errors to zero.</td>
     </tr>
   </tbody>
-</table>
+</table></div>
 
 <hr>
 
@@ -106,46 +106,46 @@ ticket:
 
 <h4>(2.3) Functional Scenarios</h4>
 
-<table class="table table-bordered table-striped" style="text-align: left;">
+<div class="table-wrap"><table>
   <thead>
     <tr><th colspan="2">Scenario 01: Nominal Path — Valid Barcode Scan &amp; Atomic State Transition</th></tr>
   </thead>
   <tbody>
-    <tr><td style="width: 15%;"><strong>GIVEN</strong></td><td>an operator is prompted on the mobile screen to scan target [Location / LPN / Item Barcode]</td></tr>
+    <tr><td><strong>GIVEN</strong></td><td>an operator is prompted on the mobile screen to scan target [Location / LPN / Item Barcode]</td></tr>
     <tr><td><strong>WHEN</strong></td><td>the operator scans a barcode conforming to the defined regular expression mask</td></tr>
     <tr><td><strong>THEN</strong></td><td>the mobile client must parse the payload, emit a high-frequency success tone (1800Hz), and execute a green border flash within 200ms</td></tr>
     <tr><td><strong>AND</strong></td><td>submit the atomic inventory transaction to the backend API without blocking subsequent user interactions</td></tr>
   </tbody>
-</table>
+</table></div>
 
-<table class="table table-bordered table-striped" style="text-align: left;">
+<div class="table-wrap"><table>
   <thead>
     <tr><th colspan="2">Scenario 02: Validation Exception — Input Mismatch &amp; Error Interception</th></tr>
   </thead>
   <tbody>
-    <tr><td style="width: 15%;"><strong>GIVEN</strong></td><td>an operator is on an active transaction step</td></tr>
+    <tr><td><strong>GIVEN</strong></td><td>an operator is on an active transaction step</td></tr>
     <tr><td><strong>WHEN</strong></td><td>the scanned or entered string violates validation masks (e.g., incorrect checksum, invalid temperature zone prefix)</td></tr>
     <tr><td><strong>THEN</strong></td><td>the client must immediately intercept the event locally before dispatching network payloads</td></tr>
     <tr><td><strong>AND</strong></td><td>emit a low-frequency dual-buzz error tone, display a blocking modal dialog with specific remediation text, and retain input focus on the failed field</td></tr>
   </tbody>
-</table>
+</table></div>
 
-<table class="table table-bordered table-striped" style="text-align: left;">
+<div class="table-wrap"><table>
   <thead>
     <tr><th colspan="2">Scenario 03: Edge Resiliency — Sub-Zero Network Interruption (Store-and-Forward)</th></tr>
   </thead>
   <tbody>
-    <tr><td style="width: 15%;"><strong>GIVEN</strong></td><td>an operator moves into an RF dead-zone (e.g., heavily insulated freezer vestibule)</td></tr>
+    <tr><td><strong>GIVEN</strong></td><td>an operator moves into an RF dead-zone (e.g., heavily insulated freezer vestibule)</td></tr>
     <tr><td><strong>WHEN</strong></td><td>a completed physical scan event occurs while the WLAN ping latency exceeds 1500ms or packet loss is 100%</td></tr>
     <tr><td><strong>THEN</strong></td><td>the client must write the encrypted transaction payload directly to the local persistent SQLite/Room database</td></tr>
     <tr><td><strong>AND</strong></td><td>display a non-blocking "Queued Offline" status banner while allowing the operator to proceed with the next directed step</td></tr>
     <tr><td><strong>AND</strong></td><td>automatically replay queued payloads in chronological FIFO sequence upon network handshake re-establishment</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <h4>(2.4) Field-Level Input Specifications</h4>
-<table class="table table-bordered" style="text-align: left; font-size: 0.9em;">
-  <thead style="background: #f1f5f9;">
+<div class="table-wrap"><table>
+  <thead>
     <tr>
       <th>Field Label</th>
       <th>Input Type</th>
@@ -189,11 +189,11 @@ ticket:
       <td>Mandatory if SKU profile has catchweight flag enabled; validates within &plusmn;15% of nominal case tare.</td>
     </tr>
   </tbody>
-</table>
+</table></div>
 
 <h4>(2.5) Alerts, Validation Messages &amp; Physical Feedback</h4>
-<table class="table table-bordered" style="text-align: left; font-size: 0.9em;">
-  <thead style="background: #f1f5f9;">
+<div class="table-wrap"><table>
+  <thead>
     <tr>
       <th>Message Code</th>
       <th>Trigger Condition</th>
@@ -207,77 +207,77 @@ ticket:
       <td><code>ERR-WMS-201</code></td>
       <td>Invalid Check Digit scanned</td>
       <td>Double Low Buzz (250Hz) + Long Haptic Vibration</td>
-      <td><span style="color: #dc2626; font-weight: 600;">INVALID CHECK DIGIT</span><br>Value entered does not match slot upright.</td>
+      <td>INVALID CHECK DIGIT<br>Value entered does not match slot upright.</td>
       <td>Clear field automatically; place cursor focus back in input box for immediate rescan.</td>
     </tr>
     <tr>
       <td><code>ERR-WMS-304</code></td>
       <td>Thermal Zone Putaway Mismatch</td>
       <td>High-Low Warning Siren + Triple Pulsed Vibration</td>
-      <td><span style="color: #dc2626; font-weight: 600;">THERMAL VIOLATION</span><br>Item requires [Deep Freezer]. Slot is [Ambient Dry].</td>
+      <td>THERMAL VIOLATION<br>Item requires [Deep Freezer]. Slot is [Ambient Dry].</td>
       <td>Press <code>[ACKNOWLEDGE]</code>. Client rejects placement and triggers automated task reroute.</td>
     </tr>
     <tr>
       <td><code>WARN-WMS-105</code></td>
       <td>Offline Queue Threshold (&gt;25)</td>
       <td>Single Short Warning Beep</td>
-      <td><span style="color: #d97706; font-weight: 600;">OFFLINE BUFFER WARNING</span><br>25 transactions stored locally. Verify network link.</td>
+      <td>OFFLINE BUFFER WARNING<br>25 transactions stored locally. Verify network link.</td>
       <td>Informational top toast bar; does not halt or interrupt active physical warehouse scanning.</td>
     </tr>
     <tr>
       <td><code>SUCC-WMS-001</code></td>
       <td>Scan verified &amp; confirmed</td>
       <td>High Chirp (1800Hz) + Short 50ms Haptic Click</td>
-      <td><span style="color: #16a34a; font-weight: 600;">VERIFIED</span><br>Flash green outer screen border for 150ms.</td>
+      <td>VERIFIED<br>Flash green outer screen border for 150ms.</td>
       <td>Client advances immediately to next directed coordinate in optimized travel sequence.</td>
     </tr>
   </tbody>
-</table>
+</table></div>
 
 <hr>
 
 <h3>(3) Privilege of Functionality (Role-Based Access Control)</h3>
-<table class="table table-bordered" style="text-align: left;">
-  <thead style="background: #f1f5f9;">
+<div class="table-wrap"><table>
+  <thead>
     <tr>
       <th>Enterprise Role Profile</th>
-      <th style="text-align: center;">Execute / Update</th>
-      <th style="text-align: center;">Inquire / Lookup</th>
-      <th style="text-align: center;">Supervisor Override</th>
+      <th>Execute / Update</th>
+      <th>Inquire / Lookup</th>
+      <th>Supervisor Override</th>
       <th>Operational Scope &amp; Functional Boundaries</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><strong>Frontline Associate (Selector/Forklift)</strong></td>
-      <td style="text-align: center; color: #16a34a; font-weight: bold;">Y</td>
-      <td style="text-align: center; color: #16a34a; font-weight: bold;">Y</td>
-      <td style="text-align: center; color: #dc2626; font-weight: bold;">N</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>N</td>
       <td>Restricted strictly to system-directed task queues; zero ad-hoc location inventory adjustments permitted.</td>
     </tr>
     <tr>
       <td><strong>Inventory Control Specialist</strong></td>
-      <td style="text-align: center; color: #16a34a; font-weight: bold;">Y</td>
-      <td style="text-align: center; color: #16a34a; font-weight: bold;">Y</td>
-      <td style="text-align: center; color: #dc2626; font-weight: bold;">N</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>N</td>
       <td>Authorized for non-demand replenishment, cycle counting, and slot rebalancing; cannot bypass QA holds.</td>
     </tr>
     <tr>
       <td><strong>Shift Operations Supervisor</strong></td>
-      <td style="text-align: center; color: #16a34a; font-weight: bold;">Y</td>
-      <td style="text-align: center; color: #16a34a; font-weight: bold;">Y</td>
-      <td style="text-align: center; color: #16a34a; font-weight: bold;">Y</td>
+      <td>Y</td>
+      <td>Y</td>
+      <td>Y</td>
       <td>Full facility authorization: blind short overrides, location locks, damaged inventory write-offs, and QA releases.</td>
     </tr>
     <tr>
       <td><strong>External Auditor / Guest</strong></td>
-      <td style="text-align: center; color: #dc2626; font-weight: bold;">N</td>
-      <td style="text-align: center; color: #16a34a; font-weight: bold;">Y</td>
-      <td style="text-align: center; color: #dc2626; font-weight: bold;">N</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>N</td>
       <td>Read-only inspection permissions across lot genealogies and temperature storage logs.</td>
     </tr>
   </tbody>
-</table>
+</table></div>
 
 <hr>
 
@@ -291,10 +291,10 @@ ticket:
 <hr>
 
 <h3>(5) Edge Hardware &amp; Environmental Ergonomics</h3>
-<table class="table table-bordered" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr>
-      <td style="width: 25%;"><strong>Thermal Environment</strong></td>
+      <td><strong>Thermal Environment</strong></td>
       <td>Sub-zero operational profile (-20&deg;F / -28&deg;C). Client must disable multi-touch gestures and support resistive/glove-mode capacitive digitizers with heated optical scanner exit windows.</td>
     </tr>
     <tr>
@@ -306,7 +306,7 @@ ticket:
       <td>For devices with physical alphanumeric keypads (e.g., Zebra MC9300 / legacy WinCE terminals), all core on-screen commands must map to physical function keys: <code>F1 = Help/Details</code>, <code>F4 = Clear/Rescan</code>, <code>ENTER = Confirm Input</code>.</td>
     </tr>
   </tbody>
-</table>
+</table></div>
 
 <hr>
 
@@ -316,36 +316,36 @@ ticket:
 <p>Mobile clients dispatch transaction confirmations asynchronously via lightweight JSON payloads over HTTPS mutual TLS (mTLS):</p>
 
 <!-- Clean HTML Pre-Formatted Dark Code Box -->
-<div style="background: #0f172a; color: #f8fafc; border-radius: 6px; padding: 18px; margin: 18px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.15); overflow-x: auto;">
-<pre style="background: transparent; border: none; color: inherit; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; font-size: 0.88em; line-height: 1.5; white-space: pre;"><span style="color: #94a3b8;">{</span>
-  <span style="color: #38bdf8;">"transaction_id"</span>: <span style="color: #fde047;">"tx_99824_fa48d2"</span>,
-  <span style="color: #38bdf8;">"client_timestamp_utc"</span>: <span style="color: #fde047;">"2026-09-12T14:32:01.204Z"</span>,
-  <span style="color: #38bdf8;">"facility_node"</span>: <span style="color: #fde047;">"DC-04"</span>,
-  <span style="color: #38bdf8;">"operator_id"</span>: <span style="color: #fde047;">"EMP-8841"</span>,
-  <span style="color: #38bdf8;">"device_telemetry"</span>: <span style="color: #94a3b8;">{</span>
-    <span style="color: #38bdf8;">"device_serial"</span>: <span style="color: #fde047;">"ZBR-MC93-84920"</span>,
-    <span style="color: #38bdf8;">"battery_pct"</span>: <span style="color: #4ade80;">84</span>,
-    <span style="color: #38bdf8;">"thermal_sensor_celsius"</span>: <span style="color: #4ade80;">-18.2</span>,
-    <span style="color: #38bdf8;">"wifi_rssi_dbm"</span>: <span style="color: #4ade80;">-68</span>
-  <span style="color: #94a3b8;">}</span>,
-  <span style="color: #38bdf8;">"movement_payload"</span>: <span style="color: #94a3b8;">{</span>
-    <span style="color: #38bdf8;">"source_lpn"</span>: <span style="color: #fde047;">"001085001234567890"</span>,
-    <span style="color: #38bdf8;">"item_gtin"</span>: <span style="color: #fde047;">"10850012345678"</span>,
-    <span style="color: #38bdf8;">"lot_code"</span>: <span style="color: #fde047;">"BATCH-9921A"</span>,
-    <span style="color: #38bdf8;">"target_location"</span>: <span style="color: #fde047;">"FA48D2"</span>,
-    <span style="color: #38bdf8;">"check_digit_verified"</span>: <span style="color: #fde047;">"84"</span>,
-    <span style="color: #38bdf8;">"quantity_moved"</span>: <span style="color: #4ade80;">45</span>,
-    <span style="color: #38bdf8;">"uom"</span>: <span style="color: #fde047;">"CASE"</span>,
-    <span style="color: #38bdf8;">"catchweight_kg"</span>: <span style="color: #4ade80;">45.25</span>
-  <span style="color: #94a3b8;">}</span>
-<span style="color: #94a3b8;">}</span></pre>
+<div class="codeblock">
+<pre>{
+  "transaction_id": "tx_99824_fa48d2",
+  "client_timestamp_utc": "2026-09-12T14:32:01.204Z",
+  "facility_node": "DC-04",
+  "operator_id": "EMP-8841",
+  "device_telemetry": {
+    "device_serial": "ZBR-MC93-84920",
+    "battery_pct": 84,
+    "thermal_sensor_celsius": -18.2,
+    "wifi_rssi_dbm": -68
+  },
+  "movement_payload": {
+    "source_lpn": "001085001234567890",
+    "item_gtin": "10850012345678",
+    "lot_code": "BATCH-9921A",
+    "target_location": "FA48D2",
+    "check_digit_verified": "84",
+    "quantity_moved": 45,
+    "uom": "CASE",
+    "catchweight_kg": 45.25
+  }
+}</pre>
 </div>
 
 <h4>(6.2) Persistence &amp; Database State Engine</h4>
-<table class="table table-bordered" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr>
-      <td style="width: 25%;"><strong>Target Database Tables</strong></td>
+      <td><strong>Target Database Tables</strong></td>
       <td><code>INV_BALANCE</code>, <code>INV_TRANSACTION_LOG</code>, <code>LOCATION_MASTER</code>, <code>TASK_QUEUE</code></td>
     </tr>
     <tr>
@@ -357,39 +357,39 @@ ticket:
       <td>Row-level optimistic locking via record version timestamps (<code>ROW_VERSION_ID</code>) to prevent concurrent forklift operators from updating intersecting slots simultaneously.</td>
     </tr>
   </tbody>
-</table>
+</table></div>
 
 <hr>
 
 <h3>(7) References &amp; Traceability</h3>
 
 <h4>(7.1) Upstream Business Requirements</h4>
-<table class="table table-bordered" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>Originating Initiative</strong></td><td>Enterprise WMS Modernization &amp; Edge Optimization</td></tr>
     <tr><td><strong>Operational Sponsor</strong></td><td>National Logistics &amp; Distribution Operations Council</td></tr>
     <tr><td><strong>Regulatory Anchor</strong></td><td>FDA FSMA Section 204 Traceability (KDE/CTE Compliance Standards)</td></tr>
     <tr><td><strong>Traceability Jira Epic</strong></td><td><code>[WMS-EPIC-8800] Frontline Edge Barcode &amp; Scanning Modernization</code></td></tr>
   </tbody>
-</table>
+</table></div>
 
 <h4>(7.2) Engineering &amp; Architecture Notes</h4>
-<table class="table table-bordered" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>Architectural Blueprint</strong></td><td>Enterprise WMS Event-Driven Edge Architecture Specification v4.2</td></tr>
     <tr><td><strong>API Interface Contract</strong></td><td>OpenAPI 3.1 Spec &mdash; <code>/api/v2/inventory/movement/atomic-confirm</code></td></tr>
     <tr><td><strong>Observability Monitoring</strong></td><td>Datadog APM Dashboard: <code>[WMS-PROD-MOBILE-LATENCY]</code> &mdash; SLI Alert Target: &lt;200ms at p95</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <hr>
 
 <h3>(8) Definition of Done (DoD)</h3>
-<table class="table table-bordered" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr>
       <td>
-        <ul style="margin-bottom: 0; line-height: 1.8;">
+        <ul>
           <li>[ ] Functional specification reviewed, groomed, and signed off by Product Owner, Technical Lead, and QE Lead.</li>
           <li>[ ] Gherkin scenarios implemented into automated Cucumber/Appium mobile testing frameworks.</li>
           <li>[ ] Field validation masks and check-digit logic verified via unit tests with 100% boundary value coverage.</li>
@@ -401,24 +401,11 @@ ticket:
       </td>
     </tr>
   </tbody>
-</table>
+</table></div>
 
 <!-- Link to WMS Architecture Whitepaper -->
-<div style="text-align: center; margin: 35px auto 20px; width: 100%;">
-  <a href="warehouse.html" class="btn btn-lg" style="
-    background-color: #18bc9c;
-    border-color: #18bc9c;
-    color: #ffffff;
-    font-weight: 600;
-    padding: 12px 16px;
-    border-radius: 4px;
-    text-decoration: none;
-    display: inline-block;
-    width: 100%;
-    max-width: 420px;
-    box-sizing: border-box;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
-  ">
-    <i class="fa-solid fa-warehouse" style="margin-right: 8px;"></i>Explore Full WMS Architecture
+<div>
+  <a href="warehouse.html" class="btn btn-lg">
+    <i class="fa-solid fa-warehouse"></i>Explore Full WMS Architecture
   </a>
 </div>

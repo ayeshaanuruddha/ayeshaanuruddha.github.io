@@ -64,8 +64,8 @@ A developed local prototype successfully demonstrated the complete pipeline: fin
 
 **Future Enhancements:** The roadmap for a nationwide rollout includes extending the prototype to higher-performance edge devices (like the Raspberry Pi), integrating post-quantum cryptography (PQC) for long-term security, and employing multi-biometric sensors for enhanced authentication.
 
-<div class="text-center" style="margin: 2rem 0;">
-  <a href="https://github.com/ayeshaanuruddha/e-vote-main" target="_blank" rel="noopener noreferrer" class="btn btn-lg" style="background-color: #24292e; color: #fff; width: 100%; max-width: 420px;">
+<div class="text-center">
+  <a href="https://github.com/ayeshaanuruddha/e-vote-main" target="_blank" rel="noopener noreferrer" class="btn btn-lg">
     <i class="fa-brands fa-github"></i> View Source Code on GitHub
   </a>
 </div>

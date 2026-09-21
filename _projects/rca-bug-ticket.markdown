@@ -26,12 +26,12 @@ ticket:
 ---
 
 <h3>Executive Summary</h3>
-<p style="text-align: justify;">This Root Cause Analysis (RCA) document details the investigation and resolution of a critical UI latency issue during high-volume warehouse batch processing. By applying the "5 Whys" methodology, a database locking bottleneck was identified and resolved through an asynchronous synchronization architecture. The resulting action plan ensures system stability and resolves bottlenecks that directly impact warehouse throughput and worker productivity.</p>
+<p>This Root Cause Analysis (RCA) document details the investigation and resolution of a critical UI latency issue during high-volume warehouse batch processing. By applying the "5 Whys" methodology, a database locking bottleneck was identified and resolved through an asynchronous synchronization architecture. The resulting action plan ensures system stability and resolves bottlenecks that directly impact warehouse throughput and worker productivity.</p>
 
 <h3>[WMS-BUG-1042] [Performance] Mobile App Synchronization Latency During High-Volume Batch Processing</h3>
 
 <h4>📋 Ticket Completion Status</h4>
-<table class="table table-bordered" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr><td>🐛 <strong>Type</strong></td><td>Bug</td></tr>
     <tr><td>⏫ <strong>Priority</strong></td><td>High</td></tr>
@@ -40,33 +40,33 @@ ticket:
     <tr><td>👥 <strong>Ticket Owner</strong></td><td>Business Analyst</td></tr>
     <tr><td>✅ <strong>Reviewed and Signed off</strong></td><td>PO, SME/Dev, QE</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <hr>
 
 <h3>(1) User Story Details</h3>
 
 <h4>(1.1) Summary</h4>
-<table class="table table-bordered" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>As a</strong></td><td>warehouse selector</td></tr>
     <tr><td><strong>I</strong></td><td>want my mobile application to immediately sync allocated inventory quantities upon scanning</td></tr>
     <tr><td><strong>So that I</strong></td><td>am not blocked by loading screens or latency during high-volume batch processing</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <h3>(2) User Experience &amp; Preconditions</h3>
-<table class="table table-bordered" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>Preconditions</strong></td><td>The mobile client device is operating on a stable warehouse Wi-Fi network and processing a multi-item batch selection.</td></tr>
     <tr><td><strong>Current Process (Bug Behavior)</strong></td><td>When a user scans an item during peak hours, the application experiences a 3 to 5-second delay before the UI updates and the next scan is permitted.</td></tr>
     <tr><td><strong>New Process (Expected Behavior)</strong></td><td>The mobile application should process the payload and update the local UI within 200ms, syncing with the backend asynchronously.</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <h3>(3) Root Cause Analysis (5 Whys Method)</h3>
 <p><strong>Problem Statement:</strong> Mobile application experiences UI freezing and high latency during inventory allocation scans.</p>
-<table class="table table-bordered" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>Why 1</strong></td><td>The mobile application is waiting for a synchronous response from the central database before allowing the next action.</td></tr>
     <tr><td><strong>Why 2</strong></td><td>The backend API endpoint is taking over 3 seconds to process the JSON payload.</td></tr>
@@ -74,35 +74,35 @@ ticket:
     <tr><td><strong>Why 4</strong></td><td>The allocation table is experiencing row-level locking because hundreds of concurrent users are attempting to read/write to the same high-volume SKU index.</td></tr>
     <tr><td><strong>Why 5 (Root Cause)</strong></td><td>The database lacks an optimized indexing strategy for parallel batch processing, and the mobile app architecture forces a synchronous wait state instead of an asynchronous background sync.</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <h3>(4) Acceptance Criteria</h3>
-<table class="table table-bordered table-striped" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>GIVEN</strong></td><td>the user is processing a multi-item batch</td></tr>
     <tr><td><strong>WHEN</strong></td><td>an item barcode is successfully scanned</td></tr>
     <tr><td><strong>THEN</strong></td><td>the UI must update instantly to allow the next scan without locking</td></tr>
   </tbody>
-</table>
-<table class="table table-bordered table-striped" style="text-align: left;">
+</table></div>
+<div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>GIVEN</strong></td><td>a batch scan event has occurred</td></tr>
     <tr><td><strong>WHEN</strong></td><td>the API payload is transmitted</td></tr>
     <tr><td><strong>THEN</strong></td><td>the synchronization must happen asynchronously in the background</td></tr>
   </tbody>
-</table>
-<table class="table table-bordered table-striped" style="text-align: left;">
+</table></div>
+<div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>GIVEN</strong></td><td>a network interruption occurs during asynchronous sync</td></tr>
     <tr><td><strong>WHEN</strong></td><td>connectivity is restored</td></tr>
     <tr><td><strong>THEN</strong></td><td>the application must automatically retry the queued payloads without data loss</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <h3>(5) References</h3>
 
 <h4>(5.1) UAT Requirement</h4>
-<table class="table table-bordered" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>Tested Version</strong></td><td><code>[Sanitized Build Version ANDROID]</code></td></tr>
     <tr><td><strong>WMS Host</strong></td><td><code>Production</code></td></tr>
@@ -112,32 +112,19 @@ ticket:
     <tr><td><strong>Issue received via/from</strong></td><td>Warehouse Operations Team</td></tr>
     <tr><td><strong>UAT #ID</strong></td><td><code>WMS-BUG-1042</code></td></tr>
   </tbody>
-</table>
+</table></div>
 
 <h4>(5.2) Developer Notes</h4>
-<table class="table table-bordered" style="text-align: left;">
+<div class="table-wrap"><table>
   <tbody>
     <tr><td><strong>Tech Design</strong></td><td>API Payload Analysis &amp; Asynchronous Sync Architecture</td></tr>
     <tr><td><strong>Database Forensics</strong></td><td>Transaction Log Analysis (Shold be Attached)</td></tr>
   </tbody>
-</table>
+</table></div>
 
 <!-- Link to WMS Architecture Whitepaper -->
-<div style="text-align: center; margin: 25px auto 20px; width: 100%;">
-  <a href="warehouse.html" class="btn btn-lg" style="
-    background-color: #18bc9c;
-    border-color: #18bc9c;
-    color: #ffffff;
-    font-weight: 600;
-    padding: 12px 16px;
-    border-radius: 4px;
-    text-decoration: none;
-    display: inline-block;
-    width: 100%;
-    max-width: 420px;
-    box-sizing: border-box;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
-  ">
-    <i class="fa-solid fa-warehouse" style="margin-right: 8px;"></i>Explore Full WMS Architecture
+<div>
+  <a href="warehouse.html" class="btn btn-lg">
+    <i class="fa-solid fa-warehouse"></i>Explore Full WMS Architecture
   </a>
 </div>
