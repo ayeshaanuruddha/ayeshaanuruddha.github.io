@@ -71,6 +71,11 @@ code,pre{font-family:var(--mono);}
    Everything here is scoped to body.legacy so it can never outrank .cs-body's
    own table/grid rules on case-study pages. .img-responsive and .img-centered
    stay global: the POS case study still uses them on its state-diagram image. */
+/* Both legacy pages carry their own sticky pill nav at z-index 1020, which
+   would otherwise cover the sticky .site-header (z-index 20) the moment the
+   page scrolls. Let the site header scroll away here so the page's own nav is
+   the single sticky element. */
+body.legacy .site-header{position:static;}
 body.legacy .container{width:100%;max-width:1170px;margin:0 auto;padding:0 15px;}
 body.legacy .container-fluid{width:100%;margin:0 auto;padding:0 15px;}
 body.legacy .row{margin:0 -15px;}
