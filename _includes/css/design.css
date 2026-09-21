@@ -299,3 +299,46 @@ body.hub .site-nav a{border-radius:8px;}
   border-bottom:1px solid var(--line-hub-soft);font-size:15px;color:var(--ink-hub);}
 .hub-list a:last-child{border-bottom:0;}
 .hub-list .n{font-family:var(--mono);color:var(--muted-hub);}
+
+/* Case study — page chrome (article shell, back link, code tag, ticket metadata,
+   footer). Task 5 only styled .cs-body; this covers the rest of the layout. */
+.cs{padding-top:56px;padding-bottom:32px;}
+.cs h1{font-size:28px;line-height:1.3;margin:0 0 24px;}
+.cs__back{display:inline-block;font-size:13px;font-weight:600;color:var(--muted);
+  background:var(--surface-alt);padding:9px 16px;border-radius:10px;margin-bottom:20px;}
+.cs__code{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;
+  color:var(--purple);background:var(--purple-tint);padding:6px 14px;
+  border-radius:8px;margin-bottom:16px;}
+.cs__ticket{margin-bottom:32px;}
+.cs__ticket table{border-collapse:collapse;width:100%;}
+.cs__ticket th,.cs__ticket td{border:1px solid var(--line);padding:12px;
+  font-size:13.5px;text-align:left;vertical-align:top;}
+.cs__ticket th{background:var(--bg);width:160px;font-weight:700;}
+.cs__labels{font-family:var(--mono);font-size:12px;}
+.cs__foot{display:flex;justify-content:space-between;align-items:center;gap:12px;
+  flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px;
+  font-size:13px;color:var(--muted);}
+.cs__foot strong{color:var(--ink);}
+.cs__foot a{font-weight:700;color:var(--purple);}
+
+/* Responsive breakpoints — the design canvas renders desktop-width only. */
+@media (max-width:900px){
+  .hero,.about-grid,.contact-panel,.refs,.skills-grid{grid-template-columns:1fr;}
+  .matrix{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .timeline{grid-template-columns:1fr;gap:8px;}
+  h1{font-size:34px;} h2{font-size:25px;}
+}
+@media (max-width:700px){
+  .wrap,.wrap-narrow,.wrap-tight,.hub-section{padding-left:20px;padding-right:20px;}
+  .site-header,.site-footer{padding:14px 20px;}
+  .site-header{flex-direction:column;align-items:flex-start;}
+  .site-nav{width:100%;overflow-x:auto;justify-content:flex-start;
+    -webkit-overflow-scrolling:touch;
+    mask-image:linear-gradient(to right,#000 88%,transparent);}
+  .contact-panel{padding:28px;}
+  .cs__foot,.site-footer{flex-direction:column;align-items:flex-start;}
+}
+@media (max-width:560px){
+  .matrix{grid-template-columns:1fr;}
+  .pcard{flex:0 0 260px;width:260px;}
+}
