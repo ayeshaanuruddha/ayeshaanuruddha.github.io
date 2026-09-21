@@ -381,7 +381,14 @@ git commit -m "feat(chrome): shared sticky header and footer includes"
 **Files:**
 - Modify: `_layouts/default.html`
 - Create: `img/profile-headshot.webp`
-- Delete: `_includes/about.html`, `portfolio_grid.html`, `modals.html`, `contact_static.html`, `contact_disqus.html`, `js_disqus.html`
+- Delete: `_includes/about.html`, `portfolio_grid.html`, `modals.html`, `contact_static.html`, `contact_disqus.html`
+
+**Do NOT delete `js_disqus.html`.** It is included by `_includes/js.html`, which
+`_layouts/resume.html` still loads until Task 6. The reference sits inside a
+`{% if site.contact == "disqus" %}` branch that is currently false, so it would not
+error today — but that is a fragile reason to delete a referenced file. Task 8
+removes it together with `js.html` itself. The other five are referenced only by
+`_layouts/default.html`, which this task rewrites, so they are safe to remove here.
 
 **Interfaces:**
 - Consumes: `site_header.html`, `site_footer.html`, all Task 1 classes. **Task 4 runs before this task**, so the project front matter (`code`, `status`, `status_tone`, `card_summary`, `card_quote`, `client`) already exists and `p.url` resolves.
@@ -492,7 +499,7 @@ Ported from the design's own `DCLogic` block — already vanilla.
 
 ```bash
 git rm -q _includes/about.html _includes/portfolio_grid.html _includes/modals.html \
-  _includes/contact_static.html _includes/contact_disqus.html _includes/js_disqus.html
+  _includes/contact_static.html _includes/contact_disqus.html
 bundle exec jekyll build 2>&1 | tail -3
 for id in page-top about portfolio contact; do
   grep -q "id=\"$id\"" _site/index.html && echo "PASS: #$id" || echo "FAIL: #$id"; done
@@ -916,7 +923,8 @@ git commit -m "feat(hub): rebuild creative hub with serif identity"
 ### Task 8: Remove the dead JavaScript
 
 **Files:**
-- Delete: `js/` (entire directory), `_includes/js.html`, and the three old chrome
+- Delete: `js/` (entire directory), `_includes/js.html`, `_includes/js_disqus.html`
+  (deferred from Task 3, since `js.html` references it), and the three old chrome
   includes deferred from Task 2: `_includes/nav.html`, `_includes/header.html`,
   `_includes/footer.html`
 - Modify: `_config.yml`
@@ -938,7 +946,7 @@ include and the build will fail.
 - [ ] **Step 2: Delete**
 
 ```bash
-git rm -q -r js _includes/js.html \
+git rm -q -r js _includes/js.html _includes/js_disqus.html \
   _includes/nav.html _includes/header.html _includes/footer.html
 ```
 
