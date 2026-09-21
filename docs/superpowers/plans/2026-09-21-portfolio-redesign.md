@@ -900,11 +900,32 @@ body.hub .site-nav a{border-radius:8px;}
 
 Switch front matter to `layout: hub` and drop the `<style>` block that hid the old
 navbar. Port from `docs/superpowers/design-source/CreativeHub-Final.dc.html`:
-intro, YouTube, Fiction collection (16 entries), Article collection (9 entries) —
-**26 outbound content links total**. Port the design's list verbatim; do not merge
-in links from the old page. The current page has 27, so roughly one link is
-deliberately dropped by the design. Note in your report which old link is absent so
-the user can restore it if that was unintended.
+intro, YouTube, Fiction collection, Article collection.
+
+**The design's link list is defective — do not port it.** Take the design's layout,
+typography, section structure and ordering, but take every fiction/article
+**title-to-URL pairing from the existing `extracurriculars.html`**, which is
+authoritative for which post belongs to which story.
+
+The defect, measured: the design omits the story **"The Confession"**
+(`https://web.facebook.com/photo/?fbid=3334540376605193&set=gm.707861366452605`),
+and that omission shifted every following entry's URL up by one. Eight stories in
+the design therefore point at the wrong post —
+
+| Story | Correct URL (live page) | Design wrongly gives it |
+|---|---|---|
+| චිත්ත මෝහන | `fbid=3117906518268581` | The Confession's URL |
+| මෝහා | `fbid=3540936559298906` | චිත්ත මෝහන's |
+| Tinkerbell | `posts/4178568962202326` | මෝහා's |
+| ආකූල | `fbid=4208413829217839` | Tinkerbell's |
+| වෙළෙන්දාගේ දියණිය | `mythologyworld/…/1315632428887074` | ආකූල's |
+| පුනරාවර්තන | `349001202263956/…/1788572084973520` | වෙළෙන්දාගේ දියණිය's |
+| කාර්මයින් | `fbid=1298510999138425` | පුනරාවර්තන's |
+| ආදරණීය SH | `fbid=144887434500793` | කාර්මයින්'s |
+
+Restore "The Confession" in its live-page position (between උදාන ගීතය and
+චිත්ත මෝහන) and renumber. **Expected total: 27 outbound content links**, not 26.
+The article collection is unaffected — its nine pairings already match.
 
 - [ ] **Step 5: Verify**
 
@@ -915,9 +936,30 @@ grep -c 'Noto+Sans+Sinhala' _site/extracurriculars.html && echo "PASS: sinhala f
 grep -c 'Noto+Sans+Sinhala' _site/index.html || echo "PASS: not loaded on home"
 ```
 
-Expected: exactly 26 outbound content links (the count above also includes the
-Google Fonts and Formspree hrefs, so expect 28–30 total); Sinhala font present on
-the hub and absent from home.
+Expected: exactly **27** outbound content links. Also run this pairing check, which
+is the real gate — it confirms every title still points at the post it points at
+today:
+
+```bash
+python3 -c "
+import re
+def clean(s):
+    s=re.sub(r'<[^>]+>','',s).replace(chr(0x1F534),'').replace(chr(0x1F535),'')
+    return re.sub(r'\s+',' ',s).strip()
+def pairs(p):
+    return {clean(re.sub(r'^\s*\d\d\s*','',t)):u for u,t in
+            re.findall(r'href=\"(https?://[^\"]+)\"[^>]*>(.*?)</a>',open(p).read(),re.S)
+            if 'fonts.googleapis' not in u}
+old=pairs('/dev/stdin')  # replace with the pre-task file from git show
+new=pairs('extracurriculars.html')
+bad=[t for t,u in old.items() if t in new and new[t]!=u]
+print('mismatched pairs:',bad if bad else 'none')
+print('titles lost:',[t for t in old if t not in new])
+"
+```
+
+Compare against the pre-task file via `git show HEAD:extracurriculars.html`. Both
+lines must report nothing. Sinhala font present on the hub and absent from home.
 
 - [ ] **Step 6: Commit**
 
