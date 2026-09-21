@@ -83,3 +83,20 @@ code,pre{font-family:var(--mono);}
    pill on those pages reflows ~7% larger. Typography and background deliberately
    follow the new design. */
 body.legacy{font-size:15px;line-height:1.42857143;}
+
+.site-header{position:sticky;top:0;z-index:20;background:rgba(250,248,244,.85);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);display:flex;
+  align-items:center;justify-content:space-between;padding:18px 48px;gap:16px;flex-wrap:wrap;}
+.site-header__brand{display:flex;align-items:center;gap:10px;font-size:15px;
+  font-weight:800;color:var(--ink);}
+.site-header__mark{display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:10px;background:var(--purple);
+  color:var(--bg);font-size:12px;font-weight:700;}
+.site-nav{display:flex;gap:6px;font-size:14px;font-weight:600;
+  background:var(--surface-alt);border-radius:999px;padding:5px;}
+.site-nav a{color:var(--muted);padding:9px 18px;border-radius:999px;white-space:nowrap;}
+.site-nav a.is-active,.site-nav a.is-cta{color:var(--bg);background:var(--purple);}
+.site-footer{border-top:1px solid var(--line);padding:24px 48px;display:flex;
+  justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  font-size:13px;color:var(--muted);}
+.site-footer a{color:var(--muted);}
