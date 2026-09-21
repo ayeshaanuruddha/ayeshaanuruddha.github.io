@@ -15,7 +15,7 @@
 - **No JavaScript framework and no jQuery.** The only script on the finished site is the home carousel (~20 lines, vanilla).
 - **Palette is fixed.** Use the exact hex values in the spec's token table. Do not invent shades.
 - **Fonts:** Manrope (500/600/700/800) + IBM Plex Mono (400/500/600) sitewide; Lora + Noto Sans Sinhala additionally on the Creative Hub only.
-- **`warehouse.html` and `businessone.html` must not change visually.** They are out of scope; the compat shim exists solely to keep them as they are.
+- **`warehouse.html` and `businessone.html`: their page CONTENT is frozen.** Their headings, tables, status pills, diagrams, floating home button and inline styling must not be touched or restyled — that is what "out of scope" means, and the compat shim exists to keep that content rendering as it does today. **Shared site chrome is deliberately NOT frozen.** Those two pages route through `_layouts/page.html`, so they receive the new header and the new footer like every other page. This is intended: the new footer removes the home address (a privacy finding the review raised twice), the visitor badge, and the theme's mobile scroll-top button that the review flagged as a Critical double-FAB overlap on `businessone.html`. Keeping the old footer for these two pages would re-publish the address, restore that overlap, and pin `footer.html` alive against its Task 8 deletion.
 - **Preserve all project body content.** ~1,000 lines across four files. Styling changes only; no prose is deleted.
 - **`text-align: justify` must not survive anywhere.** Review finding.
 - **Every case-study table must be horizontally scrollable.** The POS data dictionary is six columns.
