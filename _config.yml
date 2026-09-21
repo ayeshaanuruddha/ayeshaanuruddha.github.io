@@ -57,10 +57,7 @@ credits: 'ayeshaanuruddha@gmail.com<br>ayesha.upamali@gmail.com<br><br><img src=
 markdown: kramdown
 permalink: pretty
 
-#for posts
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      permalink: ""
+# Portfolio items feed the home page grid/modals only; they get no pages of their own
+collections:
+  projects:
+    output: false

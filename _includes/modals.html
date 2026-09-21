@@ -1,5 +1,6 @@
 <!-- Portfolio Modals -->
-{% for post in site.posts %}
+{% assign projects = site.projects | sort: "date" | reverse %}
+{% for post in projects %}
 <div class="portfolio-modal modal fade" id="portfolioModal-{{ post.modal-id }}" tabindex="-1" role="dialog"
   aria-hidden="true">
   <div class="modal-content">
