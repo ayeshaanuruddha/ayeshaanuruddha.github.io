@@ -21,7 +21,6 @@ full_spec_label: View source
 ---
 
 ### Executive Summary
-{: .text-justify }
 
 This project tackles the challenges of manual, paper-based electoral systems in Sri Lanka by proposing a modern, cost-effective, privacy-preserving electronic voting framework. It leverages edge computing and Multi-Party Computation (MPC) to guarantee the Confidentiality, Integrity, Availability, Authentication, and Non-repudiation (CIAAN) of every vote. By demonstrating successful biometric authentication and secure distributed tallying, this prototype establishes a verifiable and trust-building architecture for national elections.
 
@@ -29,36 +28,38 @@ This project tackles the challenges of manual, paper-based electoral systems in 
 
 #### 📋 Project Overview
 
-| | |
-|---|---|
-| 🎯 **Objective** | To establish a verifiable, trust-building e-voting system tailored for Sri Lanka's infrastructural constraints. |
-| 🛠️ **Technology Stack** | Remix (Frontend), FastAPI (Backend), MySQL (Database), ESP32 Microcontrollers (Edge). |
-| 🔒 **Security Model** | CIAAN Architecture, Biometric Authentication, Secret-Sharing Algorithms. |
-| 🎓 **Context** | BSc Honours in Computer Science Final Year Project, Faculty of Computing and Technology, University of Kelaniya. |
-{: .table .table-bordered }
+<div class="table-wrap"><table>
+  <tbody>
+    <tr><td>🎯 <strong>Objective</strong></td><td>To establish a verifiable, trust-building e-voting system tailored for Sri Lanka's infrastructural constraints.</td></tr>
+    <tr><td>🛠️ <strong>Technology Stack</strong></td><td>Remix (Frontend), FastAPI (Backend), MySQL (Database), ESP32 Microcontrollers (Edge).</td></tr>
+    <tr><td>🔒 <strong>Security Model</strong></td><td>CIAAN Architecture, Biometric Authentication, Secret-Sharing Algorithms.</td></tr>
+    <tr><td>🎓 <strong>Context</strong></td><td>BSc Honours in Computer Science Final Year Project, Faculty of Computing and Technology, University of Kelaniya.</td></tr>
+  </tbody>
+</table></div>
 
 ---
 
 ### (1) Core System Architecture
 
-| | |
-|---|---|
-| **Tier 1: Edge Nodes** | ESP32 devices handle local biometric voter authentication and ballot encryption at polling stations to reduce network dependence. |
-| **Tier 2: MPC Overlay** | A secure peer-to-peer network distributes secret shares of the votes to enable collective tallying without revealing individual selections. |
-| **Tier 3: Central Services** | A high-performance FastAPI backend manages the voter registry, API routing, and final encrypted result storage via MySQL. |
-{: .table .table-bordered }
+<div class="table-wrap"><table>
+  <tbody>
+    <tr><td><strong>Tier 1: Edge Nodes</strong></td><td>ESP32 devices handle local biometric voter authentication and ballot encryption at polling stations to reduce network dependence.</td></tr>
+    <tr><td><strong>Tier 2: MPC Overlay</strong></td><td>A secure peer-to-peer network distributes secret shares of the votes to enable collective tallying without revealing individual selections.</td></tr>
+    <tr><td><strong>Tier 3: Central Services</strong></td><td>A high-performance FastAPI backend manages the voter registry, API routing, and final encrypted result storage via MySQL.</td></tr>
+  </tbody>
+</table></div>
 
 ### (2) Key Implementation Features
 
-| | |
-|---|---|
-| **Biometric Authentication** | Voters are authenticated using fingerprint scanners integrated with ESP32 edge nodes, ensuring the one-person-one-vote principle. |
-| **Secure Vote Casting** | Votes are cryptographically encapsulated using advanced protocols before storage to ensure absolute integrity and secrecy. |
-| **Distributed Tallying** | MPC protocols guarantee that it is technologically impossible for any single authority to tamper with or reconstruct individual votes. |
-{: .table .table-bordered .table-striped }
+<div class="table-wrap"><table>
+  <tbody>
+    <tr><td><strong>Biometric Authentication</strong></td><td>Voters are authenticated using fingerprint scanners integrated with ESP32 edge nodes, ensuring the one-person-one-vote principle.</td></tr>
+    <tr><td><strong>Secure Vote Casting</strong></td><td>Votes are cryptographically encapsulated using advanced protocols before storage to ensure absolute integrity and secrecy.</td></tr>
+    <tr><td><strong>Distributed Tallying</strong></td><td>MPC protocols guarantee that it is technologically impossible for any single authority to tamper with or reconstruct individual votes.</td></tr>
+  </tbody>
+</table></div>
 
 ### (3) System Evaluation & Future Work
-{: .text-justify }
 
 A developed local prototype successfully demonstrated the complete pipeline: fingerprint-based voter authentication, secure ballot encryption, and distributed MPC tallying. While testing successfully proved the feasibility of preventing duplicate voting and protecting against tampering, it was conducted in a controlled environment limited to a single ESP32 device, meaning high-load scalability remains to be fully evaluated.
 

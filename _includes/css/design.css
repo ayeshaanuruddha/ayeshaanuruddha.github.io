@@ -56,20 +56,28 @@ code,pre{font-family:var(--mono);}
 .codeblock pre{margin:0;font-size:12.5px;line-height:1.7;color:var(--purple-code-ink);}
 .codeblock__label{font-family:var(--mono);font-size:11px;color:var(--purple-code);margin-bottom:10px;}
 
-/* Legacy compat — keeps warehouse.html and businessone.html unchanged.
-   Do not use these classes in new markup. */
-.container{width:100%;max-width:1170px;margin:0 auto;padding:0 15px;}
-.container-fluid{width:100%;margin:0 auto;padding:0 15px;}
-.row{margin:0 -15px;}
-.row::after{content:"";display:table;clear:both;}
-.col-lg-12{position:relative;width:100%;padding:0 15px;float:left;}
+/* Legacy compat — keeps warehouse.html, businessone.html, extracurriculars.html
+   and resume.html (all marked body.legacy) unchanged.
+   Do not use these classes in new markup.
+   Scoped to body.legacy so they never outrank .cs-body's own table/grid rules
+   on case-study pages. .text-center, .btn/.btn-lg/.btn-outline are NOT scoped:
+   the four _projects/*.markdown case-study bodies (not body.legacy) still use
+   them for their footer CTA buttons and centered wrappers, so scoping those
+   four would break live buttons outside the legacy pages. .img-responsive and
+   .img-centered are also left global — the POS case study uses them on its
+   state-diagram image. */
+body.legacy .container{width:100%;max-width:1170px;margin:0 auto;padding:0 15px;}
+body.legacy .container-fluid{width:100%;margin:0 auto;padding:0 15px;}
+body.legacy .row{margin:0 -15px;}
+body.legacy .row::after{content:"";display:table;clear:both;}
+body.legacy .col-lg-12{position:relative;width:100%;padding:0 15px;float:left;}
 .text-center{text-align:center;}
-.table{width:100%;max-width:100%;margin-bottom:20px;border-collapse:collapse;}
-.table>tbody>tr>td,.table>thead>tr>th{padding:8px;line-height:1.42857143;
+body.legacy .table{width:100%;max-width:100%;margin-bottom:20px;border-collapse:collapse;}
+body.legacy .table>tbody>tr>td,body.legacy .table>thead>tr>th{padding:8px;line-height:1.42857143;
   vertical-align:top;border-top:1px solid #ddd;}
-.table>thead>tr>th{vertical-align:bottom;border-bottom:2px solid #ddd;}
-.table-bordered,.table-bordered>tbody>tr>td,.table-bordered>thead>tr>th{border:1px solid #ddd;}
-.table-responsive{width:100%;margin-bottom:15px;overflow-x:auto;}
+body.legacy .table>thead>tr>th{vertical-align:bottom;border-bottom:2px solid #ddd;}
+body.legacy .table-bordered,body.legacy .table-bordered>tbody>tr>td,body.legacy .table-bordered>thead>tr>th{border:1px solid #ddd;}
+body.legacy .table-responsive{width:100%;margin-bottom:15px;overflow-x:auto;}
 .btn{display:inline-block;margin-bottom:0;font-weight:400;text-align:center;
   vertical-align:middle;cursor:pointer;border:1px solid transparent;
   padding:6px 12px;font-size:14px;line-height:1.42857143;border-radius:4px;}
