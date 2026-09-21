@@ -795,6 +795,14 @@ git commit -m "refactor(projects): strip inline styles, wrap tables for mobile"
 </html>
 ```
 
+**The `class="legacy"` currently on this layout's `<body>` must be removed** — the
+replacement above already omits it, so do not carry it across. Task 5 added it as a
+temporary measure so the old Bootstrap-grid resume kept working once the compat shim
+was scoped to `body.legacy`. Once this page is rebuilt to the new design it is no
+longer a legacy page, and leaving the class would silently pin it to the old 15px
+base type scale. Also drop the inline `style="padding-top: 100px;"` — the sticky
+header handles its own spacing now.
+
 - [ ] **Step 2: Rebuild `resume.html` from the design**
 
 Port from `docs/superpowers/design-source/Resume-Final.dc.html`. Order: title +
