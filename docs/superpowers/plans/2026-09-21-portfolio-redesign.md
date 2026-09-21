@@ -261,7 +261,13 @@ git commit -m "feat(css): replace bootstrap and freelancer skin with design.css"
 **Files:**
 - Create: `_includes/site_header.html`, `_includes/site_footer.html`
 - Modify: `_layouts/page.html`
-- Delete: `_includes/nav.html`, `_includes/header.html`, `_includes/footer.html`
+
+**Do NOT delete `nav.html`, `header.html` or `footer.html` in this task.**
+`footer.html` is still included by `default.html` and `resume.html`, and `nav.html`
+and `header.html` by `default.html` — those layouts are not rebuilt until Tasks 3 and
+6. Jekyll errors on a missing include, so deleting them here breaks the very build
+this task verifies. Their removal is deferred to Task 8, which asserts no references
+remain before deleting.
 
 **Interfaces:**
 - Consumes: `.wrap` and token variables from Task 1.
@@ -345,16 +351,21 @@ two pages is in `em` units, so they need the 15px base that `body.legacy` restor
 `design.css`. Without the class, every table and pill on both pages reflows about 7%
 larger.
 
-- [ ] **Step 5: Delete the old chrome and verify the legacy pages still build**
+- [ ] **Step 5: Verify the legacy pages still build and now carry the new chrome**
+
+No deletions here — see the Files note above.
 
 ```bash
-git rm -q _includes/nav.html _includes/header.html _includes/footer.html
 bundle exec jekyll build 2>&1 | tail -3
 grep -c 'site-header' _site/warehouse.html && echo "PASS: new header on legacy page"
 grep -c 'table-bordered' _site/businessone.html && echo "PASS: legacy classes intact"
+grep -c 'class="legacy"' _site/businessone.html && echo "PASS: legacy body class"
+grep -c 'site-footer' _site/index.html || echo "expected 0 — home is rebuilt in Task 3"
 ```
 
-Expected: build succeeds, both greps non-zero.
+Expected: build succeeds with no "Could not locate the included file" error; the
+first three greps non-zero. The home page still renders old chrome at this point,
+which is correct — Task 3 rebuilds it.
 
 - [ ] **Step 6: Commit**
 
@@ -905,21 +916,30 @@ git commit -m "feat(hub): rebuild creative hub with serif identity"
 ### Task 8: Remove the dead JavaScript
 
 **Files:**
-- Delete: `js/` (entire directory), `_includes/js.html`
+- Delete: `js/` (entire directory), `_includes/js.html`, and the three old chrome
+  includes deferred from Task 2: `_includes/nav.html`, `_includes/header.html`,
+  `_includes/footer.html`
 - Modify: `_config.yml`
 
-- [ ] **Step 1: Assert nothing references the scripts any more**
+- [ ] **Step 1: Assert nothing references any of it any more**
+
+By now Tasks 2, 3, 6 and 7 have rebuilt every layout, so all six files should be
+orphaned.
 
 ```bash
-grep -rn 'js/\|js.html' _layouts _includes *.html | grep -v 'design-source'
+grep -rn 'js/\|js\.html\|include nav\.html\|include header\.html\|include footer\.html' \
+  _layouts _includes *.html | grep -v 'design-source'
 ```
 
-Expected: no output. If anything appears, fix it before deleting.
+Expected: no output. If anything appears, fix the referencing layout before deleting
+— do not delete a file that is still included, because Jekyll errors on a missing
+include and the build will fail.
 
 - [ ] **Step 2: Delete**
 
 ```bash
-git rm -q -r js _includes/js.html
+git rm -q -r js _includes/js.html \
+  _includes/nav.html _includes/header.html _includes/footer.html
 ```
 
 - [ ] **Step 3: Remove dead config keys from `_config.yml`**
