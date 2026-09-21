@@ -417,10 +417,3 @@ ticket:
     </tr>
   </tbody>
 </table></div>
-
-<!-- Link to Retail POS-to-Ledger Whitepaper -->
-<div>
-  <a href="businessone.html" class="btn btn-lg">
-    <i class="fa-solid fa-cash-register"></i>Explore POS-to-Journal Integration
-  </a>
-</div>

@@ -64,9 +64,3 @@ This project tackles the challenges of manual, paper-based electoral systems in 
 A developed local prototype successfully demonstrated the complete pipeline: fingerprint-based voter authentication, secure ballot encryption, and distributed MPC tallying. While testing successfully proved the feasibility of preventing duplicate voting and protecting against tampering, it was conducted in a controlled environment limited to a single ESP32 device, meaning high-load scalability remains to be fully evaluated.
 
 **Future Enhancements:** The roadmap for a nationwide rollout includes extending the prototype to higher-performance edge devices (like the Raspberry Pi), integrating post-quantum cryptography (PQC) for long-term security, and employing multi-biometric sensors for enhanced authentication.
-
-<div class="text-center">
-  <a href="https://github.com/ayeshaanuruddha/e-vote-main" target="_blank" rel="noopener noreferrer" class="btn btn-lg">
-    <i class="fa-brands fa-github"></i> View Source Code on GitHub
-  </a>
-</div>

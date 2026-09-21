@@ -121,10 +121,3 @@ ticket:
     <tr><td><strong>Database Forensics</strong></td><td>Transaction Log Analysis (Shold be Attached)</td></tr>
   </tbody>
 </table></div>
-
-<!-- Link to WMS Architecture Whitepaper -->
-<div>
-  <a href="warehouse.html" class="btn btn-lg">
-    <i class="fa-solid fa-warehouse"></i>Explore Full WMS Architecture
-  </a>
-</div>

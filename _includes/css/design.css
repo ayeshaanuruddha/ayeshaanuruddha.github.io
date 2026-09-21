@@ -60,30 +60,30 @@ code,pre{font-family:var(--mono);}
    and resume.html (all marked body.legacy) unchanged.
    Do not use these classes in new markup.
    Scoped to body.legacy so they never outrank .cs-body's own table/grid rules
-   on case-study pages. .text-center, .btn/.btn-lg/.btn-outline are NOT scoped:
-   the four _projects/*.markdown case-study bodies (not body.legacy) still use
-   them for their footer CTA buttons and centered wrappers, so scoping those
-   four would break live buttons outside the legacy pages. .img-responsive and
-   .img-centered are also left global — the POS case study uses them on its
-   state-diagram image. */
+   on case-study pages. As of the CTA-block removal from all four
+   _projects/*.markdown bodies, .text-center/.btn/.btn-lg/.btn-outline have no
+   remaining consumer outside body.legacy pages (warehouse.html, businessone.html,
+   extracurriculars.html, resume.html, and resume's included _includes/footer.html)
+   — so they are scoped too. .img-responsive and .img-centered stay global: the
+   POS case study still uses them on its state-diagram image. */
 body.legacy .container{width:100%;max-width:1170px;margin:0 auto;padding:0 15px;}
 body.legacy .container-fluid{width:100%;margin:0 auto;padding:0 15px;}
 body.legacy .row{margin:0 -15px;}
 body.legacy .row::after{content:"";display:table;clear:both;}
 body.legacy .col-lg-12{position:relative;width:100%;padding:0 15px;float:left;}
-.text-center{text-align:center;}
+body.legacy .text-center{text-align:center;}
 body.legacy .table{width:100%;max-width:100%;margin-bottom:20px;border-collapse:collapse;}
 body.legacy .table>tbody>tr>td,body.legacy .table>thead>tr>th{padding:8px;line-height:1.42857143;
   vertical-align:top;border-top:1px solid #ddd;}
 body.legacy .table>thead>tr>th{vertical-align:bottom;border-bottom:2px solid #ddd;}
 body.legacy .table-bordered,body.legacy .table-bordered>tbody>tr>td,body.legacy .table-bordered>thead>tr>th{border:1px solid #ddd;}
 body.legacy .table-responsive{width:100%;margin-bottom:15px;overflow-x:auto;}
-.btn{display:inline-block;margin-bottom:0;font-weight:400;text-align:center;
+body.legacy .btn{display:inline-block;margin-bottom:0;font-weight:400;text-align:center;
   vertical-align:middle;cursor:pointer;border:1px solid transparent;
   padding:6px 12px;font-size:14px;line-height:1.42857143;border-radius:4px;}
-.btn-lg{padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px;}
-.btn-outline{color:#fff;background:transparent;border-color:#fff;}
-.btn-outline:hover,.btn-outline:focus{color:#18bc9c;background:#fff;border-color:#fff;}
+body.legacy .btn-lg{padding:10px 16px;font-size:18px;line-height:1.33;border-radius:6px;}
+body.legacy .btn-outline{color:#fff;background:transparent;border-color:#fff;}
+body.legacy .btn-outline:hover,body.legacy .btn-outline:focus{color:#18bc9c;background:#fff;border-color:#fff;}
 .img-responsive{display:block;max-width:100%;height:auto;}
 .img-centered{margin:0 auto;}
 /* Legacy pages keep Bootstrap's base metrics. All their inline sizing is in em
