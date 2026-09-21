@@ -204,6 +204,12 @@ reproduce Bootstrap 3 / Freelancer appearance so those pages do not shift.
 .btn-outline:hover,.btn-outline:focus{color:#18bc9c;background:#fff;border-color:#fff;}
 .img-responsive{display:block;max-width:100%;height:auto;}
 .img-centered{margin:0 auto;}
+
+/* Legacy pages keep Bootstrap's base metrics. All their inline sizing is in em
+   units (font-size:1.05em etc.), so the base must stay 15px or every table and
+   pill on those pages reflows ~7% larger. Typography and background deliberately
+   follow the new design — see the ruling in the ledger. */
+body.legacy{font-size:15px;line-height:1.42857143;}
 ```
 
 - [ ] **Step 8: Point `_layouts/style.css` at the new stylesheet**
@@ -323,7 +329,7 @@ It currently includes `nav.html` and `js.html`, both being deleted. Replace its 
 <!DOCTYPE html>
 <html lang="en">
 {% include head.html %}
-<body id="page-top">
+<body id="page-top" class="legacy">
   {% include site_header.html %}
   {{ content }}
   {% include site_footer.html %}
@@ -333,6 +339,11 @@ It currently includes `nav.html` and `js.html`, both being deleted. Replace its 
 
 `warehouse.html` and `businessone.html` already hide `nav`/`header` in their own
 `<style>` blocks, so the new header is invisible there — matching today's behaviour.
+
+**`class="legacy"` is required, not optional.** Every piece of inline sizing on those
+two pages is in `em` units, so they need the 15px base that `body.legacy` restores in
+`design.css`. Without the class, every table and pill on both pages reflows about 7%
+larger.
 
 - [ ] **Step 5: Delete the old chrome and verify the legacy pages still build**
 
