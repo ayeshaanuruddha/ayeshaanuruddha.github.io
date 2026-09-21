@@ -1,12 +1,28 @@
 ---
-#layout: default
-modal-id: 3
+layout: case-study
+title: Mobile Store-and-Forward & Barcode Parsing
 date: 2025-02-20
-img: barcode_scan.png
-alt: Mobile Store-and-Forward & Regulatory Barcode Parsing
-project-date: February 2025
+code: WMS-FST-0104
+status: UNDER CONSTRUCTION
+status_tone: gold
 client: Enterprise Logistics Firm
+project-date: February 2025
 category: Business Analysis & Functional Design
+card_summary: >-
+  Enterprise spec template for mobile scan-and-verify workflows across
+  warehouse OS platforms, covering data contracts and glove-mode
+  ergonomics.
+card_quote: >-
+  GIVEN a barcode scan WHEN it matches the validation mask THEN parse
+  payload, sound 1800Hz tone, flash green border within 200ms.
+full_spec: /warehouse.html
+full_spec_label: View full spec
+ticket:
+  type: Story
+  priority: High
+  labels: [MobileOS, Device, Scan, Performance]
+  owner: Business Analyst
+  signoff: PO, SME/Dev, QE
 ---
 
 <h3>Executive Summary</h3>

@@ -1,12 +1,27 @@
 ---
-#layout: default
-modal-id: 4
+layout: case-study
+title: POS Webhook Ingestion & Balanced Journal Entries
 date: 2025-03-01
-img: pos_journal_integration.png
-alt: POS Webhook Ingestion & Balanced Journal Entry Creation
-project-date: March 2025
+code: FIN-INT-101
+status: UNDER CONSTRUCTION
+status_tone: gold
 client: Omnichannel Retail Enterprise
+project-date: March 2025
 category: Financial Systems & ERP Integration
+card_summary: >-
+  Integration contract and double-entry accounting engine between an edge POS
+  gateway and a cloud ERP general ledger, built under strict SOX 404 compliance.
+card_quote: >-
+  GIVEN a $5.40 sale WHEN the payment.captured webhook fires THEN ΣDebits −
+  ΣCredits = $0.00 before ERP commit.
+full_spec: /businessone.html
+full_spec_label: View full spec
+ticket:
+  type: Story
+  priority: High
+  labels: [Functional Requirement, Finance-Integration, POS-Engine, General-Ledger, ERP]
+  owner: Business Analyst
+  signoff: Product Owner (Finance), Lead Integration Architect, Lead QE, Lead Dev, Principal Controller, SME/Dev
 ---
 
 <h3>Executive Summary</h3>

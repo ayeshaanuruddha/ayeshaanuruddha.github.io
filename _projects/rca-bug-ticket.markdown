@@ -1,12 +1,28 @@
 ---
-#layout: default
-modal-id: 2
+layout: case-study
+title: Mobile Sync Latency — Root Cause Analysis
 date: 2025-02-15
-img: latency_triage.png
-alt: Asynchronous API Synchronization & UI Latency Resolution
-project-date: February 2025
+code: WMS-BUG-1042
+status: READY FOR REVIEW
+status_tone: green
 client: Enterprise Logistics Firm
+project-date: February 2025
 category: Business Analysis & RCA
+card_summary: >-
+  RCA for a mobile sync latency bug, tracing UI freezes during
+  high-volume batch scanning to database row-locking via the 5 Whys
+  method.
+card_quote: >-
+  Why 5 (root cause): the DB lacks optimized indexing for parallel batch
+  processing, forcing synchronous waits.
+full_spec: /warehouse.html
+full_spec_label: View full spec
+ticket:
+  type: Bug
+  priority: High
+  labels: [Mobile OS, LiveInventory, RCA, Performance]
+  owner: Business Analyst
+  signoff: PO, SME/Dev, QE
 ---
 
 <h3>Executive Summary</h3>

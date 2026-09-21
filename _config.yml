@@ -67,7 +67,8 @@ exclude:
   - screenshot.png
   - vendor
 
-# Portfolio items feed the home page grid/modals only; they get no pages of their own
+# Portfolio items get real pages at /projects/<slug>/ and feed the home page card grid
 collections:
   projects:
-    output: false
+    output: true
+    permalink: /projects/:name/

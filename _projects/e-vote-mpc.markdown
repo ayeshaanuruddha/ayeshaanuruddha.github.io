@@ -1,13 +1,23 @@
 ---
-#layout: default
-modal-id: 1
+layout: case-study
+title: Edge-Based E-Voting System with MPC
 date: 2025-08-20
-img: evote_mpc.png
-alt: Edge-Based E-Voting System Prototype
-project-date: August 2025
+code: FYP · 2025
+status: FEATURED
+status_tone: purple
 client: University of Kelaniya
+project-date: August 2025
 category: Cybersecurity & Web Development
-description: This project introduces a privacy-preserving, edge-based e-voting system integrating Multi-Party Computation (MPC) specifically architected for Sri Lanka. It leverages edge computing to decentralize ballot processing at polling sites, reducing network dependence, while MPC protocols ensure ballot secrecy and verifiable aggregation. The developed local prototype successfully demonstrates fingerprint-based voter authentication, secure ballot encryption, and distributed MPC tallying to make it technologically impossible for any single authority to tamper with individual votes. 
+description: This project introduces a privacy-preserving, edge-based e-voting system integrating Multi-Party Computation (MPC) specifically architected for Sri Lanka. It leverages edge computing to decentralize ballot processing at polling sites, reducing network dependence, while MPC protocols ensure ballot secrecy and verifiable aggregation. The developed local prototype successfully demonstrates fingerprint-based voter authentication, secure ballot encryption, and distributed MPC tallying to make it technologically impossible for any single authority to tamper with individual votes.
+card_summary: >-
+  An edge-computing e-voting framework combining ESP32 biometric
+  authentication with Multi-Party Computation to guarantee CIAAN across
+  every vote.
+card_quote: >-
+  Objective: to establish a verifiable, trust-building e-voting system
+  tailored for Sri Lanka's infrastructural constraints.
+full_spec: https://github.com/ayeshaanuruddha/e-vote-main
+full_spec_label: View source
 ---
 
 ### Executive Summary
