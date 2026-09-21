@@ -1067,7 +1067,46 @@ git commit -m "chore: remove jquery, bootstrap js and dead config"
 **Files:**
 - Modify: `_includes/css/design.css`
 
-The designs ship no media queries. This fills the gap.
+The designs ship no media queries. This fills the gap. It also closes a hole found
+while verifying this task's targets.
+
+- [ ] **Step 0: Style the case-study page chrome — it was never assigned to a task**
+
+A sweep of every class used in the built HTML against every rule in `design.css`
+found six classes on the four `/projects/*` pages with **no CSS rule anywhere**:
+`cs`, `cs__back`, `cs__code`, `cs__ticket`, `cs__labels`, `cs__foot`. Task 4 wrote
+that markup, Task 5 styled only `.cs-body`, and each task review was scoped to its
+own diff, so nobody owned it. The ticket metadata table is also unstyled, because it
+sits *outside* `.cs-body` and `.cs-body table` therefore does not reach it.
+
+Append this before the media queries. Values come from
+`docs/superpowers/design-source/CaseStudy-Final.dc.html`:
+
+```css
+.cs{padding-top:56px;padding-bottom:32px;}
+.cs h1{font-size:28px;line-height:1.3;margin:0 0 24px;}
+.cs__back{display:inline-block;font-size:13px;font-weight:600;color:var(--muted);
+  background:var(--surface-alt);padding:9px 16px;border-radius:10px;margin-bottom:20px;}
+.cs__code{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:700;
+  color:var(--purple);background:var(--purple-tint);padding:6px 14px;
+  border-radius:8px;margin-bottom:16px;}
+.cs__ticket{margin-bottom:32px;}
+.cs__ticket table{border-collapse:collapse;width:100%;}
+.cs__ticket th,.cs__ticket td{border:1px solid var(--line);padding:12px;
+  font-size:13.5px;text-align:left;vertical-align:top;}
+.cs__ticket th{background:var(--bg);width:160px;font-weight:700;}
+.cs__labels{font-family:var(--mono);font-size:12px;}
+.cs__foot{display:flex;justify-content:space-between;align-items:center;gap:12px;
+  flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px;
+  font-size:13px;color:var(--muted);}
+.cs__foot strong{color:var(--ink);}
+.cs__foot a{font-weight:700;color:var(--purple);}
+```
+
+Verify afterwards that no class used in the built HTML lacks a rule, excluding Font
+Awesome's own classes and the `wms-*` / `blueprint-*` / `floating-home-btn` /
+`state-box-grid` / `active` classes, which the two frozen legacy pages style in their
+own inline `<style>` blocks.
 
 - [ ] **Step 1: Append the media queries to `design.css`**
 
