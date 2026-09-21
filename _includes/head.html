@@ -8,10 +8,13 @@
   {% if site.meta_author %}
   <meta name="author" content="{{ site.meta_author }}">{% endif %}
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.url }}">
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="feed.xml">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ site.url }}/feed.xml">
 
   <!-- Custom CSS & Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="{{ site.url }}/style.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="{{ site.url }}/favicon.svg">
 
   <!-- Google verification -->
   {% if site.google_verify %}
