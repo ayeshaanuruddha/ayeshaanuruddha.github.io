@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include head.html %}
+<body id="page-top">
+  {% include site_header.html active="work" %}
+  <article class="wrap-tight cs">
+    <a class="cs__back" href="{{ '/#portfolio' | relative_url }}">&larr; All case studies</a>
+    <div class="cs__code">[{{ page.code }}]</div>
+    <h1>{{ page.title }}</h1>
+    {% if page.ticket %}
+    <div class="card cs__ticket">
+      <div class="table-wrap">
+        <table>
+          <tr><th>Type</th><td>{{ page.ticket.type }}</td></tr>
+          <tr><th>Priority</th><td>{{ page.ticket.priority }}</td></tr>
+          <tr><th>Labels</th><td><span class="cs__labels">{{ page.ticket.labels | join: " · " }}</span></td></tr>
+          <tr><th>Ticket Status</th><td><span class="status status--{{ page.status_tone }}">{{ page.status }}</span></td></tr>
+          <tr><th>Ticket Owner</th><td>{{ page.ticket.owner }}</td></tr>
+          <tr><th>Signed off</th><td>{{ page.ticket.signoff }}</td></tr>
+        </table>
+      </div>
+    </div>
+    {% endif %}
+    <div class="cs-body">{{ content }}</div>
+    <div class="cs__foot">
+      <span>Client: <strong>{{ page.client }}</strong> &middot; Date: <strong>{{ page.project-date }}</strong></span>
+      {% if page.full_spec %}
+      <a href="{{ page.full_spec | relative_url }}">{{ page.full_spec_label }} &rarr;</a>
+      {% endif %}
+    </div>
+  </article>
+  {% include site_footer.html %}
+</body>
+</html>

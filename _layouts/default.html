@@ -1,24 +1,154 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 {% include head.html %}
 
-<body id="page-top" class="index">
-  {% include nav.html %}
-  {% include header.html %}
-  {% include portfolio_grid.html %}
-  {% include about.html %}
+<body>
+  {% include site_header.html %}
 
-  {% if site.contact == "static" %}
-  {% include contact_static.html %}
-  {% elsif site.contact == "disqus" %}
-  {% include contact_disqus.html %}
-  {% else %}
-  {% include contact.html %}
-  {% endif %}
+  <section id="page-top" class="hero">
+    <div>
+      <div class="hero__badge"><span class="hero__dot"></span>Business Analyst &middot; Cybersecurity</div>
+      <h1>Turning complex systems into clear, actionable delivery.</h1>
+      <p class="hero__lede">BSc (Hons) in Computer Science, specializing in Cyber Security &mdash; University of Kelaniya. I translate operational chaos into requirements, tests, and root-cause clarity.</p>
+      <div class="hero__actions">
+        <a class="btn-solid" href="{{ '/Ayesha_Anuruddha_CV_BA.pdf' | relative_url }}">Download CV</a>
+        <a class="btn-ghost" href="#portfolio">View case studies &rarr;</a>
+      </div>
+    </div>
+    <div class="hero__frame">
+      <img src="{{ '/img/profile-headshot.webp' | relative_url }}" alt="Portrait of Ayesha Anuruddha">
+    </div>
+  </section>
 
-  {% include footer.html %}
-  {% include modals.html %}
-  {% include js.html %}
+  <section id="about" class="about">
+    <div class="wrap">
+      <div class="eyebrow">About</div>
+      <div class="about-grid">
+        <div class="card">
+          <h2>Results-oriented Business Analyst, grounded in data privacy and cyber security.</h2>
+          <p>I excel at translating complex operational logic into clear, actionable technical documentation to support seamless solution delivery. My expertise spans functional and non-functional requirements gathering, User Acceptance Testing (UAT) coordination, and utilizing monitoring and database tools for data validation and root cause analysis.</p>
+          <p>I am driven by a passion for solving intricate problems, designing secure edge-based architectures, and fostering stakeholder alignment in dynamic technical landscapes.</p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card stat-card--purple">
+            <div class="stat-card__num">2+ yrs</div>
+            <div class="stat-card__label">BA experience across fintech &amp; logistics</div>
+          </div>
+          <div class="stat-card stat-card--green">
+            <div class="stat-card__num">4</div>
+            <div class="stat-card__label">Functional specs &amp; RCA case studies</div>
+          </div>
+          <div class="stat-card stat-card--gold">
+            <div class="stat-card__num">BSc Hons</div>
+            <div class="stat-card__label">Computer Science, Cyber Security</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-links">
+        <a class="pill" href="{{ '/resume.html#experience' | relative_url }}">Experience</a>
+        <a class="pill" href="{{ '/resume.html#education' | relative_url }}">Education</a>
+        <a class="pill" href="{{ '/resume.html#skills' | relative_url }}">Skills</a>
+        <a class="pill" href="{{ '/resume.html#achievements' | relative_url }}">Achievements</a>
+        <a class="pill" href="{{ '/resume.html#references' | relative_url }}">References</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="portfolio">
+    <div class="wrap">
+      <div class="portfolio__head">
+        <div>
+          <div class="eyebrow">Selected work</div>
+          <h2>Case studies &amp; specifications</h2>
+        </div>
+        <div class="portfolio__nav">
+          <button type="button" class="portfolio__navbtn" data-scroll="-1" aria-label="Previous">&larr;</button>
+          <button type="button" class="portfolio__navbtn" data-scroll="1" aria-label="Next">&rarr;</button>
+        </div>
+      </div>
+      <div id="portfolio-track" class="portfolio-track">
+        {% assign projects = site.projects | sort: "date" | reverse %}
+        {% for p in projects %}
+        <article class="pcard">
+          <div class="pcard__band pcard__band--{{ p.status_tone }}">{{ p.code }}</div>
+          <div class="pcard__body">
+            <div class="pcard__meta">
+              <span class="pcard__code">{{ p.code }}</span>
+              <span class="status status--{{ p.status_tone }}">{{ p.status }}</span>
+            </div>
+            <h3>{{ p.title }}</h3>
+            <p>{{ p.card_summary }}</p>
+            <div class="mono-note">{{ p.card_quote }}</div>
+            <div class="pcard__foot">
+              <span>{{ p.client }}</span>
+              <a href="{{ p.url | relative_url }}">Explore &rarr;</a>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="contact-panel">
+        <div>
+          <div class="eyebrow eyebrow--gold">Contact</div>
+          <h2>Let&rsquo;s work together.</h2>
+          <div class="contact-details">
+            <span><span class="contact-dot"></span>Kegalle, Sri Lanka</span>
+            <a href="mailto:ayeshaanuruddha@gmail.com"><span class="contact-dot"></span>ayeshaanuruddha@gmail.com</a>
+            <span><span class="contact-dot"></span>(+94) 71 632 5463</span>
+          </div>
+          <div class="contact-social">
+            <a href="http://linkedin.com/in/ayesha-anuruddha">LinkedIn</a>
+            <a href="https://github.com/ayeshaanuruddha">GitHub</a>
+            <a href="https://web.facebook.com/anuruddha.ayesha">Facebook</a>
+          </div>
+        </div>
+        <form action="https://formspree.io/f/xgaerkdz" method="POST" class="contact-form">
+          <label class="sr-only" for="cf-name">Name</label>
+          <input id="cf-name" type="text" name="name" placeholder="Name" required>
+          <label class="sr-only" for="cf-email">Email address</label>
+          <input id="cf-email" type="email" name="_replyto" placeholder="Email address" required>
+          <input type="hidden" name="_subject" value="New submission!">
+          <input type="text" name="_gotcha" style="display:none">
+          <label class="sr-only" for="cf-msg">Message</label>
+          <textarea id="cf-msg" name="message" rows="4" placeholder="Message" required></textarea>
+          <button type="submit">Send message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  {% include site_footer.html %}
+
+  <script>
+  (function(){
+    var track=document.getElementById('portfolio-track');
+    if(!track)return;
+    var reduce=window.matchMedia('(prefers-reduced-motion:reduce)');
+    function stride(){
+      var card=track.querySelector('.pcard');
+      /* .pcard is 300px, 260px at <=560px; 24px is the track's gap. */
+      return card?card.getBoundingClientRect().width+24:324;
+    }
+    function step(dir){
+      var start=track.scrollLeft,target=start+dir*stride(),t0=performance.now();
+      if(reduce.matches){track.scrollLeft=target;return;}
+      function frame(now){
+        var t=Math.min(1,(now-t0)/300),e=1-Math.pow(1-t,3);
+        track.scrollLeft=start+(target-start)*e;
+        if(t<1)requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+    document.querySelectorAll('[data-scroll]').forEach(function(b){
+      b.addEventListener('click',function(){step(Number(b.dataset.scroll));});
+    });
+  })();
+  </script>
 </body>
 
 </html>

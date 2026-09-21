@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;box-sizing:border-box;}
+  *{box-sizing:border-box;}
+  a{color:#5B3A8E;text-decoration:none;}
+  a:hover{color:#3E2860;}
+  table{border-collapse:collapse;width:100%;}
+  td,th{border:1px solid #E8E3DD;padding:12px;font-size:13.5px;text-align:left;vertical-align:top;}
+</style>
+</helmet>
+
+<div style="background:#FAF8F4;color:#1E1A2E;font-family:'Manrope',sans-serif;min-height:100vh;">
+
+  <header style="position:sticky;top:0;z-index:20;background:rgba(250,248,244,0.85);backdrop-filter:blur(10px);border-bottom:1px solid #E8E3DD;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;flex-wrap:wrap;gap:16px;">
+    <a href="Home-Final.dc.html" style="display:flex;align-items:center;gap:10px;font-size:15px;font-weight:800;color:#1E1A2E;">
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;background:#5B3A8E;color:#FAF8F4;font-size:12px;font-weight:700;">AA</span>
+      Ayesha Anuruddha
+    </a>
+    <nav style="display:flex;gap:6px;flex-wrap:wrap;font-size:14px;font-weight:600;background:#F1EEE7;border-radius:999px;padding:5px;">
+      <a href="Home-Final.dc.html#about" style="color:#5B5867;padding:9px 18px;border-radius:999px;">About</a>
+      <a href="Home-Final.dc.html#portfolio" style="color:#FAF8F4;background:#5B3A8E;padding:9px 18px;border-radius:999px;">Work</a>
+      <a href="Resume-Final.dc.html" style="color:#5B5867;padding:9px 18px;border-radius:999px;">Resume</a>
+      <a href="CreativeHub-Final.dc.html" style="color:#5B5867;padding:9px 18px;border-radius:999px;">Creative Hub</a>
+      <a href="Home-Final.dc.html#contact" style="color:#5B5867;padding:9px 18px;border-radius:999px;">Contact</a>
+    </nav>
+  </header>
+
+  <section style="max-width:840px;margin:0 auto;padding:56px 48px 32px;">
+    <a href="Home-Final.dc.html#portfolio" style="display:inline-block;font-size:13px;font-weight:600;color:#5B5867;background:#F1EEE7;padding:9px 16px;border-radius:10px;margin-bottom:20px;">&larr; All case studies</a>
+    <div style="display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;color:#5B3A8E;background:#EFE9F8;padding:6px 14px;border-radius:8px;margin-bottom:16px;">[FIN-INT-101]</div>
+    <h1 style="font-size:28px;font-weight:800;line-height:1.3;margin:0 0 24px;">Functional Specification: POS Webhook Ingestion &amp; Balanced Journal Entry Creation</h1>
+
+    <div style="background:#FFFFFF;border:1px solid #E8E3DD;border-radius:16px;padding:24px;margin-bottom:32px;">
+      <table>
+        <tr><th style="background:#FAF8F4;width:160px;">Type</th><td>Story</td></tr>
+        <tr><th style="background:#FAF8F4;">Priority</th><td>High</td></tr>
+        <tr><th style="background:#FAF8F4;">Labels</th><td><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;">Functional Requirement &middot; Finance-Integration &middot; POS-Engine &middot; General-Ledger &middot; ERP</span></td></tr>
+        <tr><th style="background:#FAF8F4;">Ticket Status</th><td><span style="font-size:11px;font-weight:700;color:#7A5A11;background:#F6EDD8;padding:4px 12px;border-radius:999px;">UNDER CONSTRUCTION</span></td></tr>
+        <tr><th style="background:#FAF8F4;">Ticket Owner</th><td>Business Analyst</td></tr>
+        <tr><th style="background:#FAF8F4;">Signed off</th><td>Product Owner (Finance), Lead Integration Architect, Lead QE, Lead Dev, Principal Controller, SME/Dev</td></tr>
+      </table>
+    </div>
+
+    <h2 style="font-size:20px;font-weight:800;margin:0 0 16px;">(1) Business Context &amp; User Story</h2>
+    <div style="background:#EFE9F8;border-left:4px solid #5B3A8E;border-radius:12px;padding:20px 24px;margin-bottom:32px;font-size:14.5px;line-height:1.7;">
+      <p style="margin:0 0 10px;"><strong>As a</strong> Corporate Revenue Accountant</p>
+      <p style="margin:0 0 10px;"><strong>I want</strong> inbound POS card transaction webhooks to automatically unbundle gross sales into merchandise revenue, sales tax liabilities, and merchant processing fees, posting balanced double-entry journals into the cloud ERP</p>
+      <p style="margin:0;"><strong>So that I</strong> recognize real-time revenue and operational fee expenses immediately at the point of sale, eliminate manual spreadsheet journal uploads during month-end close, and mathematically prevent unbalanced financial postings from reaching the general ledger.</p>
+    </div>
+
+    <h2 style="font-size:20px;font-weight:800;margin:0 0 16px;">Operational Elicitation &amp; System Requirements</h2>
+    <div style="border:1px solid #E8E3DD;border-radius:16px;overflow:hidden;margin-bottom:32px;">
+    <table>
+      <tr><th style="background:#F1EEE7;">Dimension</th><th style="background:#F1EEE7;">As-Is Finding</th><th style="background:#F1EEE7;">To-Be Contract</th></tr>
+      <tr><td><strong>Fee Recognition</strong></td><td>Merchant fees (2.6% + $0.10) deducted as a net lump-sum payout days later, forcing weekly estimates.</td><td>Middleware parses <code>fee_breakdown.amount</code> and debits <code>GL 6200 &mdash; Payment Processing Fees</code> immediately.</td></tr>
+      <tr><td><strong>Tax Segregation</strong></td><td>Store managers report gross totals; staff manually split tax in Excel, causing cent-level errors.</td><td>Middleware extracts <code>tax_breakdown.total</code> and credits <code>GL 2200 &mdash; Sales Tax Payable</code>.</td></tr>
+      <tr><td><strong>Ledger Integrity</strong></td><td>Manual CSV journal uploads fail 3.8% of the time due to rounding differences.</td><td>Pre-commit assertion enforces <code>&Sigma; Debits &minus; &Sigma; Credits = $0.00</code> before ERP dispatch.</td></tr>
+    </table>
+    </div>
+
+    <h2 style="font-size:20px;font-weight:800;margin:0 0 16px;">Inbound Webhook Contract</h2>
+    <div style="background:#241C36;border-radius:16px;padding:22px 24px;margin-bottom:32px;overflow-x:auto;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#B7A9E0;margin-bottom:10px;">payment.captured &middot; v1.2 &middot; POS-EDGE</div>
+      <pre style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.7;color:#E4E1F0;">{
+  "event": "payment.captured",
+  "gross_amount": "5.40",
+  "tax_breakdown": { "total": "0.40" },
+  "fee_breakdown": { "amount": "0.24" },
+  "net_settlement": "5.16",
+  "currency": "USD"
+}</pre>
+    </div>
+
+    <h2 style="font-size:20px;font-weight:800;margin:0 0 16px;">(2) Functional Scenario &mdash; Nominal Path</h2>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px;">
+      <div style="display:grid;grid-template-columns:minmax(70px,90px) minmax(0,1fr);gap:16px;background:#FFFFFF;border:1px solid #E8E3DD;border-radius:12px;padding:16px 20px;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;color:#5B3A8E;">GIVEN</div>
+        <div style="font-size:14.5px;">a retail customer purchases an item ($5.00 base + $0.40 sales tax = $5.40 total) and POS captures payment</div>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(70px,90px) minmax(0,1fr);gap:16px;background:#FFFFFF;border:1px solid #E8E3DD;border-radius:12px;padding:16px 20px;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;color:#5B3A8E;">WHEN</div>
+        <div style="font-size:14.5px;">the payment gateway dispatches the <code>payment.captured</code> webhook: gross $5.40, tax $0.40, fee $0.24, net settlement $5.16</div>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(70px,90px) minmax(0,1fr);gap:16px;background:#FFFFFF;border:1px solid #E8E3DD;border-radius:12px;padding:16px 20px;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;color:#5B3A8E;">THEN</div>
+        <div style="font-size:14.5px;">the middleware verifies <code>&Sigma; Debits ($5.16 + $0.24) &minus; &Sigma; Credits ($5.00 + $0.40) = $0.00</code> and submits an atomic journal entry to the ERP</div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #E8E3DD;padding-top:20px;font-size:13px;color:#5B5867;">
+      <span>Client: <strong style="color:#1E1A2E;">Omnichannel Retail Enterprise</strong> &middot; Date: <strong style="color:#1E1A2E;">March 2025</strong></span>
+      <a href="https://ayeshaanuruddha.github.io/businessone.html" style="font-weight:700;color:#5B3A8E;">View full spec &rarr;</a>
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid #E8E3DD;padding:24px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13px;color:#5B5867;">
+    <span>&copy; Ayesha Anuruddha 2026</span>
+    <a href="Home-Final.dc.html" style="color:#5B5867;">&larr; Back to home</a>
+  </footer>
+
+</div>
+
+</x-dc>
+</body>
+</html>

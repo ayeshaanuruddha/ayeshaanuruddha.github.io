@@ -1,0 +1,12 @@
+<header class="site-header">
+  <a class="site-header__brand" href="{{ '/' | relative_url }}">
+    <span class="site-header__mark">AA</span>{{ site.title }}
+  </a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="{{ '/#about' | relative_url }}"{% if include.active == 'about' %} class="is-active"{% endif %}>About</a>
+    <a href="{{ '/#portfolio' | relative_url }}"{% if include.active == 'work' %} class="is-active"{% endif %}>Work</a>
+    <a href="{{ '/resume.html' | relative_url }}"{% if include.active == 'resume' %} class="is-active"{% endif %}>Resume</a>
+    <a href="{{ '/extracurriculars.html' | relative_url }}"{% if include.active == 'hub' %} class="is-active"{% endif %}>Creative Hub</a>
+    <a href="{{ '/#contact' | relative_url }}" class="{% if include.active == 'contact' %}is-active{% else %}is-cta{% endif %}">Contact</a>
+  </nav>
+</header>
