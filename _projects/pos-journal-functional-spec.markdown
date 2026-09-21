@@ -370,8 +370,8 @@ ticket:
 
 <!-- State Diagram Graphic -->
 <div>
-  <img src="img/portfolio/pos_state_flowchart.png" 
-       alt="POS Ingestion and Journal Lifecycle State Machine" 
+  <img src="{{ '/img/portfolio/pos_state_flowchart.png' | relative_url }}"
+       alt="POS Ingestion and Journal Lifecycle State Machine"
        class="img-responsive img-centered">
 </div>
 
