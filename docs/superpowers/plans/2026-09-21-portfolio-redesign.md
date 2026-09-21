@@ -940,26 +940,40 @@ Expected: exactly **27** outbound content links. Also run this pairing check, wh
 is the real gate — it confirms every title still points at the post it points at
 today:
 
-```bash
-python3 -c "
-import re
+Write this to a file and run it — **the order of operations matters**: HTML tags must
+be stripped *before* the two-digit mono index, because the index lives inside a
+`<span class="n">` wrapper. Stripping the index first silently matches nothing and
+reports every title as lost.
+
+```python
+import re, subprocess, hashlib
+FONTS = ('fonts.googleapis', 'fonts.gstatic', 'cdnjs.cloudflare')
+
 def clean(s):
-    s=re.sub(r'<[^>]+>','',s).replace(chr(0x1F534),'').replace(chr(0x1F535),'')
-    return re.sub(r'\s+',' ',s).strip()
-def pairs(p):
-    return {clean(re.sub(r'^\s*\d\d\s*','',t)):u for u,t in
-            re.findall(r'href=\"(https?://[^\"]+)\"[^>]*>(.*?)</a>',open(p).read(),re.S)
-            if 'fonts.googleapis' not in u}
-old=pairs('/dev/stdin')  # replace with the pre-task file from git show
-new=pairs('extracurriculars.html')
-bad=[t for t,u in old.items() if t in new and new[t]!=u]
-print('mismatched pairs:',bad if bad else 'none')
-print('titles lost:',[t for t in old if t not in new])
-"
+    s = re.sub(r'<[^>]+>', '', s)                  # tags FIRST
+    s = s.replace('\U0001F534', '').replace('\U0001F535', '')
+    s = re.sub(r'^\s*\d{2}\s*', '', s.strip())     # then the mono index
+    return re.sub(r'\s+', ' ', s).strip()
+
+def pairs(text):
+    return {clean(t): u for u, t in
+            re.findall(r'href="(https?://[^"]+)"[^>]*>(.*?)</a>', text, re.S)
+            if not any(f in u for f in FONTS)}
+
+old = pairs(subprocess.run(['git','show','HEAD:extracurriculars.html'],
+                           capture_output=True, text=True).stdout)
+new = pairs(open('extracurriculars.html').read())
+print('counts:', len(old), '->', len(new))
+print('mismatched pairs:', {t: (old[t], new[t]) for t in old if t in new and old[t] != new[t]} or 'none')
+print('titles lost:', [t for t in old if t not in new])
+sin = lambda d: sorted(t for t in d if any('඀' <= c <= '෿' for c in t))
+print('sinhala set identical:', sin(old) == sin(new), len(sin(new)), 'titles')
 ```
 
-Compare against the pre-task file via `git show HEAD:extracurriculars.html`. Both
-lines must report nothing. Sinhala font present on the hub and absent from home.
+`mismatched pairs` must be `none` and `sinhala set identical` must be `True`.
+`titles lost` legitimately reports the YouTube channel label, which the design
+renames while keeping the same URL — nothing else may appear there. Sinhala font
+present on the hub and absent from home.
 
 - [ ] **Step 6: Commit**
 
