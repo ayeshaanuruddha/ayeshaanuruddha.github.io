@@ -78,3 +78,8 @@ code,pre{font-family:var(--mono);}
 .btn-outline:hover,.btn-outline:focus{color:#18bc9c;background:#fff;border-color:#fff;}
 .img-responsive{display:block;max-width:100%;height:auto;}
 .img-centered{margin:0 auto;}
+/* Legacy pages keep Bootstrap's base metrics. All their inline sizing is in em
+   units (font-size:1.05em etc.), so the base must stay 15px or every table and
+   pill on those pages reflows ~7% larger. Typography and background deliberately
+   follow the new design. */
+body.legacy{font-size:15px;line-height:1.42857143;}
