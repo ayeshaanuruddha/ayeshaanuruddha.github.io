@@ -128,8 +128,15 @@
   (function(){
     var track=document.getElementById('portfolio-track');
     if(!track)return;
+    var reduce=window.matchMedia('(prefers-reduced-motion:reduce)');
+    function stride(){
+      var card=track.querySelector('.pcard');
+      /* .pcard is 300px, 260px at <=560px; 24px is the track's gap. */
+      return card?card.getBoundingClientRect().width+24:324;
+    }
     function step(dir){
-      var start=track.scrollLeft,target=start+dir*324,t0=performance.now();
+      var start=track.scrollLeft,target=start+dir*stride(),t0=performance.now();
+      if(reduce.matches){track.scrollLeft=target;return;}
       function frame(now){
         var t=Math.min(1,(now-t0)/300),e=1-Math.pow(1-t,3);
         track.scrollLeft=start+(target-start)*e;

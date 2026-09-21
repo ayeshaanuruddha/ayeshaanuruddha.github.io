@@ -19,6 +19,9 @@
   --shadow-card:0 20px 40px -14px rgba(30,26,46,.2);
 }
 *,*::before,*::after{box-sizing:border-box;}
+/* .site-header is sticky (~72px, ~110px once it stacks at <=700px), so every
+   in-page anchor needs the scroll port padded or it lands underneath. */
+html{scroll-padding-top:88px;scroll-behavior:smooth;}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
   font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
 img{max-width:100%;height:auto;}
@@ -44,7 +47,7 @@ code,pre{font-family:var(--mono);}
   padding:15px 26px;border-radius:12px;border:1px solid var(--line);}
 .pill{display:inline-block;font-size:13px;font-weight:600;color:var(--purple);
   background:var(--surface-alt);padding:10px 18px;border-radius:999px;}
-.status{font-size:11px;font-weight:700;padding:4px 12px;border-radius:999px;}
+.status{display:inline-block;font-size:11px;font-weight:700;padding:4px 12px;border-radius:999px;}
 .status--purple{color:var(--purple);background:var(--purple-tint);}
 .status--green{color:var(--green);background:var(--green-tint);}
 .status--gold{color:var(--gold-ink);background:var(--gold-tint);}
@@ -56,16 +59,18 @@ code,pre{font-family:var(--mono);}
 .codeblock pre{margin:0;font-size:12.5px;line-height:1.7;color:var(--purple-code-ink);}
 .codeblock__label{font-family:var(--mono);font-size:11px;color:var(--purple-code);margin-bottom:10px;}
 
-/* Legacy compat — keeps warehouse.html, businessone.html, extracurriculars.html
-   and resume.html (all marked body.legacy) unchanged.
-   Do not use these classes in new markup.
-   Scoped to body.legacy so they never outrank .cs-body's own table/grid rules
-   on case-study pages. As of the CTA-block removal from all four
-   _projects/*.markdown bodies, .text-center/.btn/.btn-lg/.btn-outline have no
-   remaining consumer outside body.legacy pages (warehouse.html, businessone.html,
-   extracurriculars.html, resume.html, and resume's included _includes/footer.html)
-   — so they are scoped too. .img-responsive and .img-centered stay global: the
-   POS case study still uses them on its state-diagram image. */
+/* Focus visibility (WCAG 2.4.7). The contact inputs set outline:none for the
+   dark panel, so keyboard focus has to be put back explicitly — gold on the
+   purple panel, purple everywhere else. */
+.contact-form :is(input,textarea):focus-visible{outline:2px solid var(--gold-bright);outline-offset:2px;}
+.btn-solid:focus-visible,.btn-ghost:focus-visible,.pill:focus-visible,.site-nav a:focus-visible,.cs__back:focus-visible{outline:2px solid var(--purple);outline-offset:2px;}
+
+/* Legacy compat — the only two body.legacy pages are the content-frozen
+   warehouse.html and businessone.html, whose preserved markup still uses
+   Bootstrap 3 class names. Do not use these classes in new markup.
+   Everything here is scoped to body.legacy so it can never outrank .cs-body's
+   own table/grid rules on case-study pages. .img-responsive and .img-centered
+   stay global: the POS case study still uses them on its state-diagram image. */
 body.legacy .container{width:100%;max-width:1170px;margin:0 auto;padding:0 15px;}
 body.legacy .container-fluid{width:100%;margin:0 auto;padding:0 15px;}
 body.legacy .row{margin:0 -15px;}
@@ -199,8 +204,8 @@ body.legacy{font-size:15px;line-height:1.42857143;}
 
 /* Case study — project body */
 .cs-body{font-size:15px;line-height:1.75;color:var(--body);}
-.cs-body h3{font-size:20px;font-weight:800;margin:32px 0 16px;color:var(--ink);}
-.cs-body h4{font-size:16px;font-weight:700;margin:24px 0 12px;color:var(--ink);}
+.cs-body h2{font-size:20px;font-weight:800;margin:32px 0 16px;color:var(--ink);}
+.cs-body h3{font-size:16px;font-weight:700;margin:24px 0 12px;color:var(--ink);}
 .cs-body hr{border:0;border-top:1px solid var(--line);margin:32px 0;}
 .cs-body ul{padding-left:20px;line-height:1.7;}
 .cs-body li{margin-bottom:6px;}
@@ -264,12 +269,16 @@ body.legacy{font-size:15px;line-height:1.42857143;}
 .skills-grid__cell--neutral{background:var(--surface-alt);}
 .skills-grid__cell--neutral h3{color:var(--body);}
 
-.tags{display:flex;gap:8px;flex-wrap:wrap;}
+.tags{list-style:none;margin:0;padding:0;display:flex;gap:8px;flex-wrap:wrap;}
 .tags span{font-size:12px;background:var(--surface);padding:6px 12px;
-  border-radius:999px;border:1px solid var(--line);}
+  border-radius:999px;border:1px solid var(--line);color:var(--muted);}
+/* Each skill group's tags carry that group's tint, per Resume-Final.dc.html. */
+.skills-grid__cell--purple .tags span{color:var(--purple);border-color:var(--purple-line);}
+.skills-grid__cell--green .tags span{color:var(--green);border-color:var(--green-line);}
+.skills-grid__cell--gold .tags span{color:var(--gold-ink);border-color:var(--gold-line);}
 .skills-grid__cell--wide .tags span{background:var(--surface-alt);border:none;color:var(--muted);}
 
-.rlist{display:flex;flex-direction:column;gap:12px;}
+.rlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
 .rlist__item{background:var(--surface);border:1px solid var(--line);
   border-radius:16px;padding:18px 22px;font-size:15px;line-height:1.6;}
 .rlist__item .muted{color:var(--muted);}
@@ -288,17 +297,25 @@ body.hub .site-nav{border-radius:12px;font-family:var(--mono);font-size:13px;}
 body.hub .site-nav a{border-radius:8px;}
 .hub-section{max-width:900px;margin:0 auto;padding:56px 48px;
   border-bottom:1px solid var(--line-hub);}
+/* line-height is pinned so the section labels render identically whether the
+   element is a <div> (inherits 1.6) or an <h2> (the h1-h4 rule sets 1.25). */
 .hub-tag{display:inline-block;font-family:var(--mono);font-size:12px;
-  letter-spacing:.12em;font-weight:600;color:var(--bg-hub);
-  padding:5px 12px;border-radius:6px;margin-bottom:20px;}
+  line-height:1.6;letter-spacing:.12em;font-weight:600;color:var(--bg-hub);
+  padding:5px 12px;border-radius:6px;margin:0 0 20px;}
 .hub-tag--purple{background:var(--purple);}
 .hub-tag--green{background:var(--green);}
 .hub-tag--gold{background:var(--gold);}
-.hub-list{display:flex;flex-direction:column;font-family:var(--sinhala);}
+.hub-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;
+  font-family:var(--sinhala);}
 .hub-list a{display:flex;gap:16px;padding:12px 0;
   border-bottom:1px solid var(--line-hub-soft);font-size:15px;color:var(--ink-hub);}
-.hub-list a:last-child{border-bottom:0;}
+.hub-list li:last-child a{border-bottom:0;}
 .hub-list .n{font-family:var(--mono);color:var(--muted-hub);}
+
+/* The hub CTA is specified at 20px/600 with an ink border in
+   CreativeHub-Final.dc.html; the shared .btn-ghost is 14px/700 with a --line
+   border that is ~1.1:1 on the hub's parchment background. */
+body.hub .btn-ghost{font-size:20px;font-weight:600;color:var(--ink-hub);border-color:var(--ink-hub);}
 
 /* Case study — page chrome (article shell, back link, code tag, ticket metadata,
    footer). Task 5 only styled .cs-body; this covers the rest of the layout. */
@@ -310,6 +327,9 @@ body.hub .site-nav a{border-radius:8px;}
   color:var(--purple);background:var(--purple-tint);padding:6px 14px;
   border-radius:8px;margin-bottom:16px;}
 .cs__ticket{margin-bottom:32px;}
+/* The .card already supplies the border and radius, so the wrap only has to
+   carry the horizontal scroll for narrow viewports. */
+.cs__ticket .table-wrap{overflow-x:auto;}
 .cs__ticket table{border-collapse:collapse;width:100%;}
 .cs__ticket th,.cs__ticket td{border:1px solid var(--line);padding:12px;
   font-size:13.5px;text-align:left;vertical-align:top;}
@@ -329,11 +349,15 @@ body.hub .site-nav a{border-radius:8px;}
   h1{font-size:34px;} h2{font-size:25px;}
 }
 @media (max-width:700px){
-  .wrap,.wrap-narrow,.wrap-tight,.hub-section{padding-left:20px;padding-right:20px;}
+  /* .hero carries its own horizontal padding, so it has to be named here too. */
+  .wrap,.wrap-narrow,.wrap-tight,.hub-section,.hero{padding-left:20px;padding-right:20px;}
   .site-header,.site-footer{padding:14px 20px;}
   .site-header{flex-direction:column;align-items:flex-start;}
+  /* The header stacks here and grows to ~110px. */
+  html{scroll-padding-top:120px;}
   .site-nav{width:100%;overflow-x:auto;justify-content:flex-start;
     -webkit-overflow-scrolling:touch;
+    -webkit-mask-image:linear-gradient(to right,#000 88%,transparent);
     mask-image:linear-gradient(to right,#000 88%,transparent);}
   .contact-panel{padding:28px;}
   .cs__foot,.site-footer{flex-direction:column;align-items:flex-start;}
@@ -341,4 +365,10 @@ body.hub .site-nav a{border-radius:8px;}
 @media (max-width:560px){
   .matrix{grid-template-columns:1fr;}
   .pcard{flex:0 0 260px;width:260px;}
+  .cs__ticket th{width:auto;min-width:110px;}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .pcard{transition:none;}
+  .pcard:hover{transform:none;}
 }
