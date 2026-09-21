@@ -4,7 +4,6 @@ email: ayeshaanuruddha@gmail.com
 url: https://ayeshaanuruddha.github.io
 description: "Amateur cybersecurity enthusiast, computer science student, business analyst"
 keywords: "Cybersecurity, Computer Science"
-skills: " BSc. (Hons) in Computer Science (Specialization in Cyber Security) - University Of Kelaniya"
 meta_author: Anuruddha Ayesha
 
 # Google webmaster tools
@@ -12,22 +11,6 @@ google_verify:
 
 # https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
 bing_verify:
-
-# Contact form:
-# - static : pass through formspree.io to validate email sending
-# - disqus : replace contact form by disqus thread
-contact: static
-
-# If you use disqus you need disqus shortname
-# https://help.disqus.com/customer/portal/articles/466208
-disqus_shortname: myshortname
-
-# Color settings (hex-codes without the leading hash-tag)
-color:
-  primary: 18bc9c #80B3FF
-  primary-rgb: "24,288,156" #"128,179,255"
-  secondary: 2c3e50 #FD6E8A
-  secondary-dark: 233140 #A2122F
 
 # Footer settings
 footer:
@@ -44,14 +27,6 @@ social:
     url: https://web.facebook.com/anuruddha.ayesha
   - title: github
     url: https://github.com/ayeshaanuruddha
-
-# Postal address (add as many lines as necessary)
-address:
-  - line: B 85/1, Panakawa,
-  - line: Kegalle, Sri Lanka 71000
-
-# Credits content (Replaced with Site Visit Counter)
-credits: 'ayeshaanuruddha@gmail.com<br>ayesha.upamali@gmail.com<br><br><img src="https://api.visitorbadge.io/api/visitors?path=ayeshaanuruddha.github.io&label=Site%20Visits&countColor=%2318bc9c" alt="Site Visit Counter" />'
 
 # Build settings
 markdown: kramdown
