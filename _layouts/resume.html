@@ -1,14 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 {% include head.html %}
-
-<body id="page-top" class="legacy" style="padding-top: 100px;">
-    <!-- Navigation intentionally omitted for resume layout -->
-
-    {{ content }}
-
-    {% include footer.html %}
-    {% include js.html %}
+<body id="page-top">
+  {% include site_header.html active="resume" %}
+  {{ content }}
+  {% include site_footer.html %}
 </body>
-
 </html>
