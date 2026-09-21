@@ -15,7 +15,6 @@ category: Business Analysis & Functional Design
 <h3 style="text-align: left;">[WMS-FST-0104] Mobile Functional Specification: Mobile Store-and-Forward &amp; Regulatory Barcode Parsing</h3>
 
 <h4 style="text-align: left;">📋 Ticket Completion Status</h4>
-<div class="table-responsive">
 <table class="table table-bordered">
   <tbody>
     <tr><td style="width: 25%; text-align: left;">🐛 <strong>Type</strong></td><td style="text-align: justify;">Story</td></tr>
@@ -26,14 +25,12 @@ category: Business Analysis & Functional Design
     <tr><td style="text-align: left;">✅ <strong>Reviewed and Signed off</strong></td><td style="text-align: justify;">PO, SME/Dev, QE</td></tr>
   </tbody>
 </table>
-</div>
 
 <hr>
 
 <h3 style="text-align: left;">(1) Operational Context &amp; User Story</h3>
 
 <h4 style="text-align: left;">(1.1) Summary</h4>
-<div class="table-responsive">
 <table class="table table-bordered">
   <tbody>
     <tr><td style="width: 20%; text-align: left;"><strong>As a</strong></td><td style="text-align: justify;">Warehouse Operator (Inbound Receiver, High-Bay Forklift Loader, or Order Selector)</td></tr>
@@ -48,10 +45,8 @@ category: Business Analysis & Functional Design
     </tr>
   </tbody>
 </table>
-</div>
 
 <h4 style="text-align: left;">(1.2) Operational Elicitation &amp; Problem Statement</h4>
-<div class="table-responsive">
 <table class="table table-bordered">
   <tbody>
     <tr>
@@ -77,7 +72,6 @@ category: Business Analysis & Functional Design
     </tr>
   </tbody>
 </table>
-</div>
 
 <hr>
 
@@ -96,7 +90,6 @@ category: Business Analysis & Functional Design
 
 <h4 style="text-align: left;">(2.3) Functional Scenarios</h4>
 
-<div class="table-responsive">
 <table class="table table-bordered table-striped">
   <thead>
     <tr><th colspan="2">Scenario 01: Nominal Path — Valid Barcode Scan &amp; Atomic State Transition</th></tr>
@@ -108,9 +101,7 @@ category: Business Analysis & Functional Design
     <tr><td style="text-align: left;"><strong>AND</strong></td><td style="text-align: justify;">submit the atomic inventory transaction to the backend API without blocking subsequent user interactions</td></tr>
   </tbody>
 </table>
-</div>
 
-<div class="table-responsive">
 <table class="table table-bordered table-striped">
   <thead>
     <tr><th colspan="2">Scenario 02: Validation Exception — Input Mismatch &amp; Error Interception</th></tr>
@@ -122,9 +113,7 @@ category: Business Analysis & Functional Design
     <tr><td style="text-align: left;"><strong>AND</strong></td><td style="text-align: justify;">emit a low-frequency dual-buzz error tone, display a blocking modal dialog with specific remediation text, and retain input focus on the failed field</td></tr>
   </tbody>
 </table>
-</div>
 
-<div class="table-responsive">
 <table class="table table-bordered table-striped">
   <thead>
     <tr><th colspan="2">Scenario 03: Edge Resiliency — Sub-Zero Network Interruption (Store-and-Forward)</th></tr>
@@ -137,10 +126,8 @@ category: Business Analysis & Functional Design
     <tr><td style="text-align: left;"><strong>AND</strong></td><td style="text-align: justify;">automatically replay queued payloads in chronological FIFO sequence upon network handshake re-establishment</td></tr>
   </tbody>
 </table>
-</div>
 
 <h4 style="text-align: left;">(2.4) Field-Level Input Specifications</h4>
-<div class="table-responsive">
 <table class="table table-bordered" style="font-size: 0.9em;">
   <thead style="background: #f1f5f9;">
     <tr>
@@ -187,10 +174,8 @@ category: Business Analysis & Functional Design
     </tr>
   </tbody>
 </table>
-</div>
 
 <h4 style="text-align: left;">(2.5) Alerts, Validation Messages &amp; Physical Feedback</h4>
-<div class="table-responsive">
 <table class="table table-bordered" style="font-size: 0.9em;">
   <thead style="background: #f1f5f9;">
     <tr>
@@ -232,12 +217,10 @@ category: Business Analysis & Functional Design
     </tr>
   </tbody>
 </table>
-</div>
 
 <hr>
 
 <h3 style="text-align: left;">(3) Privilege of Functionality (Role-Based Access Control)</h3>
-<div class="table-responsive">
 <table class="table table-bordered">
   <thead style="background: #f1f5f9;">
     <tr>
@@ -279,7 +262,6 @@ category: Business Analysis & Functional Design
     </tr>
   </tbody>
 </table>
-</div>
 
 <hr>
 
@@ -293,7 +275,6 @@ category: Business Analysis & Functional Design
 <hr>
 
 <h3 style="text-align: left;">(5) Edge Hardware &amp; Environmental Ergonomics</h3>
-<div class="table-responsive">
 <table class="table table-bordered">
   <tbody>
     <tr>
@@ -310,7 +291,6 @@ category: Business Analysis & Functional Design
     </tr>
   </tbody>
 </table>
-</div>
 
 <hr>
 
@@ -346,7 +326,6 @@ category: Business Analysis & Functional Design
 </div>
 
 <h4 style="text-align: left;">(6.2) Persistence &amp; Database State Engine</h4>
-<div class="table-responsive">
 <table class="table table-bordered">
   <tbody>
     <tr>
@@ -363,14 +342,12 @@ category: Business Analysis & Functional Design
     </tr>
   </tbody>
 </table>
-</div>
 
 <hr>
 
 <h3 style="text-align: left;">(7) References &amp; Traceability</h3>
 
 <h4 style="text-align: left;">(7.1) Upstream Business Requirements</h4>
-<div class="table-responsive">
 <table class="table table-bordered">
   <tbody>
     <tr><td style="width: 25%; text-align: left;"><strong>Originating Initiative</strong></td><td style="text-align: justify;">Enterprise WMS Modernization &amp; Edge Optimization</td></tr>
@@ -379,10 +356,8 @@ category: Business Analysis & Functional Design
     <tr><td style="text-align: left;"><strong>Traceability Jira Epic</strong></td><td style="text-align: justify;"><code>[WMS-EPIC-8800] Frontline Edge Barcode &amp; Scanning Modernization</code></td></tr>
   </tbody>
 </table>
-</div>
 
 <h4 style="text-align: left;">(7.2) Engineering &amp; Architecture Notes</h4>
-<div class="table-responsive">
 <table class="table table-bordered">
   <tbody>
     <tr><td style="width: 25%; text-align: left;"><strong>Architectural Blueprint</strong></td><td style="text-align: justify;">Enterprise WMS Event-Driven Edge Architecture Specification v4.2</td></tr>
@@ -390,12 +365,10 @@ category: Business Analysis & Functional Design
     <tr><td style="text-align: left;"><strong>Observability Monitoring</strong></td><td style="text-align: justify;">Datadog APM Dashboard: <code>WMS-PROD-MOBILE-LATENCY</code> &mdash; SLI Alert Target: &lt;200ms at p95</td></tr>
   </tbody>
 </table>
-</div>
 
 <hr>
 
 <h3 style="text-align: left;">(8) Definition of Done (DoD)</h3>
-<div class="table-responsive">
 <table class="table table-bordered">
   <tbody>
     <tr>
@@ -413,7 +386,6 @@ category: Business Analysis & Functional Design
     </tr>
   </tbody>
 </table>
-</div>
 
 <!-- Link to WMS Architecture Whitepaper -->
 <div style="text-align: center; margin: 35px auto 20px; width: 100%;">

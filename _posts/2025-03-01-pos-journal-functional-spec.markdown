@@ -15,7 +15,6 @@ category: Financial Systems & ERP Integration
 <h3 style="text-align: left;">[FIN-INT-101] Functional Specification: POS Webhook Ingestion &amp; Balanced Journal Entry Creation</h3>
 
 <h4 style="text-align: left;">📋 Ticket Completion Status</h4>
-<div class="table-responsive">
 <table class="table table-bordered">
   <tbody>
     <tr><td style="width: 25%; text-align: left;">🐛 <strong>Type</strong></td><td style="text-align: justify;">Story</td></tr>
@@ -26,14 +25,12 @@ category: Financial Systems & ERP Integration
     <tr><td style="text-align: left;">✅ <strong>Reviewed and Signed off</strong></td><td style="text-align: justify;">Product Owner (Finance), Lead Integration Architect, Lead QE, Lead Dev, Principal Controller, SME/Dev</td></tr>
   </tbody>
 </table>
-</div>
 
 <hr>
 
 <h3 style="text-align: left;">(1) Business Context &amp; User Story</h3>
 
 <h4 style="text-align: left;">(1.1) Summary</h4>
-<div class="table-responsive">
 <table class="table table-bordered">
   <tbody>
     <tr><td style="width: 20%; text-align: left;"><strong>As a</strong></td><td style="text-align: justify;">Corporate Revenue Accountant</td></tr>
@@ -48,10 +45,8 @@ category: Financial Systems & ERP Integration
     </tr>
   </tbody>
 </table>
-</div>
 
 <h4 style="text-align: left;">(1.2) Operational Elicitation and System Requirements</h4>
-<div class="table-responsive">
 <table class="table table-bordered" style="font-size: 0.9em;">
   <thead style="background: #f1f5f9;">
     <tr>
@@ -88,7 +83,6 @@ category: Financial Systems & ERP Integration
     </tr>
   </tbody>
 </table>
-</div>
 
 <hr>
 
@@ -110,7 +104,6 @@ category: Financial Systems & ERP Integration
 
 <h4 style="text-align: left;">(2.3) Functional Scenarios (Gherkin Syntax)</h4>
 
-<div class="table-responsive">
 <table class="table table-bordered table-striped">
   <thead>
     <tr><th colspan="2" style="text-align: left;">Scenario 01: Nominal Path &mdash; Valid Card Sale &amp; Balanced Multi-Leg Journal Commit</th></tr>
@@ -123,9 +116,7 @@ category: Financial Systems & ERP Integration
     <tr><td style="text-align: left;"><strong>AND</strong></td><td style="text-align: justify;">returns <code>HTTP 200 OK</code> to the gateway, updating internal state to <code>ERP_POSTED</code></td></tr>
   </tbody>
 </table>
-</div>
 
-<div class="table-responsive">
 <table class="table table-bordered table-striped">
   <thead>
     <tr><th colspan="2" style="text-align: left;">Scenario 02: Validation Exception &mdash; Double-Entry Imbalance Interception</th></tr>
@@ -137,9 +128,7 @@ category: Financial Systems & ERP Integration
     <tr><td style="text-align: left;"><strong>AND</strong></td><td style="text-align: justify;">dispatch an alert notification with error code <code>ERR-FIN-101</code> without blocking remaining queue processing</td></tr>
   </tbody>
 </table>
-</div>
 
-<div class="table-responsive">
 <table class="table table-bordered table-striped">
   <thead>
     <tr><th colspan="2" style="text-align: left;">Scenario 03: Infrastructure Exception &mdash; Transient ERP Downtime &amp; Idempotent Retry</th></tr>
@@ -151,10 +140,8 @@ category: Financial Systems & ERP Integration
     <tr><td style="text-align: left;"><strong>AND</strong></td><td style="text-align: justify;">executes exponential backoff retries (10s, 30s, 2m, 10m) supplying the original <code>transaction_id</code> as the <code>Idempotency-Key</code> header to prevent duplicate ledger postings</td></tr>
   </tbody>
 </table>
-</div>
 
 <h4 style="text-align: left;">(2.4) Field-Level Input Specifications &amp; Data Dictionary</h4>
-<div class="table-responsive">
 <table class="table table-bordered" style="font-size: 0.9em;">
   <thead style="background: #f1f5f9;">
     <tr>
@@ -225,10 +212,8 @@ category: Financial Systems & ERP Integration
     </tr>
   </tbody>
 </table>
-</div>
 
 <h4 style="text-align: left;">(2.5) Alerts, Feedback &amp; Error Messages</h4>
-<div class="table-responsive">
 <table class="table table-bordered" style="font-size: 0.9em;">
   <thead style="background: #f1f5f9;">
     <tr>
@@ -270,12 +255,10 @@ category: Financial Systems & ERP Integration
     </tr>
   </tbody>
 </table>
-</div>
 
 <hr>
 
 <h3 style="text-align: left;">(3) Security &amp; Access Control (RBAC Matrix)</h3>
-<div class="table-responsive">
 <table class="table table-bordered">
   <thead style="background: #f1f5f9;">
     <tr>
@@ -317,7 +300,6 @@ category: Financial Systems & ERP Integration
     </tr>
   </tbody>
 </table>
-</div>
 
 <hr>
 
@@ -396,7 +378,6 @@ category: Financial Systems & ERP Integration
 <h3 style="text-align: left;">(6) Traceability &amp; Definition of Done (DoD)</h3>
 
 <h4 style="text-align: left;">(6.1) Upstream Traceability</h4>
-<div class="table-responsive">
 <table class="table table-bordered">
   <tbody>
     <tr><td style="width: 25%; text-align: left;"><strong>Jira Epic Link</strong></td><td style="text-align: justify;"><code>[FIN-EPIC-4400] Omnichannel Retail POS to Cloud ERP General Ledger Modernization</code></td></tr>
@@ -404,10 +385,8 @@ category: Financial Systems & ERP Integration
     <tr><td style="text-align: left;"><strong>Target Observability SLI</strong></td><td style="text-align: justify;">Webhook ingestion to ERP journal creation latency: &le; 1200ms at p95</td></tr>
   </tbody>
 </table>
-</div>
 
 <h4 style="text-align: left;">(6.2) Definition of Done Checklist</h4>
-<div class="table-responsive">
 <table class="table table-bordered">
   <tbody>
     <tr>
@@ -424,7 +403,6 @@ category: Financial Systems & ERP Integration
     </tr>
   </tbody>
 </table>
-</div>
 
 <!-- Link to Retail POS-to-Ledger Whitepaper -->
 <div style="text-align: center; margin: 30px auto 20px; width: 100%;">
