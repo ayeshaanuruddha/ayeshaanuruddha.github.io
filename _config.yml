@@ -1,7 +1,8 @@
 # Site settings
 title: Ayesha Anuruddha
 email: ayeshaanuruddha@gmail.com
-url: https://ayeshaanuruddha.github.io
+url: "https://ayeshaanuruddha.github.io"
+baseurl: ""
 description: "Amateur cybersecurity enthusiast, computer science student, business analyst"
 keywords: "Cybersecurity, Computer Science"
 meta_author: Anuruddha Ayesha
