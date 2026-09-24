@@ -14,12 +14,12 @@
   <link rel="stylesheet" href="{{ site.url }}/style.css">
   <style>
     /* Global paragraph justification per user request */
-    p {
+    p, .timeline ul li {
       text-align: justify;
     }
-    /* Exclude portfolio cards and small matrix chips from justification */
-    .pcard p, .matrix__cell p {
-      text-align: left;
+    /* Exclude small matrix chips and code blocks from justification */
+    .matrix__cell p, .mono-note {
+      text-align: left !important;
     }
   </style>
 
