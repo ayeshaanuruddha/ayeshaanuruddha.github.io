@@ -49,18 +49,18 @@ ticket:
 <h4 style="text-align: left;">(1.1) Summary</h4>
 <table class="table table-bordered">
   <tbody>
-    <tr><td style="width: 20%; text-align: left;"><strong>As a</strong></td><td style="text-align: justify;">Warehouse Operator (Inbound Receiver, High-Bay Forklift Loader, or Order Selector)</td></tr>
-    <tr><td style="text-align: left;"><strong>I want</strong></td><td style="text-align: justify;">real-time scan verification with instant location confirmation</td></tr>
+    <tr><td style="width: 20%; text-align: left;"><strong>As a</strong></td><td style="text-align: left;">Warehouse Operator (Inbound Receiver, High-Bay Forklift Loader, or Order Selector)</td></tr>
+    <tr><td style="text-align: left;"><strong>I want</strong></td><td style="text-align: left;">real-time scan verification with instant location confirmation</td></tr>
     <tr>
       <td style="text-align: left;"><strong>So that I</strong></td>
-      <td style="text-align: justify;">
+      <td style="text-align: left;">
         • Eliminate mis-picks<br>
         • Preserve FEFO shelf-life<br>
         • Maintain sub-second floor throughput
       </td>
     </tr>
   </tbody>
-</table></div>
+</table>
 
 <h4 style="text-align: left;">(1.2) Operational Elicitation &amp; Problem Statement</h4>
 <table class="table table-bordered">
@@ -87,7 +87,7 @@ ticket:
       <td style="text-align: justify;">Enable instant 2D barcode scanning with automated shelf-code verification, cutting screen loading delays and reducing manual location entry errors to zero.</td>
     </tr>
   </tbody>
-</table></div>
+</table>
 
 <hr>
 
@@ -111,37 +111,37 @@ ticket:
     <tr><th colspan="2">Scenario 01: Nominal Path — Valid Barcode Scan &amp; Atomic State Transition</th></tr>
   </thead>
   <tbody>
-    <tr><td style="width: 15%; text-align: left;"><strong>GIVEN</strong></td><td style="text-align: justify;">an operator is prompted on the mobile screen to scan a target Location, LPN, or Item Barcode</td></tr>
-    <tr><td style="text-align: left;"><strong>WHEN</strong></td><td style="text-align: justify;">the operator scans a barcode conforming to the defined regular expression mask</td></tr>
-    <tr><td style="text-align: left;"><strong>THEN</strong></td><td style="text-align: justify;">the mobile client must parse the payload, emit a high-frequency success tone (1800Hz), and execute a green border flash within 200ms</td></tr>
-    <tr><td style="text-align: left;"><strong>AND</strong></td><td style="text-align: justify;">submit the atomic inventory transaction to the backend API without blocking subsequent user interactions</td></tr>
+    <tr><td style="width: 15%; text-align: left;"><strong>GIVEN</strong></td><td style="text-align: left;">an operator is prompted on the mobile screen to scan a target Location, LPN, or Item Barcode</td></tr>
+    <tr><td style="text-align: left;"><strong>WHEN</strong></td><td style="text-align: left;">the operator scans a barcode conforming to the defined regular expression mask</td></tr>
+    <tr><td style="text-align: left;"><strong>THEN</strong></td><td style="text-align: left;">the mobile client must parse the payload, emit a high-frequency success tone (1800Hz), and execute a green border flash within 200ms</td></tr>
+    <tr><td style="text-align: left;"><strong>AND</strong></td><td style="text-align: left;">submit the atomic inventory transaction to the backend API without blocking subsequent user interactions</td></tr>
   </tbody>
-</table></div>
+</table>
 
 <table class="table table-bordered table-striped">
   <thead>
     <tr><th colspan="2">Scenario 02: Validation Exception — Input Mismatch &amp; Error Interception</th></tr>
   </thead>
   <tbody>
-    <tr><td style="width: 15%; text-align: left;"><strong>GIVEN</strong></td><td style="text-align: justify;">an operator is on an active transaction step</td></tr>
-    <tr><td style="text-align: left;"><strong>WHEN</strong></td><td style="text-align: justify;">the scanned or entered string violates validation masks (e.g., incorrect checksum, invalid temperature zone prefix)</td></tr>
-    <tr><td style="text-align: left;"><strong>THEN</strong></td><td style="text-align: justify;">the client must immediately intercept the event locally before dispatching network payloads</td></tr>
-    <tr><td style="text-align: left;"><strong>AND</strong></td><td style="text-align: justify;">emit a low-frequency dual-buzz error tone, display a blocking modal dialog with specific remediation text, and retain input focus on the failed field</td></tr>
+    <tr><td style="width: 15%; text-align: left;"><strong>GIVEN</strong></td><td style="text-align: left;">an operator is on an active transaction step</td></tr>
+    <tr><td style="text-align: left;"><strong>WHEN</strong></td><td style="text-align: left;">the scanned or entered string violates validation masks (e.g., incorrect checksum, invalid temperature zone prefix)</td></tr>
+    <tr><td style="text-align: left;"><strong>THEN</strong></td><td style="text-align: left;">the client must immediately intercept the event locally before dispatching network payloads</td></tr>
+    <tr><td style="text-align: left;"><strong>AND</strong></td><td style="text-align: left;">emit a low-frequency dual-buzz error tone, display a blocking modal dialog with specific remediation text, and retain input focus on the failed field</td></tr>
   </tbody>
-</table></div>
+</table>
 
 <table class="table table-bordered table-striped">
   <thead>
     <tr><th colspan="2">Scenario 03: Edge Resiliency — Sub-Zero Network Interruption (Store-and-Forward)</th></tr>
   </thead>
   <tbody>
-    <tr><td style="width: 15%; text-align: left;"><strong>GIVEN</strong></td><td style="text-align: justify;">an operator moves into an RF dead-zone (e.g., heavily insulated freezer vestibule)</td></tr>
-    <tr><td style="text-align: left;"><strong>WHEN</strong></td><td style="text-align: justify;">a completed physical scan event occurs while the WLAN ping latency exceeds 1500ms or packet loss is 100%</td></tr>
-    <tr><td style="text-align: left;"><strong>THEN</strong></td><td style="text-align: justify;">the client must write the encrypted transaction payload directly to the local persistent SQLite/Room database</td></tr>
-    <tr><td style="text-align: left;"><strong>AND</strong></td><td style="text-align: justify;">display a non-blocking "Queued Offline" status banner while allowing the operator to proceed with the next directed step</td></tr>
-    <tr><td style="text-align: left;"><strong>AND</strong></td><td style="text-align: justify;">automatically replay queued payloads in chronological FIFO sequence upon network handshake re-establishment</td></tr>
+    <tr><td style="width: 15%; text-align: left;"><strong>GIVEN</strong></td><td style="text-align: left;">an operator moves into an RF dead-zone (e.g., heavily insulated freezer vestibule)</td></tr>
+    <tr><td style="text-align: left;"><strong>WHEN</strong></td><td style="text-align: left;">a completed physical scan event occurs while the WLAN ping latency exceeds 1500ms or packet loss is 100%</td></tr>
+    <tr><td style="text-align: left;"><strong>THEN</strong></td><td style="text-align: left;">the client must write the encrypted transaction payload directly to the local persistent SQLite/Room database</td></tr>
+    <tr><td style="text-align: left;"><strong>AND</strong></td><td style="text-align: left;">display a non-blocking "Queued Offline" status banner while allowing the operator to proceed with the next directed step</td></tr>
+    <tr><td style="text-align: left;"><strong>AND</strong></td><td style="text-align: left;">automatically replay queued payloads in chronological FIFO sequence upon network handshake re-establishment</td></tr>
   </tbody>
-</table></div>
+</table>
 
 <h4 style="text-align: left;">(2.4) Field-Level Input Specifications</h4>
 <table class="table table-bordered" style="font-size: 0.9em;">
@@ -189,7 +189,7 @@ ticket:
       <td>Mandatory if SKU profile has catchweight flag enabled; validates within &plusmn;15% of nominal case tare.</td>
     </tr>
   </tbody>
-</table></div>
+</table>
 
 <h4 style="text-align: left;">(2.5) Alerts, Validation Messages &amp; Physical Feedback</h4>
 <table class="table table-bordered" style="font-size: 0.9em;">
@@ -232,7 +232,7 @@ ticket:
       <td>Client advances immediately to next directed coordinate in optimized travel sequence.</td>
     </tr>
   </tbody>
-</table></div>
+</table>
 
 <hr>
 
@@ -277,7 +277,7 @@ ticket:
       <td>Read-only inspection permissions across lot genealogies and temperature storage logs.</td>
     </tr>
   </tbody>
-</table></div>
+</table>
 
 <hr>
 
@@ -306,7 +306,7 @@ ticket:
       <td style="text-align: justify;">For devices with physical alphanumeric keypads (e.g., Zebra MC9300 / legacy WinCE terminals), all core on-screen commands must map to physical function keys: <code>F1 = Help/Details</code>, <code>F4 = Clear/Rescan</code>, <code>ENTER = Confirm Input</code>.</td>
     </tr>
   </tbody>
-</table></div>
+</table>
 
 <hr>
 
@@ -357,7 +357,7 @@ ticket:
       <td style="text-align: justify;">Row-level optimistic locking via record version timestamps (<code>ROW_VERSION_ID</code>) to prevent concurrent forklift operators from updating intersecting slots simultaneously.</td>
     </tr>
   </tbody>
-</table></div>
+</table>
 
 <hr>
 
@@ -371,7 +371,7 @@ ticket:
     <tr><td style="text-align: left;"><strong>Regulatory Anchor</strong></td><td style="text-align: justify;">FDA FSMA Section 204 Traceability (KDE/CTE Compliance Standards)</td></tr>
     <tr><td style="text-align: left;"><strong>Traceability Jira Epic</strong></td><td style="text-align: justify;"><code>[WMS-EPIC-8800] Frontline Edge Barcode &amp; Scanning Modernization</code></td></tr>
   </tbody>
-</table></div>
+</table>
 
 <h4 style="text-align: left;">(7.2) Engineering &amp; Architecture Notes</h4>
 <table class="table table-bordered">
@@ -380,7 +380,7 @@ ticket:
     <tr><td style="text-align: left;"><strong>API Interface Contract</strong></td><td style="text-align: justify;">OpenAPI 3.1 Spec &mdash; <code>/api/v2/inventory/movement/atomic-confirm</code></td></tr>
     <tr><td style="text-align: left;"><strong>Observability Monitoring</strong></td><td style="text-align: justify;">Datadog APM Dashboard: <code>WMS-PROD-MOBILE-LATENCY</code> &mdash; SLI Alert Target: &lt;200ms at p95</td></tr>
   </tbody>
-</table></div>
+</table>
 
 <hr>
 
@@ -401,4 +401,4 @@ ticket:
       </td>
     </tr>
   </tbody>
-</table></div>
+</table>
