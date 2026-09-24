@@ -14,11 +14,18 @@
   <link rel="stylesheet" href="{{ site.url }}/style.css">
   <style>
     /* Global paragraph justification per user request */
-    p, .timeline ul li {
+    {% if page.url != '/warehouse.html' and page.url != '/businessone.html' %}
+    p {
       text-align: justify;
     }
-    /* Exclude small matrix chips and code blocks from justification */
-    .matrix__cell p, .mono-note {
+    {% endif %}
+    
+    .timeline ul li {
+      text-align: justify;
+    }
+    
+    /* Exclude small matrix chips, code blocks, and ticket cards from justification */
+    .pcard p, .matrix__cell p, .mono-note {
       text-align: left !important;
     }
   </style>
