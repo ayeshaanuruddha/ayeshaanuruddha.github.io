@@ -994,7 +994,11 @@ document.addEventListener("DOMContentLoaded", function () {
         navPills.forEach((pill) => {
           if (pill.getAttribute("href") === `#${activeId}`) {
             pill.classList.add("active");
-            pill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+            const container = pill.closest('.wms-nav-container');
+            if (container) {
+              const scrollPos = pill.offsetLeft - (container.clientWidth / 2) + (pill.clientWidth / 2);
+              container.scrollTo({ left: scrollPos, behavior: 'smooth' });
+            }
           } else {
             pill.classList.remove("active");
           }

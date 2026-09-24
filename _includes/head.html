@@ -12,6 +12,16 @@
 
   <!-- Custom CSS & Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
   <link rel="stylesheet" href="{{ site.url }}/style.css">
+  <style>
+    /* Global paragraph justification per user request */
+    p {
+      text-align: justify;
+    }
+    /* Exclude portfolio cards and small matrix chips from justification */
+    .pcard p, .matrix__cell p {
+      text-align: left;
+    }
+  </style>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="{{ site.url }}/favicon.svg">
